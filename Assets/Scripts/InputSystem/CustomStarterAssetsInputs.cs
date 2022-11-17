@@ -3,9 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace Unity.Scripts
+
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class CustomStarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
