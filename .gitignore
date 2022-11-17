@@ -144,3 +144,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+#SineVFX
+/[Aa]ssets/[Ss]ineVFX
+/[Aa]ssets/[Ss]ineVFX.meta
+
