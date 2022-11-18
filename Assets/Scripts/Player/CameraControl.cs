@@ -2,14 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Photon.Pun;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
+public class CameraControl : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Transform cameraTarget;
     private CinemachineVirtualCamera camera;
 
     private void Start()
+    {
+        if (photonView.IsMine)
+        {
+            camera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
+            camera.Follow = cameraTarget;
+        }
+    }
+
+    public override void OnJoinedRoom()
     {
         camera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
         camera.Follow = cameraTarget;
