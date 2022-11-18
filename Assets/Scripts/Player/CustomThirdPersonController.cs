@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -12,8 +13,10 @@ namespace Unity.Scripts
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class CustomThirdPersonController : MonoBehaviour
+    public class CustomThirdPersonController : MonoBehaviourPun
     {
+
+        #region Fields
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -122,7 +125,12 @@ namespace Unity.Scripts
             }
         }
 
+        
+      
+        #endregion
 
+
+        #region Functions
         private void Awake()
         {
             // get a reference to our main camera
@@ -154,11 +162,14 @@ namespace Unity.Scripts
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+            if (photonView.IsMine)
+            {
+                _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
         }
 
         private void LateUpdate()
@@ -355,6 +366,10 @@ namespace Unity.Scripts
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
+        #endregion
+
+
+        #region EventHandlers
         private void OnDrawGizmosSelected()
         {
             Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
@@ -388,5 +403,10 @@ namespace Unity.Scripts
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+        
+        
+
+        #endregion
+
     }
 }
