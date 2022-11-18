@@ -165,6 +165,11 @@ PrefabInstance:
       propertyPath: particleRotation3D.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5602956613371750211, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7dfd77a104281c74b9ceeb0803d2bb89, type: 2}
     - target: {fileID: 5602956614525366361, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
         type: 3}
       propertyPath: m_LocalPosition.x
