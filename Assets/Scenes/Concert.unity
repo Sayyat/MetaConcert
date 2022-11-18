@@ -143,7 +143,7 @@ PrefabInstance:
     - target: {fileID: 601202325340433721, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 601202325340433721, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
         type: 3}
@@ -154,6 +154,16 @@ PrefabInstance:
         type: 3}
       propertyPath: affectors.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602956613371750209, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
+        type: 3}
+      propertyPath: particleRotation3D.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602956613371750209, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
+        type: 3}
+      propertyPath: particleRotation3D.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5602956614525366361, guid: a9e87a8e39567b7419b91ab00f5ac3aa,
         type: 3}
@@ -295,7 +305,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f14c2cff8c70b004a9bd73f1fa2f3744, type: 2}
+  - {fileID: 2100000, guid: 17e43dd2e5cf9734da9d034abe10a64e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
