@@ -6,28 +6,11 @@ using Vector3 = UnityEngine.Vector3;
 
 public class InitPlayer : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private CinemachineVirtualCamera followCamera;
+
+    [SerializeField] private GameObject playerPrefab;
     private void Start()
     {
-        PhotonNetwork.Instantiate("Sphere", Vector3.up, Quaternion.identity );
-        FollowCamera();
+        PhotonNetwork.Instantiate($"Players/{playerPrefab.name}", Vector3.up, Quaternion.identity );
     }
-
-
-  
-     void FollowCamera()
-        {
-            Debug.Log("Atempt to follow");
     
-            // followerCamera = GetComponent<CinemachineVirtualCamera>();
-            var playerCamera = GameObject.FindWithTag("CinemachineTarget");
-    
-            // if(playerCamera == null)
-            // playerCamera = playerPrefab.transform.GetChild(0).gameObject;
-            if (playerCamera != null)
-            {
-                followCamera.Follow = playerCamera.transform;
-                Debug.Log("Started Following after");
-            }
-        }
 }
