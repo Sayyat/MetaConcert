@@ -566,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarSchemeMan: {fileID: 9000000, guid: ba5173a85368a4f4eb45fbc497be292c, type: 2}
   avatarSchemeWoman: {fileID: 9000000, guid: 2959e7c83a4719e49be9d20621fa24ca, type: 2}
-  readyPlayerPrefab: {fileID: 3191408002960656874, guid: 946d86c7d003da44c8035b32a7b4acf9,
+  defaultAvatar: {fileID: 555175340094521846, guid: b9da67cb0c26f474f801b509c04e1104,
     type: 3}
 --- !u!1 &2131126175
 GameObject:

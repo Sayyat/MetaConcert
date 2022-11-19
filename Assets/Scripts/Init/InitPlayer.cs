@@ -11,6 +11,7 @@ public class InitPlayer : MonoBehaviourPun
 {
     public Avatar avatarSchemeMan;
     public Avatar avatarSchemeWoman;
+    public GameObject defaultAvatar;
 
     private void Start()
     {
