@@ -1,34 +1,19 @@
 using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 using Init;
+using ReadyPlayerMe;
 using UnityEngine;
 
 public class InitPlayer : MonoBehaviourPun
 {
-    [SerializeField] private Avatar avatarSchemeMan;
-    [SerializeField] private Avatar avatarSchemeWoman;
-    [SerializeField] private GameObject readyPlayerPrefab;
-    private GameObject readyPlayer;
-
-    private bool IsConstructed = false;
-    public ConstructAvatar Avatar { get; set; }
+    public Avatar avatarSchemeMan;
+    public Avatar avatarSchemeWoman;
 
     private void Start()
     {
         PhotonNetwork.Instantiate("PlayerTemplate", Vector3.up, Quaternion.identity);
-        readyPlayer = Instantiate(readyPlayerPrefab);
-    }
-
-    private void Update()
-    {
-        if (Avatar == null || IsConstructed)
-            return;
-
-        Avatar.Construct(readyPlayer);
-        Avatar.SetupAvatarOnAnimator(avatarSchemeMan);
-        Destroy(readyPlayer);
-        IsConstructed = true;
     }
 }
