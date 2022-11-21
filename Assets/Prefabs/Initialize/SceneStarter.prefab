@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7180987995258631132
+--- !u!1 &3798702335233910273
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7180987995258631122}
-  - component: {fileID: 7180987995258631133}
+  - component: {fileID: 3798702335233910275}
+  - component: {fileID: 3798702335233910272}
   m_Layer: 0
-  m_Name: InitPlayer
+  m_Name: SceneStarter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7180987995258631122
+--- !u!4 &3798702335233910275
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180987995258631132}
+  m_GameObject: {fileID: 3798702335233910273}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5417826, y: -1.1139989, z: 0.62926185}
+  m_LocalPosition: {x: 65, y: 65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7180987995258631133
+--- !u!114 &3798702335233910272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7180987995258631132}
+  m_GameObject: {fileID: 3798702335233910273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a122641988bed4abb6019202e117f9, type: 3}
+  m_Script: {fileID: 11500000, guid: c67696b01c8c939488c4cf5b36796d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatarSchemeMan: {fileID: 9000000, guid: ba5173a85368a4f4eb45fbc497be292c, type: 2}
-  avatarSchemeWoman: {fileID: 9000000, guid: 2959e7c83a4719e49be9d20621fa24ca, type: 2}
-  defaultAvatar: {fileID: 555175340094521846, guid: b9da67cb0c26f474f801b509c04e1104,
+  initPlayer: {fileID: 7180987995258631132, guid: 9ca9faabc562bd340a6f05d0b333dfff,
     type: 3}
+  mainCamera: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f,
+    type: 3}
+  playerFollowcamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
+    type: 3}
+  UserUI: {fileID: 3335592001863095230, guid: 71c7445d8e01d064aadaa452f6ac663b, type: 3}

@@ -16,7 +16,11 @@ namespace Init
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _initPlayer = GameObject.Find("InitPlayer").GetComponent<InitPlayer>();
+            _initPlayer = GameObject.Find("InitPlayer")?.GetComponent<InitPlayer>();
+            if (_initPlayer == null)
+            {
+                _initPlayer = GameObject.Find("InitPlayer(Clone)").GetComponent<InitPlayer>();
+            }
         }
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
