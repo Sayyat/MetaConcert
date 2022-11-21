@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControl : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Transform cameraTarget;
-    private CinemachineVirtualCamera camera;
+    private new CinemachineVirtualCamera camera;
 
     private void Start()
     {

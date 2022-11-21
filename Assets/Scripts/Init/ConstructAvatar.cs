@@ -25,7 +25,7 @@ namespace Init
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            var avatarLoader = new AvatarLoader();
+            var avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
             avatarLoader.OnCompleted += ConstructOnSuccess;
             avatarLoader.OnProgressChanged += ProgressChanged;
