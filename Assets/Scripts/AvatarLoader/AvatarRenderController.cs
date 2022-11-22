@@ -13,7 +13,7 @@ public class AvatarRenderController : IDisposable
     private List<string> _urls;
     private DataPlayerAvatar _dataPlayerAvatar;
 
-    private List<AvatarRenderLoader> disposables = new List<AvatarRenderLoader>();
+    private List<AvatarRenderLoader> _loaders = new List<AvatarRenderLoader>();
 
     private string _selectedUrl;
     private readonly List<AvatarRenderModel> _modelsRender = new List<AvatarRenderModel>();
@@ -23,18 +23,14 @@ public class AvatarRenderController : IDisposable
 
     private Dictionary<string, float> blendShapes = new Dictionary<string, float>
     {
-        { "mouthSmile", 0.7f },
-        { "viseme_aa", 0.5f },
-        { "jawOpen", 0.3f }
+        {"mouthSmile", 0.7f},
+        {"viseme_aa", 0.5f},
+        {"jawOpen", 0.3f}
     };
 
     private int countLoading;
 
-    public AvatarRenderController(
-        IAvatarRenderView renderView,
-        List<string> urls,
-        DataPlayerAvatar dataPlayerAvatar
-    )
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, DataPlayerAvatar dataPlayerAvatar)
     {
         _renderView = renderView;
         _urls = urls;
@@ -43,7 +39,14 @@ public class AvatarRenderController : IDisposable
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
-        _selectedUrl = "defaultUrl";
+        
+        //Default loading Avatar without selected
+        _selectedUrl = "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb";
+        _dataPlayerAvatar.Avatar2d = new AvatarRenderModel()
+        {
+            texture = Texture2D.grayTexture,
+            Url = _selectedUrl
+        };
 
         foreach (var url in urls)
         {
@@ -56,13 +59,15 @@ public class AvatarRenderController : IDisposable
         _dataPlayerAvatar.Avatar2d = _modelsRender.Find(model => model.Url == url);
 
         _selectedUrl = url;
+
+        _renderView.SelectButton(url);
         Debug.Log(_selectedUrl);
     }
 
     private void LoadAvatarRender(string url, AvatarRenderScene scene)
     {
         var loader = new AvatarRenderLoader();
-        disposables.Add(loader);
+        _loaders.Add(loader);
         var model = new AvatarRenderModel
         {
             Url = url
@@ -86,6 +91,7 @@ public class AvatarRenderController : IDisposable
 
     private void SetupAllIcons()
     {
+        _renderView.LoaderAvatars.SetActive(false);
         foreach (var renderModel in _modelsRender)
         {
             _renderView.SetupTexture(renderModel.texture, renderModel.Url);
@@ -123,10 +129,11 @@ public class AvatarRenderController : IDisposable
     public void Dispose()
     {
         Debug.Log("Dispose");
-        foreach (var loader in disposables)
+        foreach (var loader in _loaders)
         {
             loader.OnCompleted = null;
         }
+
         _renderView.OnSelected -= SelectModel;
     }
 }
