@@ -88,6 +88,7 @@ namespace Init
             _dataPlayerAvatar.Avatar3d = avatar3d;
 
             var go =  Instantiate(defaultAvatar);
+            
             Construct(go);
             Debug.Log("Failed to load avatar. Creating default avatar");
         }
