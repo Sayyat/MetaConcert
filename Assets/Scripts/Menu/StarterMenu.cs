@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AvatarLoader;
 using Photon.Pun;
@@ -37,6 +38,8 @@ namespace Assets.Scripts
 		[SerializeField]
 		private string desiredScene = "Playground";
 
+
+		private DataPlayerAvatar _dataPlayerAvatar;
 		#endregion
 
 		#region Private Fields
@@ -78,8 +81,13 @@ namespace Assets.Scripts
 			// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
 			PhotonNetwork.AutomaticallySyncScene = true;
 
-			_avatarRenderController = new AvatarRenderController(avatarRenderView, urls);
-			
+			_dataPlayerAvatar = new GameObject("DataPlayerAvatar").AddComponent<DataPlayerAvatar>();
+			_avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _dataPlayerAvatar);
+		}
+
+		private void OnDestroy()
+		{
+			_avatarRenderController.Dispose();
 		}
 
 		#endregion
@@ -218,6 +226,8 @@ namespace Assets.Scripts
 
 			}
 		}
+		
+		
 
 		#endregion
 		

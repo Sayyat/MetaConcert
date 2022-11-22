@@ -13,7 +13,8 @@ namespace AvatarLoader
 
         public void SetupTexture(Texture2D texture, string url)
         {
-            var go = Instantiate(new GameObject(), transform);
+            var go = new GameObject(url);
+            go.transform.parent = transform;
             var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(.5f, .5f));
         
             go.AddComponent<Image>().sprite = sprite;

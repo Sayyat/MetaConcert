@@ -1,4 +1,5 @@
 ﻿using System;
+using AvatarLoader;
 using Photon.Pun;
 using ReadyPlayerMe;
 using TMPro;
@@ -9,31 +10,47 @@ namespace Init
     [RequireComponent(typeof(Animator))]
     public class ConstructAvatar : MonoBehaviour, IPunInstantiateMagicCallback
     {
-        private Animator _animator;
-        private InitPlayer _initPlayer;
+        [SerializeField] private GameObject defaultAvatar;
         [SerializeField] private TextMeshPro progress;
+
+        private Animator _animator;
+        private Avatar _avatarScheme;
+        private ReadyPlayerMe.AvatarLoader _avatarLoader;
+        private string _currentAvatarUrl;
+        private DataPlayerAvatar _dataPlayerAvatar;
+        public string CurrentAvatarUrl
+        {
+            get => _currentAvatarUrl;
+            set
+            {
+                _currentAvatarUrl = value;
+                LoadAvatar();
+            }
+        }
+        
 
         private void Awake()
         {
+            _dataPlayerAvatar = GameObject.Find("DataPlayerAvatar").GetComponent<DataPlayerAvatar>();
+            _currentAvatarUrl = _dataPlayerAvatar.Avatar2d.Url;
             _animator = GetComponent<Animator>();
-            _initPlayer = GameObject.Find("InitPlayer")?.GetComponent<InitPlayer>();
-            if (_initPlayer == null)
-            {
-                _initPlayer = GameObject.Find("InitPlayer(Clone)").GetComponent<InitPlayer>();
-            }
+            
         }
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            var avatarLoader = new ReadyPlayerMe.AvatarLoader();
+            LoadAvatar();
+        }
 
-            avatarLoader.OnCompleted += ConstructOnSuccess;
-            avatarLoader.OnProgressChanged += ProgressChanged;
-            avatarLoader.OnFailed += ConstructOnFailed;
+        private void LoadAvatar()
+        {
+            _avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
-            // avatarLoader.LoadAvatar("https://api.readyplayer.me/v1/avatars/634f798f7baf0e2c647eee56.glb"); // Sayat avatar
-            avatarLoader.LoadAvatar(
-                "https://api.readyplayer.me/v1/avatars/634f88797c0746d6b326eec7.glb"); // Konilbay avatar
+            _avatarLoader.OnCompleted += ConstructOnSuccess;
+            _avatarLoader.OnProgressChanged += ProgressChanged;
+            _avatarLoader.OnFailed += ConstructOnFailed;
+
+            _avatarLoader.LoadAvatar(_currentAvatarUrl);
         }
 
         private void ProgressChanged(object sender, ProgressChangeEventArgs e)
@@ -45,11 +62,17 @@ namespace Init
             {
                 progress.gameObject.SetActive(false);
             }
-                
         }
 
         public void ConstructOnSuccess(object sender, CompletionEventArgs args)
         {
+            var avatar3d = new AvatarModel()
+            {
+                Avatar = args.Avatar,
+                Metadata = args.Metadata,
+                Url = args.Url
+            };
+            _dataPlayerAvatar.Avatar3d = avatar3d;
             
             Construct(args.Avatar);
             Debug.Log("Avatar loaded successfully");
@@ -58,30 +81,47 @@ namespace Init
 
         public void ConstructOnFailed(object sender, FailureEventArgs args)
         {
-            Construct(_initPlayer.defaultAvatar);
+            var avatar3d = new AvatarModel()
+            {
+                Avatar = defaultAvatar
+            };
+            _dataPlayerAvatar.Avatar3d = avatar3d;
+
+            var go =  Instantiate(defaultAvatar);
+            Construct(go);
             Debug.Log("Failed to load avatar. Creating default avatar");
         }
 
 
         private void Construct(GameObject playerTemplate)
         {
-            var child1 = playerTemplate.transform.GetChild(0);
-            var child2 = playerTemplate.transform.GetChild(1);
+            _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
+
+            // todo add smart method to grab children
+            var mesh = playerTemplate.transform.GetChild(0);
+            var armature = playerTemplate.transform.GetChild(1);
 
 
-            child1.gameObject.layer = LayerMask.NameToLayer("Player");
-            child2.gameObject.layer = LayerMask.NameToLayer("Player");
+            mesh.gameObject.layer = LayerMask.NameToLayer("Player");
+            armature.gameObject.layer = LayerMask.NameToLayer("Player");
 
-            child1.transform.parent = transform;
-            child2.transform.parent = transform;
+            mesh.transform.parent = transform;
+            armature.transform.parent = transform;
 
 
-            child1.transform.position = Vector3.zero;
-            child2.transform.position = Vector3.zero;
+            mesh.transform.position = Vector3.zero;
+            armature.transform.position = Vector3.zero;
 
             Destroy(playerTemplate);
 
-            _animator.avatar = _initPlayer.avatarSchemeMan;
+            _animator.avatar = _avatarScheme;
+        }
+
+        private void OnDestroy()
+        {
+            _avatarLoader.OnCompleted -= ConstructOnSuccess;
+            _avatarLoader.OnProgressChanged -= ProgressChanged;
+            _avatarLoader.OnFailed -= ConstructOnFailed;
         }
     }
 }
