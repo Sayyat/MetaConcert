@@ -94,6 +94,9 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _dance;
+        private int _dancing;
+        
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -158,6 +161,30 @@ namespace StarterAssets
                 JumpAndGravity();
                 GroundedCheck();
                 Move();
+                HandleKeyBoard();
+            }
+        }
+
+        private void HandleKeyBoard()
+        {
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                Dance(1);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                Dance(2);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                Dance(3);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+            {
+                Dance(0);
             }
         }
 
@@ -173,6 +200,8 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _dance = Animator.StringToHash("Dance");
+            _dancing = Animator.StringToHash("Dancing");
         }
 
         private void GroundedCheck()
@@ -278,6 +307,17 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
+
+        private void Dance(int dance)
+        {
+            // update animator if using character
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_dancing, true);
+                _animator.SetFloat(_dance, dance);
+            }
+        }
+
 
         private void JumpAndGravity()
         {
@@ -389,6 +429,12 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
                     FootstepAudioVolume);
             }
+        }
+
+
+        private void OnDanceFinished(AnimationEvent animationEvent)
+        {
+            _animator.SetBool(_dancing, false);
         }
     }
 }
