@@ -433,6 +433,15 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: MotionSpeed
+  - Type: 4
+    SynchronizeType: 0
+    Name: Dancing
+  - Type: 1
+    SynchronizeType: 0
+    Name: Dance
+  - Type: 9
+    SynchronizeType: 0
+    Name: ToDance
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
