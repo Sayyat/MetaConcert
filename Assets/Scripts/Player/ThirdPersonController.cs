@@ -94,9 +94,14 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-        private int _dance;
-        private int _dancing;
-        
+
+        private int _idle;
+        private int _dance1;
+        private int _dance2;
+        private int _dance3;
+
+        private bool IsDancing = false;
+
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -158,6 +163,7 @@ namespace StarterAssets
             {
                 _hasAnimator = TryGetComponent(out _animator);
 
+
                 JumpAndGravity();
                 GroundedCheck();
                 Move();
@@ -167,21 +173,30 @@ namespace StarterAssets
 
         private void HandleKeyBoard()
         {
+            if (Input.anyKeyDown)
+            {
+                if (IsDancing)
+                {
+                    _animator.Play(_idle);
+                    IsDancing = false;
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Keypad1))
             {
-                Dance(1);
+                Dance(_dance1);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Keypad2))
             {
-                Dance(2);
+                Dance(_dance2);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Keypad3))
             {
-                Dance(3);
+                Dance(_dance3);
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Keypad0))
             {
                 Dance(0);
@@ -200,8 +215,10 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _dance = Animator.StringToHash("Dance");
-            _dancing = Animator.StringToHash("Dancing");
+            _idle = Animator.StringToHash("Idle Walk Run Blend");
+            _dance1 = Animator.StringToHash("Dance1");
+            _dance2 = Animator.StringToHash("Dance2");
+            _dance3 = Animator.StringToHash("Dance3");
         }
 
         private void GroundedCheck()
@@ -311,11 +328,12 @@ namespace StarterAssets
         private void Dance(int dance)
         {
             // update animator if using character
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_dancing, true);
-                _animator.SetFloat(_dance, dance);
-            }
+            if (!_hasAnimator) return;
+
+            // if(IsDancing) return;
+
+            _animator.Play(dance);
+            IsDancing = true;
         }
 
 
@@ -431,10 +449,11 @@ namespace StarterAssets
             }
         }
 
-
         private void OnDanceFinished(AnimationEvent animationEvent)
         {
-            _animator.SetBool(_dancing, false);
+            Debug.Log("Dance finished");
+            _animator.Play(_idle);
+            IsDancing = false;
         }
     }
 }
