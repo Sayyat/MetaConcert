@@ -45,9 +45,10 @@ public class AvatarRenderController : IDisposable
         _renderView.OnSelected += SelectModel;
         _selectedUrl = "defaultUrl";
 
+
         foreach (var url in urls)
         {
-            LoadAvatarRender(url, _scene);
+            LoadAvatarRender(url);
         }
     }
 
@@ -59,7 +60,7 @@ public class AvatarRenderController : IDisposable
         Debug.Log(_selectedUrl);
     }
 
-    private void LoadAvatarRender(string url, AvatarRenderScene scene)
+    private void LoadAvatarRender(string url)
     {
         var loader = new AvatarRenderLoader();
         disposables.Add(loader);
@@ -68,7 +69,7 @@ public class AvatarRenderController : IDisposable
             Url = url
         };
 
-        loader.LoadRender(url, scene, _blendShapeMesh, blendShapes);
+        loader.LoadRender(url, _scene, _blendShapeMesh, blendShapes);
 
         loader.OnCompleted = (texture2D =>
         {
@@ -127,6 +128,7 @@ public class AvatarRenderController : IDisposable
         {
             loader.OnCompleted = null;
         }
+
         _renderView.OnSelected -= SelectModel;
     }
 }
