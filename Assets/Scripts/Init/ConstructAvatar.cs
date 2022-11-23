@@ -1,6 +1,8 @@
 ﻿using System;
 using AvatarLoader;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using ReadyPlayerMe;
 using TMPro;
 using UnityEngine;
@@ -8,7 +10,7 @@ using UnityEngine;
 namespace Init
 {
     [RequireComponent(typeof(Animator))]
-    public class ConstructAvatar : MonoBehaviour, IPunInstantiateMagicCallback
+    public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks
     {
         [SerializeField] private GameObject defaultAvatar;
         [SerializeField] private TextMeshPro progress;
@@ -18,6 +20,9 @@ namespace Init
         private ReadyPlayerMe.AvatarLoader _avatarLoader;
         private string _currentAvatarUrl;
         private DataPlayerAvatar _dataPlayerAvatar;
+        private bool _canLoadAvatar = false;
+        private string _userId;
+
         public string CurrentAvatarUrl
         {
             get => _currentAvatarUrl;
@@ -27,19 +32,44 @@ namespace Init
                 LoadAvatar();
             }
         }
-        
+
 
         private void Awake()
         {
-            _dataPlayerAvatar = GameObject.Find("DataPlayerAvatar").GetComponent<DataPlayerAvatar>();
-            _currentAvatarUrl = _dataPlayerAvatar.Avatar2d.Url;
+            //Added this class to callback observed
+            PhotonNetwork.NetworkingClient.AddCallbackTarget(this);
+
+            if (photonView.IsMine)
+            {
+                _dataPlayerAvatar = GameObject.Find("DataPlayerAvatar").GetComponent<DataPlayerAvatar>();
+                _currentAvatarUrl = _dataPlayerAvatar.Avatar2d.Url;
+            }
+
             _animator = GetComponent<Animator>();
-            
         }
+
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            LoadAvatar();
+            _userId = info.Sender.ActorNumber.ToString();
+
+            var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
+            hashTable.Add(_userId, _currentAvatarUrl);
+
+            Debug.Log("Add new Player in Room property");
+
+            if (_currentAvatarUrl != null)
+            {
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.anyKeyDown)
+            {
+                Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties.Count);
+            }
         }
 
         private void LoadAvatar()
@@ -50,7 +80,10 @@ namespace Init
             _avatarLoader.OnProgressChanged += ProgressChanged;
             _avatarLoader.OnFailed += ConstructOnFailed;
 
-            _avatarLoader.LoadAvatar(_currentAvatarUrl);
+            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+            var urlAvatar = properties[_userId];
+
+            _avatarLoader.LoadAvatar(urlAvatar.ToString());
         }
 
         private void ProgressChanged(object sender, ProgressChangeEventArgs e)
@@ -72,8 +105,8 @@ namespace Init
                 Metadata = args.Metadata,
                 Url = args.Url
             };
-            _dataPlayerAvatar.Avatar3d = avatar3d;
-            
+            // _dataPlayerAvatar.Avatar3d = avatar3d;
+
             Construct(args.Avatar);
             Debug.Log("Avatar loaded successfully");
         }
@@ -87,12 +120,11 @@ namespace Init
             };
             _dataPlayerAvatar.Avatar3d = avatar3d;
 
-            var go =  Instantiate(defaultAvatar);
-            
+            var go = Instantiate(defaultAvatar);
+
             Construct(go);
             Debug.Log("Failed to load avatar. Creating default avatar");
         }
-
 
         private void Construct(GameObject playerTemplate)
         {
@@ -123,6 +155,32 @@ namespace Init
             _avatarLoader.OnCompleted -= ConstructOnSuccess;
             _avatarLoader.OnProgressChanged -= ProgressChanged;
             _avatarLoader.OnFailed -= ConstructOnFailed;
+        }
+
+        public void OnPlayerEnteredRoom(Player newPlayer)
+        {
+        }
+
+        public void OnPlayerLeftRoom(Player otherPlayer)
+        {
+        }
+
+        public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+             var t  =PhotonNetwork.CurrentRoom.CustomProperties;
+             
+            if (propertiesThatChanged.ContainsKey(_userId))
+            {
+                LoadAvatar();
+            }
+        }
+
+        public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+        {
+        }
+
+        public void OnMasterClientSwitched(Player newMasterClient)
+        {
         }
     }
 }
