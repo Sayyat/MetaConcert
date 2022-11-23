@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-    public class UserButtonsView : MonoBehaviour
+    public class UserButtonsView : MonoBehaviourPunCallbacks
     {
         [SerializeField] private Button likes;
         [SerializeField] private TMP_Text likesCount;
@@ -21,7 +23,8 @@ namespace Assets.Scripts.UI
         [SerializeField] private Button onChat;
 
         private List<Button> _buttons = new List<Button>();
-
+        
+        
         private void Start()
         {
             InitialiseButtons();
@@ -46,6 +49,19 @@ namespace Assets.Scripts.UI
               controller.CurrentButton = button;
               controller.percentScale = 10f;
            }
+
+           quit.onClick.AddListener(LeaveRoom);
+        }
+
+
+        private void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
+        public override void OnLeftRoom()
+        {
+            SceneManager.LoadSceneAsync(0);
         }
     }
 }
