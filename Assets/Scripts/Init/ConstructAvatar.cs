@@ -50,6 +50,9 @@ namespace Init
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
+            if (_userId != null)
+                return;
+            
             _userId = info.Sender.ActorNumber.ToString();
 
             var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
@@ -62,15 +65,7 @@ namespace Init
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
             }
         }
-
-        private void Update()
-        {
-            if (Input.anyKeyDown)
-            {
-                Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties.Count);
-            }
-        }
-
+        
         private void LoadAvatar()
         {
             _canLoadAvatar = false;
