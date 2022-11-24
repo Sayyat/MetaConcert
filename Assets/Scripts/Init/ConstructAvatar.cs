@@ -74,15 +74,15 @@ namespace Init
         {
             _canLoadAvatar = false;
             
-            if (_avatarCashes.HasAvatar3d(_currentAvatarUrl))
-            {
-                var playerAvatar = _avatarCashes.DataPlayerAvatars[_currentAvatarUrl];
-                Debug.Log($"Avatar loaded from cache: {playerAvatar.Avatar3d.Url}");
-                Construct(playerAvatar.Avatar3d.Avatar);
-                return;
-            }
-
-            Debug.Log("Avatar not found in cache, start downloading from readyplayer");
+            // if (_avatarCashes.HasAvatar3d(_currentAvatarUrl))
+            // {
+            //     var playerAvatar = _avatarCashes.DataPlayerAvatars[_currentAvatarUrl];
+            //     Debug.Log($"Avatar loaded from cache: {playerAvatar.Avatar3d.Url}");
+            //     Construct(playerAvatar.Avatar3d.Avatar);
+            //     return;
+            // }
+            //
+            // Debug.Log("Avatar not found in cache, start downloading from readyplayer");
 
             _avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
@@ -110,12 +110,12 @@ namespace Init
         public void ConstructOnSuccess(object sender, CompletionEventArgs args)
         {
             // save 3d avatar into cache
-            _avatarCashes.AddAvatar3d(args.Url, new AvatarModel()
-            {
-                Avatar = args.Avatar,
-                Metadata = args.Metadata,
-                Url = args.Url
-            });
+            // _avatarCashes.AddAvatar3d(args.Url, new AvatarModel()
+            // {
+            //     Avatar = args.Avatar,
+            //     Metadata = args.Metadata,
+            //     Url = args.Url
+            // });
 
             Construct(args.Avatar);
             Debug.Log("Avatar loaded successfully");
