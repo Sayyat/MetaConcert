@@ -20,9 +20,8 @@ namespace Init
         private ReadyPlayerMe.AvatarLoader _avatarLoader;
         private string _currentAvatarUrl;
         private DataPlayerAvatar _dataPlayerAvatar;
-        private bool _canLoadAvatar = false;
+        private bool _canLoadAvatar = true;
         private string _userId;
-
         public string CurrentAvatarUrl
         {
             get => _currentAvatarUrl;
@@ -74,6 +73,8 @@ namespace Init
 
         private void LoadAvatar()
         {
+            _canLoadAvatar = false;
+            
             _avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
             _avatarLoader.OnCompleted += ConstructOnSuccess;
@@ -105,7 +106,10 @@ namespace Init
                 Metadata = args.Metadata,
                 Url = args.Url
             };
-            // _dataPlayerAvatar.Avatar3d = avatar3d;
+            if (photonView.IsMine)
+            {
+                _dataPlayerAvatar.Avatar3d = avatar3d;
+            }
 
             Construct(args.Avatar);
             Debug.Log("Avatar loaded successfully");
@@ -167,9 +171,7 @@ namespace Init
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-             var t  =PhotonNetwork.CurrentRoom.CustomProperties;
-             
-            if (propertiesThatChanged.ContainsKey(_userId))
+            if (propertiesThatChanged.ContainsKey(_userId) && _canLoadAvatar)
             {
                 LoadAvatar();
             }
