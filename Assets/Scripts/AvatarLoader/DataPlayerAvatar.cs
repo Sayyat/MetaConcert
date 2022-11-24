@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace AvatarLoader
 {
-    public class DataPlayerAvatar : MonoBehaviour
+    public class DataPlayerAvatar
     {
         private AvatarRenderModel _avatar2d = new AvatarRenderModel();
         private AvatarModel _avatar3d = new AvatarModel();
-
+        
         public AvatarRenderModel Avatar2d
         {
             get => _avatar2d;
@@ -18,12 +18,6 @@ namespace AvatarLoader
         {
             get => _avatar3d;
             set => _avatar3d = value;
-        }
-
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
         }
     }
 }
