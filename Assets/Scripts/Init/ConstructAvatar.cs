@@ -19,7 +19,8 @@ namespace Init
         private Avatar _avatarScheme;
         private ReadyPlayerMe.AvatarLoader _avatarLoader;
         private string _currentAvatarUrl;
-        private DataPlayerAvatar _dataPlayerAvatar;
+        private AvatarCashes _avatarCashes;
+
         private bool _canLoadAvatar = true;
         private string _userId;
         public string CurrentAvatarUrl
@@ -40,9 +41,12 @@ namespace Init
 
             if (photonView.IsMine)
             {
-                _dataPlayerAvatar = GameObject.Find("DataPlayerAvatar").GetComponent<DataPlayerAvatar>();
-                _currentAvatarUrl = _dataPlayerAvatar.Avatar2d.Url;
+                _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
+                _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
             }
+
+            Debug.Log($"Selected avatarurl: {_currentAvatarUrl}");
+
 
             _animator = GetComponent<Animator>();
         }
@@ -70,6 +74,16 @@ namespace Init
         {
             _canLoadAvatar = false;
             
+            if (_avatarCashes.HasAvatar3d(_currentAvatarUrl))
+            {
+                var playerAvatar = _avatarCashes.DataPlayerAvatars[_currentAvatarUrl];
+                Debug.Log($"Avatar loaded from cache: {playerAvatar.Avatar3d.Url}");
+                Construct(playerAvatar.Avatar3d.Avatar);
+                return;
+            }
+
+            Debug.Log("Avatar not found in cache, start downloading from readyplayer");
+
             _avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
             _avatarLoader.OnCompleted += ConstructOnSuccess;
@@ -95,16 +109,13 @@ namespace Init
 
         public void ConstructOnSuccess(object sender, CompletionEventArgs args)
         {
-            var avatar3d = new AvatarModel()
+            // save 3d avatar into cache
+            _avatarCashes.AddAvatar3d(args.Url, new AvatarModel()
             {
                 Avatar = args.Avatar,
                 Metadata = args.Metadata,
                 Url = args.Url
-            };
-            if (photonView.IsMine)
-            {
-                _dataPlayerAvatar.Avatar3d = avatar3d;
-            }
+            });
 
             Construct(args.Avatar);
             Debug.Log("Avatar loaded successfully");
@@ -117,7 +128,6 @@ namespace Init
             {
                 Avatar = defaultAvatar
             };
-            _dataPlayerAvatar.Avatar3d = avatar3d;
 
             var go = Instantiate(defaultAvatar);
 

@@ -33,7 +33,7 @@ namespace Assets.Scripts
         private string desiredScene = "Playground";
 
 
-        private DataPlayerAvatar _dataPlayerAvatar;
+        private AvatarCashes _avatarCashes;
 
         #endregion
 
@@ -80,22 +80,21 @@ namespace Assets.Scripts
         private void Start()
         {
             Debug.Log("Try to find existing DataPlayerAvatar object");
-            var dpa = GameObject.Find("DataPlayerAvatar");
+            var AvatarCashes = GameObject.Find("AvatarCashes");
 
-            if (dpa == null)
+            if (AvatarCashes == null)
             {
-                dpa = new GameObject("DataPlayerAvatar");
-                
-            }
-            
-            _dataPlayerAvatar = GetComponent<DataPlayerAvatar>();
-
-            if (_dataPlayerAvatar == null)
-            {
-                _dataPlayerAvatar = dpa.AddComponent<DataPlayerAvatar>();
+                AvatarCashes = new GameObject("AvatarCashes");
             }
 
-            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _dataPlayerAvatar);
+            _avatarCashes = AvatarCashes.GetComponent<AvatarCashes>();
+
+            if (_avatarCashes == null)
+            {
+                _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
+            }
+
+            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes);
         }
 
         private void OnDestroy()

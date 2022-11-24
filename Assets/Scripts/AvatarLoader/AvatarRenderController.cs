@@ -11,7 +11,7 @@ public class AvatarRenderController : IDisposable
 {
     private IAvatarRenderView _renderView;
     private List<string> _urls;
-    private DataPlayerAvatar _dataPlayerAvatar;
+    private AvatarCashes _avatarCashes;
 
     private List<AvatarRenderLoader> _loaders = new List<AvatarRenderLoader>();
 
@@ -23,26 +23,26 @@ public class AvatarRenderController : IDisposable
 
     private Dictionary<string, float> blendShapes = new Dictionary<string, float>
     {
-        {"mouthSmile", 0.7f},
-        {"viseme_aa", 0.5f},
-        {"jawOpen", 0.3f}
+        { "mouthSmile", 0.7f },
+        { "viseme_aa", 0.5f },
+        { "jawOpen", 0.3f }
     };
 
     private int countLoading;
 
-    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, DataPlayerAvatar dataPlayerAvatar)
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes)
     {
         _renderView = renderView;
         _urls = urls;
-        _dataPlayerAvatar = dataPlayerAvatar;
+        _avatarCashes = avatarCashes;
 
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
-        
+
         //Default loading Avatar without selected
         _selectedUrl = "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb";
-        _dataPlayerAvatar.Avatar2d = new AvatarRenderModel()
+        var model2d = new AvatarRenderModel()
         {
             texture = Texture2D.grayTexture,
             Url = _selectedUrl
@@ -57,9 +57,15 @@ public class AvatarRenderController : IDisposable
 
     private void SelectModel(string url)
     {
-        _dataPlayerAvatar.Avatar2d = _modelsRender.Find(model => model.Url == url);
+        var model2d = _modelsRender.Find(model => model.Url == url);
+
+        _avatarCashes.AddAvatar(url, new DataPlayerAvatar()
+        {
+            Avatar2d = model2d
+        });
 
         _selectedUrl = url;
+        _avatarCashes.SelectedAvatarUrl = url;
 
         _renderView.SelectButton(url);
         Debug.Log(_selectedUrl);
@@ -67,19 +73,39 @@ public class AvatarRenderController : IDisposable
 
     private void LoadAvatarRender(string url)
     {
+        // try to load from cash
+        if (_avatarCashes.HasAvatar2d(url))
+        {
+            _modelsRender.Add(_avatarCashes.DataPlayerAvatars[url].Avatar2d);
+            countLoading--;
+            if (countLoading <= 0)
+            {
+                Debug.Log("SetupAllIcon");
+                SetupAllIcons();
+            }
+
+            return;
+        }
+
+        // url not found from cash, downloading 
+
         var loader = new AvatarRenderLoader();
         _loaders.Add(loader);
         var model = new AvatarRenderModel
         {
             Url = url
         };
-
+        
         loader.LoadRender(url, _scene, _blendShapeMesh, blendShapes);
 
         loader.OnCompleted = (texture2D =>
         {
             model.texture = texture2D;
             _modelsRender.Add(model);
+            _avatarCashes.AddAvatar(url, new DataPlayerAvatar()
+            {
+                Avatar2d = model
+            });
 
             countLoading--;
             if (countLoading <= 0)
