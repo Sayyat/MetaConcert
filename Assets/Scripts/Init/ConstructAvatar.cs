@@ -1,9 +1,6 @@
-﻿using System;
-using AvatarLoader;
-using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using ReadyPlayerMe;
 using TMPro;
 using UnityEngine;
 
@@ -12,12 +9,8 @@ namespace Init
     [RequireComponent(typeof(Animator))]
     public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks
     {
-        [SerializeField] private GameObject defaultAvatar;
-        [SerializeField] private TextMeshPro progress;
-
         private Animator _animator;
         private Avatar _avatarScheme;
-        private ReadyPlayerMe.AvatarLoader _avatarLoader;
         private string _currentAvatarUrl;
         private AvatarCashes _avatarCashes;
 
@@ -43,6 +36,7 @@ namespace Init
             {
                 _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
                 _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
+                
             }
 
             Debug.Log($"Selected avatarurl: {_currentAvatarUrl}");
@@ -73,68 +67,14 @@ namespace Init
         private void LoadAvatar()
         {
             _canLoadAvatar = false;
-            
-            // if (_avatarCashes.HasAvatar3d(_currentAvatarUrl))
-            // {
-            //     var playerAvatar = _avatarCashes.DataPlayerAvatars[_currentAvatarUrl];
-            //     Debug.Log($"Avatar loaded from cache: {playerAvatar.Avatar3d.Url}");
-            //     Construct(playerAvatar.Avatar3d.Avatar);
-            //     return;
-            // }
-            //
-            // Debug.Log("Avatar not found in cache, start downloading from readyplayer");
-
-            _avatarLoader = new ReadyPlayerMe.AvatarLoader();
-
-            _avatarLoader.OnCompleted += ConstructOnSuccess;
-            _avatarLoader.OnProgressChanged += ProgressChanged;
-            _avatarLoader.OnFailed += ConstructOnFailed;
-
+          
             var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            var urlAvatar = properties[_userId];
+            var urlAvatar = properties[_userId] as string;
 
-            _avatarLoader.LoadAvatar(urlAvatar.ToString());
-        }
-
-        private void ProgressChanged(object sender, ProgressChangeEventArgs e)
-        {
-            float p = e.Progress * 100;
-            progress.text = p + " %";
-
-            if (e.Progress == 1.0f)
-            {
-                progress.gameObject.SetActive(false);
-            }
-        }
-
-        public void ConstructOnSuccess(object sender, CompletionEventArgs args)
-        {
-            // save 3d avatar into cache
-            // _avatarCashes.AddAvatar3d(args.Url, new AvatarModel()
-            // {
-            //     Avatar = args.Avatar,
-            //     Metadata = args.Metadata,
-            //     Url = args.Url
-            // });
-
-            Construct(args.Avatar);
-            Debug.Log("Avatar loaded successfully");
-        }
-
-
-        public void ConstructOnFailed(object sender, FailureEventArgs args)
-        {
-            var avatar3d = new AvatarModel()
-            {
-                Avatar = defaultAvatar
-            };
-
-            var go = Instantiate(defaultAvatar);
-
+            var go = Instantiate(_avatarCashes.GetAvatar(urlAvatar));
             Construct(go);
-            Debug.Log("Failed to load avatar. Creating default avatar");
         }
-
+        
         private void Construct(GameObject playerTemplate)
         {
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
@@ -161,9 +101,7 @@ namespace Init
 
         private void OnDestroy()
         {
-            _avatarLoader.OnCompleted -= ConstructOnSuccess;
-            _avatarLoader.OnProgressChanged -= ProgressChanged;
-            _avatarLoader.OnFailed -= ConstructOnFailed;
+          
         }
 
         public void OnPlayerEnteredRoom(Player newPlayer)

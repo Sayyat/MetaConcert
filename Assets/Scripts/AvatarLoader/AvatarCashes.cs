@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AvatarLoader;
+using ReadyPlayerMe;
 using UnityEngine;
 
 public class AvatarCashes : MonoBehaviour
@@ -11,14 +12,64 @@ public class AvatarCashes : MonoBehaviour
     public Dictionary<string, DataPlayerAvatar> DataPlayerAvatars { get; set; } =
         new Dictionary<string, DataPlayerAvatar>();
 
+
+    private List<ReadyPlayerMe.AvatarLoader> _avatarLoaders = new List<ReadyPlayerMe.AvatarLoader>();
+
+    public void PreloadAvatars(List<string> urls)
+    {
+        foreach (var url in urls)
+        {
+            PreloadAvatar(url);
+        }
+    }
+
+    public void PreloadAvatar(string url)
+    {
+        var avatarLoader = new ReadyPlayerMe.AvatarLoader();
+
+        
+        avatarLoader.OnCompleted += ConstructOnSuccess;
+        avatarLoader.LoadAvatar(url);
+        _avatarLoaders.Add(avatarLoader);
+    }
+
+    private void ConstructOnSuccess(object sender, CompletionEventArgs e)
+    {
+        var ava = e.Avatar;
+        ava.name = ShortenUrl(e.Url);
+        ava.transform.parent = transform;
+        ava.SetActive(false);
+    }
+
+
+    private string ShortenUrl(string url)
+    {
+        return url.Substring(38,24);
+    }
+
+
+    private void OnDestroy()
+    {
+        foreach (var avatarLoader in _avatarLoaders)
+        {
+            avatarLoader.OnCompleted -= ConstructOnSuccess;
+        }
+    }
+
+
     public bool HasAvatar2d(string url)
     {
         return DataPlayerAvatars.ContainsKey(url) && DataPlayerAvatars[url].Avatar2d.Url == url;
     }
 
-    public bool HasAvatar3d(string url)
+    public GameObject GetAvatar(string url)
     {
-        return DataPlayerAvatars.ContainsKey(url) && DataPlayerAvatars[url].Avatar3d.Url == url;
+
+        var sh = ShortenUrl(url);
+        Debug.Log($"Try to find {sh}");
+        var ch = transform.Find(sh);
+        
+        return ch.gameObject;
     }
 
 
