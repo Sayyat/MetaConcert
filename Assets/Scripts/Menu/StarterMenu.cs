@@ -57,16 +57,12 @@ namespace Assets.Scripts
 
         [SerializeField] private AvatarRenderView avatarRenderView;
 
-        // private List<string> urls = new List<string>()
-        // {
-        //     "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb",
-        //     "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
-        //     "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
-        //     "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb"
-        // };
-        
         private List<string> urls = new List<string>()
         {
+            // "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb",
+            // "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
+            // "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
+            // "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb"
             "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
             "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
