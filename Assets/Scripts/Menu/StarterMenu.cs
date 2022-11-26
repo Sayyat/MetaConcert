@@ -20,10 +20,7 @@ namespace Assets.Scripts
         #region Private Serializable Fields
 
         [Tooltip("The Ui Panel to let the user enter name, connect and play")] [SerializeField]
-        private GameObject controlPanel;
-
-        [Tooltip("The Ui Text to inform the user about the connection progress")] [SerializeField]
-        private TMP_Text feedbackText;
+        private GameObject videoPanel;
 
         [Tooltip("The maximum number of players per room")] [SerializeField]
         private byte maxPlayersPerRoom = 4;
@@ -89,7 +86,7 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes);
+            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, videoPanel);
 
             _avatarCashes.PreloadAvatars(urls);
         }
@@ -111,14 +108,9 @@ namespace Assets.Scripts
         /// </summary>
         public void Connect()
         {
-            // we want to make sure the log is clear everytime we connect, we might have several failed attempted if connection failed.
-            feedbackText.text = "";
-
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
             isConnecting = true;
 
-            // hide the Play button for visual consistency
-            controlPanel.SetActive(false);
 
 
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -144,14 +136,7 @@ namespace Assets.Scripts
         /// <param name="message">Message.</param>
         void LogFeedback(string message)
         {
-            // we do not assume there is a feedbackText defined.
-            if (feedbackText == null)
-            {
-                return;
-            }
-
-            // add new messages as a new line and at the bottom of the log.
-            feedbackText.text += System.Environment.NewLine + message;
+            Debug.Log($"LOG FEEDBACK: {message}");
         }
 
         #endregion
@@ -209,7 +194,6 @@ namespace Assets.Scripts
 
 
             isConnecting = false;
-            controlPanel.SetActive(true);
         }
 
         /// <summary>

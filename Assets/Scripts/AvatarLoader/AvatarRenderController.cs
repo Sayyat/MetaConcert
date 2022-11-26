@@ -29,13 +29,13 @@ public class AvatarRenderController : IDisposable
     };
 
     private int countLoading;
-
-    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes)
+    private GameObject _videoPanel;
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes, GameObject videoPanel)
     {
         _renderView = renderView;
         _urls = urls;
         _avatarCashes = avatarCashes;
-
+        _videoPanel = videoPanel;
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
@@ -112,6 +112,8 @@ public class AvatarRenderController : IDisposable
 
     private void SetupAllIcons()
     {
+        
+        _videoPanel.SetActive(false);
         _renderView.LoaderAvatars.SetActive(false);
         foreach (var renderModel in _modelsRender)
         {

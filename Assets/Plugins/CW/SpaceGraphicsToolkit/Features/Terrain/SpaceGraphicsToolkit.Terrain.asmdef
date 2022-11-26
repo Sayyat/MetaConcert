@@ -4,7 +4,9 @@
         "Unity.Burst",
         "Unity.Mathematics",
         "SpaceGraphicsToolkit",
-        "CW.Common"
+        "CW.Common",
+        "UnityEditor.UI",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
