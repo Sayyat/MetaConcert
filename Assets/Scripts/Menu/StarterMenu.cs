@@ -71,15 +71,6 @@ namespace Assets.Scripts
 
         private AvatarRenderController _avatarRenderController;
 
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
-        /// </summary>
-        void Awake()
-        {
-            // #Critical
-            // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
-            PhotonNetwork.AutomaticallySyncScene = true;
-        }
 
         private void Start()
         {
@@ -204,7 +195,7 @@ namespace Assets.Scripts
                 "PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
 
             // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = this.maxPlayersPerRoom });
+            PhotonNetwork.CreateRoom(null, new RoomOptions {MaxPlayers = this.maxPlayersPerRoom});
         }
 
 
@@ -240,14 +231,12 @@ namespace Assets.Scripts
                 "PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
 
             // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our instance scene.
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                Debug.Log($"We load the '{desiredScene}' ");
 
-                // #Critical
-                // Load the Room Level. 
-                PhotonNetwork.LoadLevel(desiredScene);
-            }
+            Debug.Log($"We load the '{desiredScene}' ");
+
+            // #Critical
+            // Load the Room Level. 
+            PhotonNetwork.LoadLevel(desiredScene);
         }
 
         #endregion

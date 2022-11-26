@@ -1,4 +1,5 @@
-﻿using ExitGames.Client.Photon;
+﻿using System;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -32,10 +33,10 @@ namespace Init
         {
             //Added this class to callback observed
             PhotonNetwork.NetworkingClient.AddCallbackTarget(this);
-            
-                //Make a normal receipt of the cache link
+
+            //Make a normal receipt of the cache link
             _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
-            
+
             if (photonView.IsMine)
             {
                 _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
@@ -55,7 +56,15 @@ namespace Init
             _actorNumber = info.Sender.ActorNumber.ToString();
 
             var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
-            hashTable.Add(_actorNumber, _currentAvatarUrl);
+
+            if (hashTable.ContainsKey(_actorNumber))
+            {
+                hashTable[_actorNumber] = _currentAvatarUrl;
+            }
+            else
+            {
+                hashTable.Add(_actorNumber, _currentAvatarUrl);
+            }
 
             Debug.Log("Add new Player in Room property");
 
@@ -106,6 +115,14 @@ namespace Init
 
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
+            if (!PhotonNetwork.IsMasterClient || !photonView.IsMine) return;
+
+            var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
+            hashTable.Remove(otherPlayer.ActorNumber.ToString());
+
+            Debug.Log("Remove player from Room property");
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
         }
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -122,6 +139,13 @@ namespace Init
 
         public void OnMasterClientSwitched(Player newMasterClient)
         {
+        }
+
+
+        private void OnDisable()
+        {
+            
+            PhotonNetwork.NetworkingClient.RemoveCallbackTarget(this);
         }
     }
 }
