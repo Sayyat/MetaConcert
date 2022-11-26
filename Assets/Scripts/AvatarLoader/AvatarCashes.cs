@@ -27,7 +27,6 @@ public class AvatarCashes : MonoBehaviour
     {
         var avatarLoader = new ReadyPlayerMe.AvatarLoader();
 
-        
         avatarLoader.OnCompleted += ConstructOnSuccess;
         avatarLoader.LoadAvatar(url);
         _avatarLoaders.Add(avatarLoader);
@@ -64,7 +63,6 @@ public class AvatarCashes : MonoBehaviour
 
     public GameObject GetAvatar(string url)
     {
-
         var sh = ShortenUrl(url);
         Debug.Log($"Try to find {sh}");
         var ch = transform.Find(sh);

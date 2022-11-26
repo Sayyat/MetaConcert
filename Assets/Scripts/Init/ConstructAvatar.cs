@@ -15,32 +15,33 @@ namespace Init
         private AvatarCashes _avatarCashes;
 
         private bool _canLoadAvatar = true;
-        private string _userId;
-        public string CurrentAvatarUrl
-        {
-            get => _currentAvatarUrl;
-            set
-            {
-                _currentAvatarUrl = value;
-                LoadAvatar();
-            }
-        }
+
+        private string _actorNumber;
+        // public string CurrentAvatarUrl
+        // {
+        //     get => _currentAvatarUrl;
+        //     set
+        //     {
+        //         _currentAvatarUrl = value;
+        //         LoadAvatar();
+        //     }
+        // }
 
 
         private void Awake()
         {
             //Added this class to callback observed
             PhotonNetwork.NetworkingClient.AddCallbackTarget(this);
-
+            
+                //Make a normal receipt of the cache link
+            _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
+            
             if (photonView.IsMine)
             {
-                _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
                 _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
-                
+
+                Debug.Log($"Getting my avatar from cash: {_currentAvatarUrl}");
             }
-
-            Debug.Log($"Selected avatarurl: {_currentAvatarUrl}");
-
 
             _animator = GetComponent<Animator>();
         }
@@ -48,13 +49,13 @@ namespace Init
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            if (_userId != null)
+            if (_actorNumber != null)
                 return;
-            
-            _userId = info.Sender.ActorNumber.ToString();
+
+            _actorNumber = info.Sender.ActorNumber.ToString();
 
             var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
-            hashTable.Add(_userId, _currentAvatarUrl);
+            hashTable.Add(_actorNumber, _currentAvatarUrl);
 
             Debug.Log("Add new Player in Room property");
 
@@ -63,18 +64,18 @@ namespace Init
                 PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
             }
         }
-        
+
         private void LoadAvatar()
         {
             _canLoadAvatar = false;
-          
+
             var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            var urlAvatar = properties[_userId] as string;
+            var urlAvatar = properties[_actorNumber] as string;
 
             var go = Instantiate(_avatarCashes.GetAvatar(urlAvatar));
             Construct(go);
         }
-        
+
         private void Construct(GameObject playerTemplate)
         {
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
@@ -99,11 +100,6 @@ namespace Init
             _animator.avatar = _avatarScheme;
         }
 
-        private void OnDestroy()
-        {
-          
-        }
-
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
         }
@@ -114,7 +110,7 @@ namespace Init
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-            if (propertiesThatChanged.ContainsKey(_userId) && _canLoadAvatar)
+            if (propertiesThatChanged.ContainsKey(_actorNumber) && _canLoadAvatar)
             {
                 LoadAvatar();
             }
