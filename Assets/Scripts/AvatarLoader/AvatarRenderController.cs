@@ -39,14 +39,8 @@ public class AvatarRenderController : IDisposable
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
-
-        //Default loading Avatar without selected
-        _selectedUrl = "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb";
-        var model2d = new AvatarRenderModel()
-        {
-            texture = Texture2D.grayTexture,
-            Url = _selectedUrl
-        };
+        
+        _avatarCashes.SelectedAvatarUrl = "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb";
 
 
         foreach (var url in urls)
