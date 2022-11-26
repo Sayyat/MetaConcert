@@ -61,7 +61,9 @@ namespace Assets.Scripts.UI
 
         public override void OnLeftRoom()
         {
-            SceneManager.LoadSceneAsync(0);
+            // SceneManager.LoadSceneAsync(0);
+            PhotonNetwork.LoadLevel(0);
         }
+        
     }
 }
