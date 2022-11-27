@@ -23,11 +23,11 @@ namespace Assets.Scripts
         private GameObject videoPanel;
 
         [Tooltip("The maximum number of players per room")] [SerializeField]
-        private byte maxPlayersPerRoom = 4;
+        private byte maxPlayersPerRoom = 20;
 
 
         [Tooltip("The scene name we want to load")] [SerializeField]
-        private string desiredScene = "Playground";
+        private string desiredScene = "Concert";
 
 
         private AvatarCashes _avatarCashes;
