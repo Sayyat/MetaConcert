@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using AvatarLoader;
 using ReadyPlayerMe;
@@ -9,8 +7,8 @@ public class AvatarCashes : MonoBehaviour
 {
     public string SelectedAvatarUrl { get; set; }
 
-    public Dictionary<string, DataPlayerAvatar> DataPlayerAvatars { get; set; } =
-        new Dictionary<string, DataPlayerAvatar>();
+    public Dictionary<string, AvatarRenderModel> PlayerAvatars2d { get; set; } =
+        new Dictionary<string, AvatarRenderModel>();
 
 
     private List<ReadyPlayerMe.AvatarLoader> _avatarLoaders = new List<ReadyPlayerMe.AvatarLoader>();
@@ -43,7 +41,7 @@ public class AvatarCashes : MonoBehaviour
 
     private string ShortenUrl(string url)
     {
-        return url.Substring(38,24);
+        return url.Substring(38, 24);
     }
 
 
@@ -58,7 +56,7 @@ public class AvatarCashes : MonoBehaviour
 
     public bool HasAvatar2d(string url)
     {
-        return DataPlayerAvatars.ContainsKey(url) && DataPlayerAvatars[url].Avatar2d.Url == url;
+        return PlayerAvatars2d.ContainsKey(url) && PlayerAvatars2d[url].Url == url;
     }
 
     public GameObject GetAvatar(string url)
@@ -66,78 +64,45 @@ public class AvatarCashes : MonoBehaviour
         var sh = ShortenUrl(url);
         Debug.Log($"Try to find {sh}");
         var ch = transform.Find(sh);
-        
+
         return ch.gameObject;
     }
 
 
-    public void AddAvatar(string url, DataPlayerAvatar dpa)
+    public void AddAvatar(string url, AvatarRenderModel dpa)
     {
-        if (DataPlayerAvatars.ContainsKey(url))
-            DataPlayerAvatars[url] = dpa;
+        if (PlayerAvatars2d.ContainsKey(url))
+            PlayerAvatars2d[url] = dpa;
         else
-            DataPlayerAvatars.Add(url, dpa);
+            PlayerAvatars2d.Add(url, dpa);
     }
 
     public void AddAvatar2d(string url, AvatarRenderModel avatar2d)
     {
-        if (DataPlayerAvatars.ContainsKey(url))
+        if (PlayerAvatars2d.ContainsKey(url))
         {
-            DataPlayerAvatars[url].Avatar2d = avatar2d;
+            PlayerAvatars2d[url] = avatar2d;
         }
         else
         {
-            DataPlayerAvatars.Add(url, new DataPlayerAvatar()
-            {
-                Avatar2d = avatar2d
-            });
-        }
-    }
-
-    public void AddAvatar3d(string url, AvatarModel avatar3d)
-    {
-        if (DataPlayerAvatars.ContainsKey(url))
-        {
-            DataPlayerAvatars[url].Avatar3d = avatar3d;
-        }
-        else
-        {
-            DataPlayerAvatars.Add(url, new DataPlayerAvatar()
-            {
-                Avatar3d = avatar3d
-            });
+            PlayerAvatars2d.Add(url, avatar2d);
         }
     }
 
 
     public void RemoveAvatar(string url)
     {
-        DataPlayerAvatars.Remove(url);
+        PlayerAvatars2d.Remove(url);
     }
 
     public void Clear()
     {
-        DataPlayerAvatars.Clear();
+        PlayerAvatars2d.Clear();
     }
 
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Cashed avatars:");
-            foreach (var avatars in DataPlayerAvatars)
-            {
-                Debug.Log(avatars.Key);
-                Debug.Log(avatars.Value.Avatar2d.ToString());
-                Debug.Log(avatars.Value.Avatar3d.ToString());
-            }
-        }
     }
 }

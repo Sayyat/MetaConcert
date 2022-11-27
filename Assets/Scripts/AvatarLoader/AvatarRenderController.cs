@@ -53,10 +53,7 @@ public class AvatarRenderController : IDisposable
     {
         var model2d = _modelsRender.Find(model => model.Url == url);
 
-        _avatarCashes.AddAvatar(url, new DataPlayerAvatar()
-        {
-            Avatar2d = model2d
-        });
+        _avatarCashes.AddAvatar(url, model2d);
 
         _selectedUrl = url;
         _avatarCashes.SelectedAvatarUrl = url;
@@ -70,7 +67,7 @@ public class AvatarRenderController : IDisposable
         // try to load from cash
         if (_avatarCashes.HasAvatar2d(url))
         {
-            _modelsRender.Add(_avatarCashes.DataPlayerAvatars[url].Avatar2d);
+            _modelsRender.Add(_avatarCashes.PlayerAvatars2d[url]);
             countLoading--;
             if (countLoading <= 0)
             {
@@ -96,10 +93,7 @@ public class AvatarRenderController : IDisposable
         {
             model.texture = texture2D;
             _modelsRender.Add(model);
-            _avatarCashes.AddAvatar(url, new DataPlayerAvatar()
-            {
-                Avatar2d = model
-            });
+            _avatarCashes.AddAvatar(url, model);
 
             countLoading--;
             if (countLoading <= 0)

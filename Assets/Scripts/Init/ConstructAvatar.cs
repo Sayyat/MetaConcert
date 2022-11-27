@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -8,14 +9,14 @@ using UnityEngine;
 namespace Init
 {
     [RequireComponent(typeof(Animator))]
-    public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks
+    public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks, IOnEventCallback
     {
         private Animator _animator;
         private Avatar _avatarScheme;
         private string _currentAvatarUrl;
         private AvatarCashes _avatarCashes;
 
-        private bool _canLoadAvatar = true;
+        private bool IsDownLoaded = false;
 
         private string _actorNumber;
         // public string CurrentAvatarUrl
@@ -34,9 +35,10 @@ namespace Init
             //Added this class to callback observed
             PhotonNetwork.NetworkingClient.AddCallbackTarget(this);
 
-            //Make a normal receipt of the cache link
+            // get AvatarCache object link from DontDestroy
             _avatarCashes = GameObject.Find("AvatarCashes").GetComponent<AvatarCashes>();
 
+            // if its me, i get my avatarUrl from AvatarCache
             if (photonView.IsMine)
             {
                 _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
@@ -44,49 +46,72 @@ namespace Init
                 Debug.Log($"Getting my avatar from cash: {_currentAvatarUrl}");
             }
 
+            // set my animator
             _animator = GetComponent<Animator>();
         }
 
 
-        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        private void Update()
         {
-            if (_actorNumber != null)
-                return;
+            if (!photonView.IsMine) return;
 
-            _actorNumber = info.Sender.ActorNumber.ToString();
-
-            var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
-
-            if (hashTable.ContainsKey(_actorNumber))
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                hashTable[_actorNumber] = _currentAvatarUrl;
-            }
-            else
-            {
-                hashTable.Add(_actorNumber, _currentAvatarUrl);
-            }
+                var players = PhotonNetwork.CurrentRoom.Players;
+                Debug.Log("Players List");
 
-            Debug.Log("Add new Player in Room property");
-
-            if (_currentAvatarUrl != null)
-            {
-                PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
+                foreach (var player in players)
+                {
+                    Debug.Log(
+                        $"<Color=Red>{player.Value}</Color>: <Color=Green>{player.Value.CustomProperties}</Color> ");
+                }
             }
         }
 
+        public void OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            if (!photonView.IsMine) return;
+            // do these only if it is me
+
+            // save my avatarUrl to my own CustomProperties
+            var hashTable = photonView.Owner.CustomProperties;
+            if (hashTable.ContainsKey("avatarUrl"))
+            {
+                hashTable["avatarUrl"] = _currentAvatarUrl;
+            }
+            else
+            {
+                hashTable.Add("avatarUrl", _currentAvatarUrl);
+            }
+            
+            photonView.Owner.SetCustomProperties(hashTable);
+            
+            Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
+           
+        }
+        
+
         private void LoadAvatar()
         {
-            _canLoadAvatar = false;
+            // get my avatarUrl from photonView customProperties
+            var hashTable = photonView.Owner.CustomProperties;
+            var url = hashTable["avatarUrl"] as string;
+            LoadAvatar(url);
+        }
 
-            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            var urlAvatar = properties[_actorNumber] as string;
-
-            var go = Instantiate(_avatarCashes.GetAvatar(urlAvatar));
+        private void LoadAvatar(string url)
+        {
+            // construct my avatar from my avatarUrl
+            var go = Instantiate(_avatarCashes.GetAvatar(url));
             Construct(go);
         }
 
         private void Construct(GameObject playerTemplate)
         {
+         
+            // skip if this clone already downloaded its avatar
+            if(IsDownLoaded) return;
+            
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
 
             // todo add smart method to grab children
@@ -107,7 +132,10 @@ namespace Init
             Destroy(playerTemplate);
 
             _animator.avatar = _avatarScheme;
+            IsDownLoaded = true;
         }
+        
+        
 
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -115,26 +143,17 @@ namespace Init
 
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
-            if (!PhotonNetwork.IsMasterClient || !photonView.IsMine) return;
-
-            var hashTable = PhotonNetwork.CurrentRoom.CustomProperties;
-            hashTable.Remove(otherPlayer.ActorNumber.ToString());
-
-            Debug.Log("Remove player from Room property");
-
-            PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
+            
         }
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-            if (propertiesThatChanged.ContainsKey(_actorNumber) && _canLoadAvatar)
-            {
-                LoadAvatar();
-            }
+            
         }
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
+            LoadAvatar();
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)
@@ -144,8 +163,11 @@ namespace Init
 
         private void OnDisable()
         {
-            
             PhotonNetwork.NetworkingClient.RemoveCallbackTarget(this);
+        }
+
+        public void OnEvent(EventData photonEvent)
+        {
         }
     }
 }
