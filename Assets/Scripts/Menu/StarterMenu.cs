@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
+using UnityEngine.Video;
 
 namespace Assets.Scripts
 {
@@ -19,8 +20,9 @@ namespace Assets.Scripts
     {
         #region Private Serializable Fields
 
-        [Tooltip("The Ui Panel to let the user enter name, connect and play")] [SerializeField]
-        private GameObject videoPanel;
+        [Tooltip("Panel controller")] [SerializeField]
+        private PanelControl panelController;
+       
 
         [Tooltip("The maximum number of players per room")] [SerializeField]
         private byte maxPlayersPerRoom = 20;
@@ -51,15 +53,15 @@ namespace Assets.Scripts
         #endregion
 
         #region MonoBehaviour CallBacks
-
+    
         [SerializeField] private AvatarRenderView avatarRenderView;
 
         private List<string> urls = new List<string>()
         {
-            // "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb",
-            // "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
-            // "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
-            // "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb"
+            "https://api.readyplayer.me/v1/avatars/635e103a1260644e7e39a393.glb",
+            "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
+            "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
+            "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb",
             "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
             "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
@@ -86,7 +88,7 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, videoPanel);
+            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
 
             _avatarCashes.PreloadAvatars(urls);
         }

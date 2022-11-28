@@ -6,6 +6,7 @@ using AvatarLoader;
 using ReadyPlayerMe;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class AvatarRenderController : IDisposable
 {
@@ -29,13 +30,14 @@ public class AvatarRenderController : IDisposable
     };
 
     private int countLoading;
-    private GameObject _videoPanel;
-    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes, GameObject videoPanel)
+    private PanelControl _panelControl;
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes, PanelControl panelControl)
     {
         _renderView = renderView;
         _urls = urls;
         _avatarCashes = avatarCashes;
-        _videoPanel = videoPanel;
+        _panelControl = panelControl;
+        
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
@@ -68,13 +70,7 @@ public class AvatarRenderController : IDisposable
         if (_avatarCashes.HasAvatar2d(url))
         {
             _modelsRender.Add(_avatarCashes.PlayerAvatars2d[url]);
-            countLoading--;
-            if (countLoading <= 0)
-            {
-                Debug.Log("SetupAllIcon");
-                SetupAllIcons();
-            }
-
+            DecreaseCount();
             return;
         }
 
@@ -88,26 +84,34 @@ public class AvatarRenderController : IDisposable
         };
         
         loader.LoadRender(url, _scene, _blendShapeMesh, blendShapes);
-
         loader.OnCompleted = (texture2D =>
         {
             model.texture = texture2D;
             _modelsRender.Add(model);
             _avatarCashes.AddAvatar(url, model);
-
-            countLoading--;
-            if (countLoading <= 0)
-            {
-                Debug.Log("SetupAllIcon");
-                SetupAllIcons();
-            }
+            
+            DecreaseCount();
         });
+    }
+
+    private void DecreaseCount()
+    {
+        
+        countLoading--;
+        
+        _panelControl.Progress = 1f * ( _urls.Count - countLoading ) / _urls.Count;
+        if (countLoading <= 0)
+        {
+            Debug.Log("SetupAllIcon");
+            SetupAllIcons();
+        }
     }
 
     private void SetupAllIcons()
     {
+        // stop preloaderVideo and change ui
+        _panelControl.StopPreloaderVideo();
         
-        _videoPanel.SetActive(false);
         _renderView.LoaderAvatars.SetActive(false);
         foreach (var renderModel in _modelsRender)
         {
