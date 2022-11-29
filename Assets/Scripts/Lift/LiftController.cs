@@ -13,63 +13,56 @@ namespace Lift
         private List<Transform> liftStopSpots;
 
         [Header("Buttons to call lift")] [SerializeField]
-        private List<GameObject> liftCallButtons;
-        
+        private List<Button3d> liftCallButtons;
+
         [Header("Buttons inside the lift")] [SerializeField]
-        private List<GameObject> floorButtons;
+        private List<Button3d> floorButtons;
+
 
         private Animation _platformAnimation;
 
         private LiftStates _liftStates;
 
-        private List<Transform> _liftCallButtonTransforms;
-        private List<Transform> _floorButtonTransforms;
+        private List<Vector3> _liftCallButtonTransforms = new List<Vector3>();
+        private List<Vector3> _floorButtonTransforms = new List<Vector3>();
 
         private void Awake()
         {
             _liftStates = GetComponent<LiftStates>();
-            // liftCallButtons.ForEach(button =>
-            // {
-            //     _liftCallButtonTransforms.Add(button.transform);
-            // });
-            //
-            // floorButtons.ForEach(button =>
-            // {
-            //     _floorButtonTransforms.Add(button.transform);
-            // });
-        }
-
-        private void Start()
-        {
+            liftCallButtons.ForEach(button =>
+            {   
+                button.ButtonClicked += OnButtonClicked;
+            });
             
+            floorButtons.ForEach(button =>
+            {   
+                button.ButtonClicked += OnButtonClicked;
+            });
         }
 
-
-      
         
-        void Update() {  
-            if (Input.GetMouseButtonDown(0)) {  
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);  
-                RaycastHit hit;  
-                if (Physics.Raycast(ray, out hit)) {  
-                    //Select stage    
-                    if (_liftCallButtonTransforms.Contains(hit.transform)) {
-                        Debug.Log("<Color=Red>liftCallButton pressed</Color>");
-                    }  
-                    if (_floorButtonTransforms.Contains(hit.transform)) {
-                        Debug.Log("<Color=Red>floorButtons pressed</Color>");
-                    }  
-
-                    
-                }  
-            }  
-        }  
+        // private void OnDisable()
+        // {
+        //     liftCallButtons.ForEach(button =>
+        //     {
+        //         button.ButtonClicked -= OnButtonClicked;
+        //     });
+        //     floorButtons.ForEach(button =>
+        //     {   
+        //         button.ButtonClicked -= OnButtonClicked;
+        //     });
+        // }
+        private void OnButtonClicked(string where, int floor)
+        {
+            Debug.Log($"<Color=Yellow>Button clicked: {where}: {floor}</Color>");
+            MoveLift(liftStopSpots[floor - 1].position);
+        }
 
         private void MoveLift(Vector3 targetPosition)
         {
             Debug.Log("<Color=Red>Lift started moving</Color>");
             platform.transform.position =
-                Vector3.MoveTowards(platform.transform.position, targetPosition,0.02f * Time.deltaTime);
+                Vector3.MoveTowards(platform.transform.position, targetPosition, 0.5f * Time.deltaTime);
         }
     }
 }
