@@ -18,29 +18,48 @@ namespace Lift
         [Header("Buttons inside the lift")] [SerializeField]
         private List<Button3d> floorButtons;
 
-
-        private Animation _platformAnimation;
-
         private LiftStates _liftStates;
 
         private List<Vector3> _liftCallButtonTransforms = new List<Vector3>();
         private List<Vector3> _floorButtonTransforms = new List<Vector3>();
 
+
+
+        private Vector3 _targetPosition { get; set; }
+
         private void Awake()
         {
             _liftStates = GetComponent<LiftStates>();
-            liftCallButtons.ForEach(button =>
-            {   
-                button.ButtonClicked += OnButtonClicked;
-            });
-            
-            floorButtons.ForEach(button =>
-            {   
-                button.ButtonClicked += OnButtonClicked;
-            });
+            _targetPosition = liftStopSpots[0].transform.position;
         }
 
-        
+        private void Start()
+        {
+
+            string l = "<Color=Green>\n";
+
+            for (int i = 0; i < liftCallButtons.Count; i++)
+            {
+                l += liftCallButtons[i].ToString() + "\n";
+                liftCallButtons[i].ButtonClicked += OnButtonClicked;
+                floorButtons[i].ButtonClicked += OnButtonClicked;
+            }
+
+            l += "</Color>";
+            
+            Debug.Log(l);
+
+
+
+
+        }
+
+        private void Update()
+        {
+            MoveLift();
+        }
+
+
         // private void OnDisable()
         // {
         //     liftCallButtons.ForEach(button =>
@@ -55,14 +74,14 @@ namespace Lift
         private void OnButtonClicked(string where, int floor)
         {
             Debug.Log($"<Color=Yellow>Button clicked: {where}: {floor}</Color>");
-            MoveLift(liftStopSpots[floor - 1].position);
+            _targetPosition = liftStopSpots[floor - 1].position;
         }
 
-        private void MoveLift(Vector3 targetPosition)
+        private void MoveLift()
         {
             Debug.Log("<Color=Red>Lift started moving</Color>");
             platform.transform.position =
-                Vector3.MoveTowards(platform.transform.position, targetPosition, 0.5f * Time.deltaTime);
+                Vector3.MoveTowards(platform.transform.position, _targetPosition, 2f * Time.deltaTime);
         }
     }
 }
