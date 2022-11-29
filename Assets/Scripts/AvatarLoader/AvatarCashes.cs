@@ -13,7 +13,7 @@ public class AvatarCashes : MonoBehaviour
 
     private List<ReadyPlayerMe.AvatarLoader> _avatarLoaders = new List<ReadyPlayerMe.AvatarLoader>();
 
-    public void PreloadAvatars(List<string> urls)
+    public void PreloadAvatars(HashSet<string> urls)
     {
         foreach (var url in urls)
         {
@@ -30,7 +30,7 @@ public class AvatarCashes : MonoBehaviour
         _avatarLoaders.Add(avatarLoader);
     }
 
-    private void ConstructOnSuccess(object sender, CompletionEventArgs e)
+    public void ConstructOnSuccess(object sender, CompletionEventArgs e)
     {
         var ava = e.Avatar;
         ava.name = ShortenUrl(e.Url);
@@ -65,6 +65,7 @@ public class AvatarCashes : MonoBehaviour
         Debug.Log($"Try to find {sh}");
         var ch = transform.Find(sh);
 
+        Debug.Log($"Is find {ch.gameObject}");
         return ch.gameObject;
     }
 

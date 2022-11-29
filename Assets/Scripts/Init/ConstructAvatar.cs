@@ -101,8 +101,12 @@ namespace Init
 
         private void LoadAvatar(string url)
         {
+            Debug.Log($" Pre Instantiate avatar ");
             // construct my avatar from my avatarUrl
-            var go = Instantiate(_avatarCashes.GetAvatar(url));
+            var go = GameObject.Instantiate(_avatarCashes.GetAvatar(url));
+            
+            Debug.Log($"Instantiate avatar{go}");
+            
             Construct(go);
         }
 
@@ -114,6 +118,7 @@ namespace Init
             
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
 
+            Debug.Log($"Get Animator");
             // todo add smart method to grab children
             var mesh = playerTemplate.transform.GetChild(0);
             var armature = playerTemplate.transform.GetChild(1);
@@ -131,6 +136,10 @@ namespace Init
 
             Destroy(playerTemplate);
 
+            
+
+            Debug.Log($"Destroy GO");
+            
             _animator.avatar = _avatarScheme;
             IsDownLoaded = true;
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using AvatarLoader;
 using Photon.Pun;
@@ -7,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
+using ReadyPlayerMe;
 using UnityEngine.Video;
 
 namespace Assets.Scripts
@@ -22,7 +24,7 @@ namespace Assets.Scripts
 
         [Tooltip("Panel controller")] [SerializeField]
         private PanelControl panelController;
-       
+
 
         [Tooltip("The maximum number of players per room")] [SerializeField]
         private byte maxPlayersPerRoom = 20;
@@ -53,7 +55,7 @@ namespace Assets.Scripts
         #endregion
 
         #region MonoBehaviour CallBacks
-    
+
         [SerializeField] private AvatarRenderView avatarRenderView;
 
         private List<string> urls = new List<string>()
@@ -62,7 +64,7 @@ namespace Assets.Scripts
             // "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
             // "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
             // "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb",
-            
+
             "https://api.readyplayer.me/v1/avatars/637774c5152ef07e2427a19f.glb",
             "https://api.readyplayer.me/v1/avatars/63777cba152ef07e2427ac52.glb",
             
@@ -92,14 +94,41 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
+            _avatarRenderController =
+                new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
 
-            _avatarCashes.PreloadAvatars(urls);
+            var urlSet = new HashSet<string>(urls);
+            StartCoroutine(LoadAvatars(urlSet));
+
+
+            // _avatarCashes.PreloadAvatars(urlSet);
         }
+
+        private IEnumerator LoadAvatars(HashSet<string> urlSet)
+        {
+            var loading = false;
+
+            foreach (var url in urlSet)
+            {
+                loading = true;
+                var loader = new ReadyPlayerMe.AvatarLoader();
+                loader.OnCompleted += (sender, args) =>
+                {
+                    loading = false;
+                    _avatarCashes.ConstructOnSuccess(sender, args);
+                };
+                loader.LoadAvatar(url);
+
+                yield return new WaitUntil(() => !loading);
+            }
+            Debug.LogError("All Avatar Loaded");
+        }
+
 
         private void OnDestroy()
         {
             _avatarRenderController.Dispose();
+            StopAllCoroutines();
         }
 
         #endregion
@@ -116,7 +145,6 @@ namespace Assets.Scripts
         {
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
             isConnecting = true;
-
 
 
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
