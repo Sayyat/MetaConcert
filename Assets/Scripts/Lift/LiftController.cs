@@ -28,15 +28,15 @@ namespace Lift
         private void Awake()
         {
             _liftStates = GetComponent<LiftStates>();
-            liftCallButtons.ForEach(button =>
-            {
-                _liftCallButtonTransforms.Add(button.transform);
-            });
-            
-            floorButtons.ForEach(button =>
-            {
-                _floorButtonTransforms.Add(button.transform);
-            });
+            // liftCallButtons.ForEach(button =>
+            // {
+            //     _liftCallButtonTransforms.Add(button.transform);
+            // });
+            //
+            // floorButtons.ForEach(button =>
+            // {
+            //     _floorButtonTransforms.Add(button.transform);
+            // });
         }
 
         private void Start()

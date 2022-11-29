@@ -46,6 +46,7 @@ namespace AvatarLoader
             _urlOfIcon.Add(url, go);
 
             AddButtonOnTexture(go);
+            _urlOfIcon[url].transform.localScale = Vector3.one;
         }
 
         public void SelectButton(string url)

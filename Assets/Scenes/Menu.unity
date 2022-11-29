@@ -873,6 +873,16 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 1526726656
       objectReference: {fileID: 0}
+    - target: {fileID: 7814807910223325634, guid: 544072a58e21d0c47962556d9fc4f63e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1124672803}
+    - target: {fileID: 7814807910223325634, guid: 544072a58e21d0c47962556d9fc4f63e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Connect
+      objectReference: {fileID: 0}
     - target: {fileID: 7814807910744357988, guid: 544072a58e21d0c47962556d9fc4f63e,
         type: 3}
       propertyPath: m_Name
@@ -1007,6 +1017,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814807910920444677, guid: 544072a58e21d0c47962556d9fc4f63e,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814807910920444677, guid: 544072a58e21d0c47962556d9fc4f63e,
+        type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7814807911158125303, guid: 544072a58e21d0c47962556d9fc4f63e,
         type: 3}
