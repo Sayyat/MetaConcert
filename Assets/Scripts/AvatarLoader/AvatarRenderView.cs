@@ -20,7 +20,7 @@ namespace AvatarLoader
 
         private string _lastUrl;
 
-        private void Start()
+        private void Awake()
         {
             //Init loader
             var loader = new GameObject("LoaderAvatars");
