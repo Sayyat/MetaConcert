@@ -47,7 +47,7 @@ namespace Lift
 
             l += "</Color>";
             
-            Debug.Log(l);
+            // Debug.Log(l);
 
 
 
@@ -79,7 +79,7 @@ namespace Lift
 
         private void MoveLift()
         {
-            Debug.Log("<Color=Red>Lift started moving</Color>");
+            // Debug.Log("<Color=Red>Lift started moving</Color>");
             platform.transform.position =
                 Vector3.MoveTowards(platform.transform.position, _targetPosition, 2f * Time.deltaTime);
         }
