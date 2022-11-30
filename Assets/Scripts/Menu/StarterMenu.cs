@@ -54,7 +54,6 @@ namespace Assets.Scripts
 
         #endregion
 
-        #region MonoBehaviour CallBacks
 
         [SerializeField] private AvatarRenderView avatarRenderView;
 
@@ -94,8 +93,7 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController =
-                new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
+            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
 
             var urlSet = new HashSet<string>(urls);
             StartCoroutine(LoadAvatars(urlSet));
@@ -117,6 +115,10 @@ namespace Assets.Scripts
                     loading = false;
                     _avatarCashes.ConstructOnSuccess(sender, args);
                 };
+                loader.OnFailed += (sender, args) =>
+                {
+                    Debug.LogError($"Error loading avatar: {args.Message}");
+                };
                 loader.LoadAvatar(url);
 
                 yield return new WaitUntil(() => !loading);
@@ -130,9 +132,7 @@ namespace Assets.Scripts
             _avatarRenderController.Dispose();
             StopAllCoroutines();
         }
-
-        #endregion
-
+        
 
         #region Public Methods
 

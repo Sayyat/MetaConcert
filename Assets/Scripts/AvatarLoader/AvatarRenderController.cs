@@ -44,11 +44,11 @@ public class AvatarRenderController : IDisposable
         
         _avatarCashes.SelectedAvatarUrl = "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb";
 
-
-        foreach (var url in urls)
-        {
-            LoadAvatarRender(url);
-        }
+        //
+        // foreach (var url in urls)
+        // {
+        //     LoadAvatarRender(url);
+        // }
     }
 
     private void SelectModel(string url)
