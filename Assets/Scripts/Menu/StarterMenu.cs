@@ -113,6 +113,7 @@ namespace Assets.Scripts
                 loader.OnCompleted += (sender, args) =>
                 {
                     loading = false;
+                    Debug.LogError($"Avatar {url} Loaded");
                     _avatarCashes.ConstructOnSuccess(sender, args);
                 };
                 loader.OnFailed += (sender, args) =>
