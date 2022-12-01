@@ -66,7 +66,7 @@ namespace Assets.Scripts
 
             "https://api.readyplayer.me/v1/avatars/637774c5152ef07e2427a19f.glb",
             "https://api.readyplayer.me/v1/avatars/63777cba152ef07e2427ac52.glb",
-            
+
             "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
             "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
@@ -93,7 +93,8 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController = new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
+            _avatarRenderController =
+                new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
 
             var urlSet = new HashSet<string>(urls);
             StartCoroutine(LoadAvatars(urlSet));
@@ -110,18 +111,29 @@ namespace Assets.Scripts
             {
                 loading = true;
                 var loader = new ReadyPlayerMe.AvatarLoader();
-                
-                
+
+
                 loader.Timeout = 30;
 #if UNITY_WEBGL && !UNITY_EDITOR
                 loader.Timeout = 100;
 #endif
-                
+
                 loader.OnCompleted += (sender, args) =>
                 {
-                    loading = false;
-                    Debug.LogError($"Avatar {url} Loaded");
+                    var loaderRender = _avatarRenderController.LoadAvatarRender(url);
+                    loaderRender.OnCompleted += (_) =>
+                    {
+                        loading = false;
+                        Debug.LogError($"Avatar {url} Loaded 2D");
+                    };
+                    loaderRender.OnFailed += (j, i) =>
+                    {
+                        loading = false;
+                        Debug.LogError($"Avatar {url}  NOT Loaded 2D with string: {i}");
+                    };
+
                     _avatarCashes.ConstructOnSuccess(sender, args);
+                    Debug.LogError($"Avatar {url} Loaded 3D");
                 };
                 loader.OnFailed += (sender, args) =>
                 {
@@ -132,6 +144,7 @@ namespace Assets.Scripts
 
                 yield return new WaitUntil(() => !loading);
             }
+
             Debug.LogError("All Avatar Loaded");
         }
 
@@ -141,7 +154,7 @@ namespace Assets.Scripts
             _avatarRenderController.Dispose();
             StopAllCoroutines();
         }
-        
+
 
         #region Public Methods
 

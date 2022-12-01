@@ -43,12 +43,12 @@ public class AvatarRenderController : IDisposable
         _renderView.OnSelected += SelectModel;
         
         _avatarCashes.SelectedAvatarUrl = "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb";
-
         
-        foreach (var url in urls)
-        {
-            LoadAvatarRender(url);
-        }
+        //
+        // foreach (var url in urls)
+        // {
+        //     LoadAvatarRender(url);
+        // }
     }
 
     private void SelectModel(string url)
@@ -64,19 +64,20 @@ public class AvatarRenderController : IDisposable
         Debug.Log(_selectedUrl);
     }
 
-    private void LoadAvatarRender(string url)
+    public AvatarRenderLoader LoadAvatarRender(string url)
     {
+        var loader = new AvatarRenderLoader();
         // try to load from cash
         if (_avatarCashes.HasAvatar2d(url))
         {
             _modelsRender.Add(_avatarCashes.PlayerAvatars2d[url]);
             DecreaseCount();
-            return;
+            return loader;
         }
 
         // url not found from cash, downloading 
 
-        var loader = new AvatarRenderLoader();
+        
         _loaders.Add(loader);
         var model = new AvatarRenderModel
         {
@@ -84,7 +85,7 @@ public class AvatarRenderController : IDisposable
         };
         
         loader.LoadRender(url, _scene, _blendShapeMesh, blendShapes);
-        loader.OnCompleted = (texture2D =>
+        loader.OnCompleted += (texture2D =>
         {
             model.texture = texture2D;
             _modelsRender.Add(model);
@@ -92,6 +93,7 @@ public class AvatarRenderController : IDisposable
             
             DecreaseCount();
         });
+        return loader;
     }
 
     private void DecreaseCount()

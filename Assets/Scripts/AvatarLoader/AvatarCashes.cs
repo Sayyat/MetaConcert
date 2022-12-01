@@ -35,7 +35,7 @@ public class AvatarCashes : MonoBehaviour
         var ava = e.Avatar;
         ava.name = ShortenUrl(e.Url);
         ava.transform.parent = transform;
-        // ava.SetActive(false);
+        ava.SetActive(false);
     }
 
 
