@@ -110,6 +110,13 @@ namespace Assets.Scripts
             {
                 loading = true;
                 var loader = new ReadyPlayerMe.AvatarLoader();
+                
+                
+                loader.Timeout = 30;
+#if UNITY_WEBGL && !UNITY_EDITOR
+                loader.Timeout = 100;
+#endif
+                
                 loader.OnCompleted += (sender, args) =>
                 {
                     loading = false;
@@ -118,6 +125,7 @@ namespace Assets.Scripts
                 };
                 loader.OnFailed += (sender, args) =>
                 {
+                    loading = false;
                     Debug.LogError($"Error loading avatar: {args.Message}");
                 };
                 loader.LoadAvatar(url);
