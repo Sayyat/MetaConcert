@@ -182,22 +182,22 @@ namespace StarterAssets
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad1))
+            if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Dance(_dance1);
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Dance(_dance2);
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad3))
+            if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
             {
                 Dance(_dance3);
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad0))
+            if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
             {
                 Dance(0);
             }

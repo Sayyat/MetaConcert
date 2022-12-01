@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Lift
 {
-    public class Button3d : MonoBehaviour, IButton3d
+    public class Button3d : MonoBehaviour
     {
         [SerializeField] private string where;
         [SerializeField] private int floor;
