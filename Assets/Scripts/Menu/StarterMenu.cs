@@ -63,10 +63,10 @@ namespace Assets.Scripts
             // "https://api.readyplayer.me/v1/avatars/635cfc42124f746eb3af6476.glb",
             // "https://api.readyplayer.me/v1/avatars/635e12af124f746eb3b0969b.glb",
             // "https://api.readyplayer.me/v1/avatars/635e13561260644e7e39a53b.glb",
-
+            
             "https://api.readyplayer.me/v1/avatars/637774c5152ef07e2427a19f.glb",
             "https://api.readyplayer.me/v1/avatars/63777cba152ef07e2427ac52.glb",
-
+            
             "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
             "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
@@ -84,6 +84,7 @@ namespace Assets.Scripts
             if (AvatarCashes == null)
             {
                 AvatarCashes = new GameObject("AvatarCashes");
+                Debug.LogError("Dont have Avatar cashes. New Cash");
             }
 
             _avatarCashes = AvatarCashes.GetComponent<AvatarCashes>();
@@ -106,10 +107,16 @@ namespace Assets.Scripts
         private IEnumerator LoadAvatars(HashSet<string> urlSet)
         {
             var loading = false;
-
+ 
             foreach (var url in urlSet)
             {
+                if (_avatarCashes.HasAvatar2d(url))
+                {
+                    continue;
+                }
+
                 loading = true;
+
                 var loader = new ReadyPlayerMe.AvatarLoader();
 
 
@@ -145,6 +152,7 @@ namespace Assets.Scripts
                 yield return new WaitUntil(() => !loading);
             }
 
+            _avatarRenderController.SetupAllIcons();
             Debug.LogError("All Avatar Loaded");
         }
 

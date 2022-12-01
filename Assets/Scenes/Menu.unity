@@ -802,6 +802,7 @@ MonoBehaviour:
   videoPanel: {fileID: 319942157}
   videoPlayer: {fileID: 1727394007}
   progressBar: {fileID: 714094007}
+  enterButton: {fileID: 1656410049}
 --- !u!224 &1069815041 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7814807910744357991, guid: 544072a58e21d0c47962556d9fc4f63e,
@@ -1109,6 +1110,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b295162cd50d32f4c84f56e1795c7ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1656410049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7814807910223325634, guid: 544072a58e21d0c47962556d9fc4f63e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1180947768}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1727394005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,12 +1182,12 @@ VideoPlayer:
   m_AudioOutputMode: 2
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
-  m_Url: https://alem.amadao.network/Videos//the-girl-avatar-in-metaverse-hd-2022-08-10-22-14-42-utc.mp4
+  m_Url: https://alem.amadao.network/Videos//futuristic-moving-tunnel-with-glowing-lights-infi-2022-08-10-22-27-09-utc.mp4
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
   m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
+  m_SkipOnDrop: 0
   m_Looping: 1
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0

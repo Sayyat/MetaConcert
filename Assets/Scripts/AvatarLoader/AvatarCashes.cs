@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AvatarLoader;
 using ReadyPlayerMe;
@@ -7,29 +8,16 @@ public class AvatarCashes : MonoBehaviour
 {
     public string SelectedAvatarUrl { get; set; }
 
-    public Dictionary<string, AvatarRenderModel> PlayerAvatars2d { get; set; } =
-        new Dictionary<string, AvatarRenderModel>();
-
-
+    public Dictionary<string, AvatarRenderModel> PlayerAvatars2d { get; set; } 
+    
     private List<ReadyPlayerMe.AvatarLoader> _avatarLoaders = new List<ReadyPlayerMe.AvatarLoader>();
 
-    public void PreloadAvatars(HashSet<string> urls)
+    private void Awake()
     {
-        foreach (var url in urls)
-        {
-            PreloadAvatar(url);
-        }
+        PlayerAvatars2d = new Dictionary<string, AvatarRenderModel>();
+        DontDestroyOnLoad(this);
     }
-
-    public void PreloadAvatar(string url)
-    {
-        var avatarLoader = new ReadyPlayerMe.AvatarLoader();
-
-        avatarLoader.OnCompleted += ConstructOnSuccess;
-        avatarLoader.LoadAvatar(url);
-        _avatarLoaders.Add(avatarLoader);
-    }
-
+    
     public void ConstructOnSuccess(object sender, CompletionEventArgs e)
     {
         var ava = e.Avatar;
@@ -37,7 +25,6 @@ public class AvatarCashes : MonoBehaviour
         ava.transform.parent = transform;
         ava.SetActive(false);
     }
-
 
     private string ShortenUrl(string url)
     {
@@ -52,8 +39,7 @@ public class AvatarCashes : MonoBehaviour
             avatarLoader.OnCompleted -= ConstructOnSuccess;
         }
     }
-
-
+    
     public bool HasAvatar2d(string url)
     {
         return PlayerAvatars2d.ContainsKey(url) && PlayerAvatars2d[url].Url == url;
@@ -102,8 +88,4 @@ public class AvatarCashes : MonoBehaviour
     }
 
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
 }

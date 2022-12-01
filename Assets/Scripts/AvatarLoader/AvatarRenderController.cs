@@ -24,26 +24,28 @@ public class AvatarRenderController : IDisposable
 
     private Dictionary<string, float> blendShapes = new Dictionary<string, float>
     {
-        { "mouthSmile", 0.7f },
-        { "viseme_aa", 0.5f },
-        { "jawOpen", 0.3f }
+        {"mouthSmile", 0.7f},
+        {"viseme_aa", 0.5f},
+        {"jawOpen", 0.3f}
     };
 
     private int countLoading;
     private PanelControl _panelControl;
-    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes, PanelControl panelControl)
+
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes,
+        PanelControl panelControl)
     {
         _renderView = renderView;
         _urls = urls;
         _avatarCashes = avatarCashes;
         _panelControl = panelControl;
-        
+
         countLoading = _urls.Count;
 
         _renderView.OnSelected += SelectModel;
-        
+
         _avatarCashes.SelectedAvatarUrl = "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb";
-        
+
         //
         // foreach (var url in urls)
         // {
@@ -54,8 +56,8 @@ public class AvatarRenderController : IDisposable
     private void SelectModel(string url)
     {
         var model2d = _modelsRender.Find(model => model.Url == url);
-
-        _avatarCashes.AddAvatar(url, model2d);
+        
+        // _avatarCashes.AddAvatar(url, model2d);
 
         _selectedUrl = url;
         _avatarCashes.SelectedAvatarUrl = url;
@@ -77,77 +79,57 @@ public class AvatarRenderController : IDisposable
 
         // url not found from cash, downloading 
 
-        
+
         _loaders.Add(loader);
         var model = new AvatarRenderModel
         {
             Url = url
         };
-        
+
         loader.LoadRender(url, _scene, _blendShapeMesh, blendShapes);
         loader.OnCompleted += (texture2D =>
         {
             model.texture = texture2D;
             _modelsRender.Add(model);
             _avatarCashes.AddAvatar(url, model);
-            
+
             DecreaseCount();
         });
+        loader.OnFailed += (type, s) =>
+        {
+            Debug.LogError(s);
+            DecreaseCount();
+        };
         return loader;
     }
 
     private void DecreaseCount()
     {
-        
         countLoading--;
-        
-        _panelControl.Progress = 1f * ( _urls.Count - countLoading ) / _urls.Count;
+
+        _panelControl.Progress = 1f * (_urls.Count - countLoading) / _urls.Count;
         if (countLoading <= 0)
         {
             Debug.Log("SetupAllIcon");
-            SetupAllIcons();
         }
     }
 
-    private void SetupAllIcons()
+    public void SetupAllIcons()
     {
         // stop preloaderVideo and change ui
         _panelControl.StopPreloaderVideo();
-        
+
         _renderView.LoaderAvatars.SetActive(false);
-        foreach (var renderModel in _modelsRender)
+
+        for (int i = 0; i < _avatarCashes.PlayerAvatars2d.Count; i++)
         {
-            _renderView.SetupTexture(renderModel.texture, renderModel.Url);
+            _renderView.SetupTexture(_avatarCashes.PlayerAvatars2d[_urls[i]].texture, _urls[i]);
         }
+        // foreach (var renderModel in _modelsRender)
+        // {
+        //     _renderView.SetupTexture(renderModel.texture, renderModel.Url);
+        // }
     }
-
-    //
-    // private void LoadAvatar(string avatarUrl)
-    // {
-    //     var avatarLoader = new ReadyPlayerMe.AvatarLoader();
-    //     avatarLoader.OnCompleted += (_, args) =>
-    //     {
-    //         var avatar = args.Avatar;
-    //         AvatarAnimatorHelper.SetupAnimator(args.Metadata.BodyType, avatar);
-    //     };
-    //     avatarLoader.LoadAvatar(avatarUrl);
-    // }
-
-    // private void OnDestroy()
-    // {
-    //     if (avatarsIcons != null)
-    //     {
-    //         foreach (var avatarsIcon in avatarsIcons)
-    //         {
-    //             Destroy(avatarsIcon);
-    //         }
-    //
-    //         foreach (var avatarModel in avatarsModels)
-    //         {
-    //             avatarModel.onCompletedSaving -= InstantSprite;
-    //         }
-    //     }
-    // }
 
     public void Dispose()
     {
@@ -155,6 +137,7 @@ public class AvatarRenderController : IDisposable
         foreach (var loader in _loaders)
         {
             loader.OnCompleted = null;
+            loader.OnFailed = null;
         }
 
         _renderView.OnSelected -= SelectModel;
