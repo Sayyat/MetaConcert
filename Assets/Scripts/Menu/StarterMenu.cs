@@ -97,20 +97,18 @@ namespace Assets.Scripts
                 new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
 
             var urlSet = new HashSet<string>(urls);
-            var loading = false;
-
-            foreach (var url in urlSet)
-            {
-                StartCoroutine(LoadAvatars(urlSet, loading, url));
-            }
+            StartCoroutine(LoadAvatars(urlSet));
 
 
             // _avatarCashes.PreloadAvatars(urlSet);
         }
 
-        private IEnumerator LoadAvatars(HashSet<string> urlSet, bool loading, string url)
+        private IEnumerator LoadAvatars(HashSet<string> urlSet)
         {
-           
+            var loading = false;
+
+            foreach (var url in urlSet)
+            {
                 loading = true;
                 var loader = new ReadyPlayerMe.AvatarLoader();
 
@@ -145,9 +143,9 @@ namespace Assets.Scripts
                 loader.LoadAvatar(url);
 
                 yield return new WaitUntil(() => !loading);
-            
+            }
 
-                // Debug.LogError("All Avatar Loaded");
+            Debug.LogError("All Avatar Loaded");
         }
 
 
