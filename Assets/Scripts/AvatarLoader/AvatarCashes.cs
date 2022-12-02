@@ -9,21 +9,18 @@ public class AvatarCashes : MonoBehaviour
     public string SelectedAvatarUrl { get; set; }
 
     public Dictionary<string, AvatarRenderModel> PlayerAvatars2d { get; set; } 
-    
-    private List<ReadyPlayerMe.AvatarLoader> _avatarLoaders = new List<ReadyPlayerMe.AvatarLoader>();
 
     private void Awake()
     {
         PlayerAvatars2d = new Dictionary<string, AvatarRenderModel>();
         DontDestroyOnLoad(this);
     }
-    
-    public void ConstructOnSuccess(object sender, CompletionEventArgs e)
+
+    public void SaveAvatarInCash(GameObject avatar, string url)
     {
-        var ava = e.Avatar;
-        ava.name = ShortenUrl(e.Url);
-        ava.transform.parent = transform;
-        ava.SetActive(false);
+        avatar.name = ShortenUrl(url);
+        avatar.transform.parent = transform;
+        avatar.SetActive(false);
     }
 
     private string ShortenUrl(string url)
@@ -31,15 +28,6 @@ public class AvatarCashes : MonoBehaviour
         return url.Substring(38, 24);
     }
 
-
-    private void OnDestroy()
-    {
-        foreach (var avatarLoader in _avatarLoaders)
-        {
-            avatarLoader.OnCompleted -= ConstructOnSuccess;
-        }
-    }
-    
     public bool HasAvatar2d(string url)
     {
         return PlayerAvatars2d.ContainsKey(url) && PlayerAvatars2d[url].Url == url;

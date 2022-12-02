@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AvatarLoader
@@ -25,13 +26,18 @@ namespace AvatarLoader
  
             foreach (var url in urlSet)
             {
+                LoadAvatarFromResource(url);
+
+                var components = _avatarCashes.gameObject.GetComponentsInChildren<Transform>();
+                
                 if (_avatarCashes.HasAvatar2d(url))
                 {
                     continue;
                 }
 
                 _loading = true;
-
+                
+//todo Make async Load method for changed _loading in this method
                 LoadOfUrl(url);
 
                 yield return new WaitUntil(() => !_loading);
@@ -57,16 +63,16 @@ namespace AvatarLoader
                 loaderRender.OnCompleted += (_) =>
                 {
                     _loading = false;
-                    Debug.LogError($"Avatar {url} Loaded 2D");
+                    Debug.Log($"Avatar {url} Loaded 2D");
                 };
                 loaderRender.OnFailed += (j, i) =>
                 {
                     _loading = false;
-                    Debug.LogError($"Avatar {url}  NOT Loaded 2D with string: {i}");
+                    Debug.Log($"Avatar {url}  NOT Loaded 2D with string: {i}");
                 };
 
-                _avatarCashes.ConstructOnSuccess(sender, args);
-                Debug.LogError($"Avatar {url} Loaded 3D");
+                _avatarCashes.SaveAvatarInCash(args.Avatar, args.Url);
+                Debug.Log($"Avatar {url} Loaded 3D");
             };
             loader.OnFailed += (sender, args) =>
             {
@@ -74,6 +80,13 @@ namespace AvatarLoader
                 Debug.LogError($"Error loading avatar: {args.Message}");
             };
             loader.LoadAvatar(url);
+        }
+
+        private GameObject LoadAvatarFromResource(string url)
+        {
+            var go = Resources.Load($"{url}/{url}.prefab") as GameObject;
+            
+            return go;
         }
     }
 }
