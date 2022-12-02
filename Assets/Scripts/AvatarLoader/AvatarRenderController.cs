@@ -116,19 +116,12 @@ public class AvatarRenderController : IDisposable
 
     public void SetupAllIcons()
     {
-        // stop preloaderVideo and change ui
-        _panelControl.StopPreloaderVideo();
-
         _renderView.LoaderAvatars.SetActive(false);
 
         for (int i = 0; i < _avatarCashes.PlayerAvatars2d.Count; i++)
         {
             _renderView.SetupTexture(_avatarCashes.PlayerAvatars2d[_urls[i]].texture, _urls[i]);
         }
-        // foreach (var renderModel in _modelsRender)
-        // {
-        //     _renderView.SetupTexture(renderModel.texture, renderModel.Url);
-        // }
     }
 
     public void Dispose()

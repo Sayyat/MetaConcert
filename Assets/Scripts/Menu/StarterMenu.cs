@@ -32,10 +32,7 @@ namespace Assets.Scripts
 
         [Tooltip("The scene name we want to load")] [SerializeField]
         private string desiredScene = "Concert";
-
-
-        private AvatarCashes _avatarCashes;
-
+        
         #endregion
 
         #region Private Fields
@@ -73,6 +70,8 @@ namespace Assets.Scripts
             "https://api.readyplayer.me/v1/avatars/637871d1a9869f44e5e7a2ce.glb"
         };
 
+        private AvatarCashes _avatarCashes;
+        private MainLoadAvatars _mainLoadAvatars;
         private AvatarRenderController _avatarRenderController;
 
 
@@ -94,76 +93,20 @@ namespace Assets.Scripts
                 _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
             }
 
-            _avatarRenderController =
+            _avatarRenderController = 
                 new AvatarRenderController(avatarRenderView, urls, _avatarCashes, panelController);
-
+            _mainLoadAvatars =
+                new MainLoadAvatars(_avatarCashes, panelController, _avatarRenderController);
+            
             var urlSet = new HashSet<string>(urls);
-            StartCoroutine(LoadAvatars(urlSet));
-
-
-            // _avatarCashes.PreloadAvatars(urlSet);
+            StartCoroutine(_mainLoadAvatars.LoadAvatars(urlSet));
         }
-
-        private IEnumerator LoadAvatars(HashSet<string> urlSet)
-        {
-            var loading = false;
- 
-            foreach (var url in urlSet)
-            {
-                if (_avatarCashes.HasAvatar2d(url))
-                {
-                    continue;
-                }
-
-                loading = true;
-
-                var loader = new ReadyPlayerMe.AvatarLoader();
-
-
-                loader.Timeout = 30;
-#if UNITY_WEBGL && !UNITY_EDITOR
-                loader.Timeout = 100;
-#endif
-
-                loader.OnCompleted += (sender, args) =>
-                {
-                    var loaderRender = _avatarRenderController.LoadAvatarRender(url);
-                    loaderRender.OnCompleted += (_) =>
-                    {
-                        loading = false;
-                        Debug.LogError($"Avatar {url} Loaded 2D");
-                    };
-                    loaderRender.OnFailed += (j, i) =>
-                    {
-                        loading = false;
-                        Debug.LogError($"Avatar {url}  NOT Loaded 2D with string: {i}");
-                    };
-
-                    _avatarCashes.ConstructOnSuccess(sender, args);
-                    Debug.LogError($"Avatar {url} Loaded 3D");
-                };
-                loader.OnFailed += (sender, args) =>
-                {
-                    loading = false;
-                    Debug.LogError($"Error loading avatar: {args.Message}");
-                };
-                loader.LoadAvatar(url);
-
-                yield return new WaitUntil(() => !loading);
-            }
-
-            _avatarRenderController.SetupAllIcons();
-            Debug.LogError("All Avatar Loaded");
-        }
-
-
+        
         private void OnDestroy()
         {
             _avatarRenderController.Dispose();
             StopAllCoroutines();
         }
-
-
         #region Public Methods
 
         /// <summary>
@@ -204,8 +147,6 @@ namespace Assets.Scripts
         }
 
         #endregion
-
-
         #region MonoBehaviourPunCallbacks CallBacks
 
         // below, we implement some callbacks of PUN
