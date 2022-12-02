@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AvatarLoader;
 using ReadyPlayerMe;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class AvatarCashes : MonoBehaviour
         avatar.SetActive(false);
     }
 
-    private string ShortenUrl(string url)
+    public string ShortenUrl(string url)
     {
         return url.Substring(38, 24);
     }
@@ -31,6 +32,13 @@ public class AvatarCashes : MonoBehaviour
     public bool HasAvatar2d(string url)
     {
         return PlayerAvatars2d.ContainsKey(url) && PlayerAvatars2d[url].Url == url;
+    }
+    
+    public bool HasAvatar3d(string url)
+    {
+        var children = Utils.GetChildren(gameObject);
+        
+        return children.Exists(_ => _.gameObject.name == ShortenUrl(url));
     }
 
     public GameObject GetAvatar(string url)
@@ -63,4 +71,27 @@ public class AvatarCashes : MonoBehaviour
     }
 
 
+    public static class Utils
+    {
+        public static List<GameObject> GetChildren(GameObject go)
+        {
+            List<GameObject> list = new List<GameObject>();
+            return GetChildrenHelper(go, list);
+        }
+
+        private static List<GameObject> GetChildrenHelper(GameObject go, List<GameObject> list)
+        {
+            if (go == null || go.transform.childCount == 0)
+            {
+                return list;
+            }
+
+            foreach (Transform t in go.transform)
+            {
+                list.Add(t.gameObject);
+            }
+
+            return list;
+        }
+    }
 }

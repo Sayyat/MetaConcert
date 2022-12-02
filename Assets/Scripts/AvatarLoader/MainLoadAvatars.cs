@@ -12,8 +12,11 @@ namespace AvatarLoader
         private readonly AvatarRenderController _avatarRenderController;
 
         private bool _loading;
+        private bool _loadFromUrl;
+        private GameObject _avatarFromResources;
 
-        public MainLoadAvatars(AvatarCashes avatarCashes, PanelControl panelController, AvatarRenderController avatarRenderController)
+        public MainLoadAvatars(AvatarCashes avatarCashes, PanelControl panelController,
+            AvatarRenderController avatarRenderController)
         {
             _avatarCashes = avatarCashes;
             _panelController = panelController;
@@ -23,24 +26,46 @@ namespace AvatarLoader
         public IEnumerator LoadAvatars(HashSet<string> urlSet)
         {
             _loading = false;
- 
+
             foreach (var url in urlSet)
             {
-                LoadAvatarFromResource(url);
+                var shortUrl = _avatarCashes.ShortenUrl(url);
 
-                var components = _avatarCashes.gameObject.GetComponentsInChildren<Transform>();
-                
-                if (_avatarCashes.HasAvatar2d(url))
+                var has3dCash = false;
+                var has2dCash = false;
+
+                has3dCash = _avatarCashes.HasAvatar3d(url);
+                has2dCash = _avatarCashes.HasAvatar2d(url);
+
+                if (has2dCash && has3dCash)
                 {
                     continue;
                 }
 
-                _loading = true;
-                
-//todo Make async Load method for changed _loading in this method
-                LoadOfUrl(url);
+                if (!_loadFromUrl && TryLoadAvatarFromResource(shortUrl))
+                {
+                    if (!has3dCash)
+                    {
+                        _avatarCashes.SaveAvatarInCash(_avatarFromResources, url);
+                        _avatarFromResources = null;
+                    }
 
-                yield return new WaitUntil(() => !_loading);
+                    if (has2dCash) continue;
+                    _loading = true;
+
+                    //todo Make async Load method for changed _loading in this method
+                    LoadAvatarTexture(url);
+
+                    yield return new WaitUntil(() => !_loading);
+                }
+                else
+                {
+                    _loading = true;
+                    //todo Make async Load method for changed _loading in this method
+                    LoadOfUrl(url);
+
+                    yield return new WaitUntil(() => !_loading);
+                }
             }
 
             _avatarRenderController.SetupAllIcons();
@@ -51,7 +76,7 @@ namespace AvatarLoader
         private void LoadOfUrl(string url)
         {
             var loader = new ReadyPlayerMe.AvatarLoader();
-            
+
             loader.Timeout = 30;
 #if UNITY_WEBGL && !UNITY_EDITOR
                 loader.Timeout = 100;
@@ -59,17 +84,7 @@ namespace AvatarLoader
 
             loader.OnCompleted += (sender, args) =>
             {
-                var loaderRender = _avatarRenderController.LoadAvatarRender(url);
-                loaderRender.OnCompleted += (_) =>
-                {
-                    _loading = false;
-                    Debug.Log($"Avatar {url} Loaded 2D");
-                };
-                loaderRender.OnFailed += (j, i) =>
-                {
-                    _loading = false;
-                    Debug.Log($"Avatar {url}  NOT Loaded 2D with string: {i}");
-                };
+                LoadAvatarTexture(url);
 
                 _avatarCashes.SaveAvatarInCash(args.Avatar, args.Url);
                 Debug.Log($"Avatar {url} Loaded 3D");
@@ -82,11 +97,33 @@ namespace AvatarLoader
             loader.LoadAvatar(url);
         }
 
-        private GameObject LoadAvatarFromResource(string url)
+        private void LoadAvatarTexture(string url)
         {
-            var go = Resources.Load($"{url}/{url}.prefab") as GameObject;
-            
-            return go;
+            var loaderRender = _avatarRenderController.LoadAvatarRender(url);
+            loaderRender.OnCompleted += (_) =>
+            {
+                _loading = false;
+                Debug.Log($"Avatar {url} Loaded 2D");
+            };
+            loaderRender.OnFailed += (j, i) =>
+            {
+                _loading = false;
+                Debug.Log($"Avatar {url}  NOT Loaded 2D with string: {i}");
+            };
+        }
+
+        private bool TryLoadAvatarFromResource(string url)
+        {
+            var line = $"{url}";
+            var go = Resources.Load<GameObject>(line);
+
+            if (go == null)
+            {
+                return false;
+            }
+
+            _avatarFromResources = GameObject.Instantiate(go);
+            return true;
         }
     }
 }
