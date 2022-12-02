@@ -14,6 +14,7 @@ namespace AvatarLoader
         private bool _loading;
         private bool _loadFromUrl;
         private GameObject _avatarFromResources;
+        private Texture2D _avatarRendererFromResources;
 
         public MainLoadAvatars(AvatarCashes avatarCashes, PanelControl panelController,
             AvatarRenderController avatarRenderController)
@@ -51,12 +52,15 @@ namespace AvatarLoader
                     }
 
                     if (has2dCash) continue;
-                    _loading = true;
-
-                    //todo Make async Load method for changed _loading in this method
-                    LoadAvatarTexture(url);
-
-                    yield return new WaitUntil(() => !_loading);
+                    TryLoadAvatarRendererFromResource(shortUrl);
+                    
+                    _avatarCashes.PlayerAvatars2d.Add(url, new AvatarRenderModel(){Url = url, texture = _avatarRendererFromResources});
+                    // _loading = true;
+                    //
+                    // //todo Make async Load method for changed _loading in this method
+                    // LoadAvatarTexture(url);
+                    //
+                    // yield return new WaitUntil(() => !_loading);
                 }
                 else
                 {
@@ -72,6 +76,7 @@ namespace AvatarLoader
             _panelController.StopPreloaderVideo();
             Debug.LogError("All Avatar Loaded");
         }
+
 
         private void LoadOfUrl(string url)
         {
@@ -124,6 +129,20 @@ namespace AvatarLoader
 
             _avatarFromResources = GameObject.Instantiate(go);
             return true;
+        }
+        
+        private bool TryLoadAvatarRendererFromResource(string url)
+        {
+           var line = $"{url}";
+           var texture = Resources.Load<Texture2D>(line);
+           
+           if (texture == null)
+           {
+               return false;
+           }
+
+           _avatarRendererFromResources = texture;
+           return true;
         }
     }
 }
