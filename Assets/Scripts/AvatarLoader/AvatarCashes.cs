@@ -56,26 +56,13 @@ public class AvatarCashes : MonoBehaviour
     }
 
 
-    public void AddAvatar(string url, AvatarRenderModel dpa)
+    public void AddAvatar(string url, AvatarRenderModel model)
     {
         if (PlayerAvatars2d.ContainsKey(url))
-            PlayerAvatars2d[url] = dpa;
+            PlayerAvatars2d[url] = model;
         else
-            PlayerAvatars2d.Add(url, dpa);
+            PlayerAvatars2d.Add(url, model);
     }
-
-    public void AddAvatar2d(string url, AvatarRenderModel avatar2d)
-    {
-        if (PlayerAvatars2d.ContainsKey(url))
-        {
-            PlayerAvatars2d[url] = avatar2d;
-        }
-        else
-        {
-            PlayerAvatars2d.Add(url, avatar2d);
-        }
-    }
-
 
     public void RemoveAvatar(string url)
     {
