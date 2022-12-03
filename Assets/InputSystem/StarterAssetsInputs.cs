@@ -31,21 +31,22 @@ namespace StarterAssets
 		{
 			if (Input.GetKeyDown(KeyCode.LeftAlt))
 			{
-				cursorLocked = false;
-				SetCursorState(cursorLocked);
-			}
-
-			if (Input.GetKey(KeyCode.LeftAlt))
-			{
-				look = Vector2.zero;
-			}
-
-			if (Input.GetKeyUp(KeyCode.LeftAlt))
-			{
-				cursorLocked = true;
+				cursorLocked = !cursorLocked;
 				SetCursorState(cursorLocked);
 			}
 		}
+		//
+		// 	if (Input.GetKey(KeyCode.LeftAlt))
+		// 	{
+		// 		look = Vector2.zero;
+		// 	}
+		//
+		// 	if (Input.GetKeyUp(KeyCode.LeftAlt))
+		// 	{
+		// 		cursorLocked = true;
+		// 		SetCursorState(cursorLocked);
+		// 	}
+		// }
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)

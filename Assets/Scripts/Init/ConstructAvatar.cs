@@ -3,6 +3,7 @@ using System.Linq;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Init
     [RequireComponent(typeof(Animator))]
     public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks, IOnEventCallback
     {
+        [SerializeField] private GameObject prefabTouchController;
+        private UICanvasControllerInput _touchControl;
+
         private Animator _animator;
         private Avatar _avatarScheme;
         private string _currentAvatarUrl;
@@ -48,6 +52,10 @@ namespace Init
 
             // set my animator
             _animator = GetComponent<Animator>();
+
+            //Controller
+
+            _touchControl = Instantiate(prefabTouchController).GetComponent<UICanvasControllerInput>();
         }
 
 
@@ -72,7 +80,7 @@ namespace Init
         {
             if (!photonView.IsMine) return;
             // do these only if it is me
-
+            
             // save my avatarUrl to my own CustomProperties
             var hashTable = photonView.Owner.CustomProperties;
             if (hashTable.ContainsKey("avatarUrl"))
@@ -83,13 +91,15 @@ namespace Init
             {
                 hashTable.Add("avatarUrl", _currentAvatarUrl);
             }
-            
+
             photonView.Owner.SetCustomProperties(hashTable);
-            
+
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
-           
+            
+            // Cosiak control
+            _touchControl.starterAssetsInputs = gameObject.GetComponent<StarterAssetsInputs>();
         }
-        
+
 
         private void LoadAvatar()
         {
@@ -104,18 +114,17 @@ namespace Init
             Debug.Log($" Pre Instantiate avatar ");
             // construct my avatar from my avatarUrl
             var go = GameObject.Instantiate(_avatarCashes.GetAvatar(url));
-            
+
             Debug.Log($"Instantiate avatar{go}");
-            
+
             Construct(go);
         }
 
         private void Construct(GameObject playerTemplate)
         {
-         
             // skip if this clone already downloaded its avatar
-            if(IsDownLoaded) return;
-            
+            if (IsDownLoaded) return;
+
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
 
             Debug.Log($"Get Animator");
@@ -136,15 +145,13 @@ namespace Init
 
             Destroy(playerTemplate);
 
-            
 
             Debug.Log($"Destroy GO");
-            
+
             _animator.avatar = _avatarScheme;
             IsDownLoaded = true;
         }
-        
-        
+
 
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -152,12 +159,10 @@ namespace Init
 
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
-            
         }
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
-            
         }
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
