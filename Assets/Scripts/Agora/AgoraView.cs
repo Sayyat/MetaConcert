@@ -122,7 +122,7 @@ public class AgoraView : MonoBehaviour
             rotationQuad =Quaternion.Euler(new Vector3(rotationQuad.x, rotationQuad.y, 180));
             Quad.transform.rotation = rotationQuad;
             
-            _controller = new AgoraController(Quad); // create app
+            _controller = new AgoraController(); // create app
             // _controller.tmp = debugField;
             _controller.LoadEngine(appID); // load engine
         }
@@ -154,11 +154,7 @@ public class AgoraView : MonoBehaviour
     public void OnLevelFinishedLoading()
     {
       
-            if (!ReferenceEquals(_controller, null))
-            {
-                _controller.OnSceneVideoLoaded(); // call this after scene is loaded
-            }
-            // SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+           
         
     }
     

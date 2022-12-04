@@ -11,18 +11,12 @@ namespace Agora
 {
     public class AgoraController
     {
-        public event Action<uint, int, GameObject> OtherUserJoined;
+        public event Action<uint, int, VideoSurface> OtherUserJoined;
 
-        public event Action<string, uint, int, GameObject> SelfUserJoined;
+        public event Action<string, uint, int, VideoSurface> SelfUserJoined;
         // instance of agora engine
 
-        private readonly GameObject _videoObject;
-
-        public AgoraController(GameObject videoObject)
-        {
-            _videoObject = videoObject;
-        }
-
+        
         private IRtcEngine mRtcEngine { get; set; }
         private string ChannelName { get; set; }
 
@@ -100,9 +94,11 @@ namespace Agora
             {
                 textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + IRtcEngine.GetSdkVersion();
             }
-
+            
+            var videoObject = MakeQuadSurface(uid.ToString());
+            
             // ChannelNameLabel.text = channelName;
-            SelfUserJoined.Invoke(channelName, uid, elapsed, _videoObject);
+            SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
         }
 
         private void onUserJoined(uint uid, int elapsed)
@@ -139,7 +135,7 @@ namespace Agora
                 // TMPText = videoSurface.transform.localPosition.ToString();
             }
             
-            OtherUserJoined.Invoke(uid, elapsed, go);
+            OtherUserJoined.Invoke(uid, elapsed, videoSurface);
         }
 
         private void onUserOffline(uint uid, USER_OFFLINE_REASON reason)
@@ -284,19 +280,7 @@ namespace Agora
                 mRtcEngine = null;
             }
         }
-
-        public void OnSceneVideoLoaded()
-        {
-            if (ReferenceEquals(_videoObject, null))
-            {
-                Debug.Log("failed to find Quad");
-                return;
-            }
-            else
-            {
-                _videoObject.AddComponent<VideoSurface>();
-            }
-        }
+        
 
         public void EnableVideo(bool paused)
         {

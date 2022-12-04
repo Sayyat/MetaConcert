@@ -42,11 +42,11 @@ namespace Agora
             // var players = currentRoom.CustomProperties;
         }
 
-        private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, GameObject go)
+        private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
         {
             // save local data
             _selfAgoraId = uid;
-            _agoraToUnity.Add(uid, go);
+            _agoraToUnity.Add(uid, vs.gameObject);
             var actorNumber = photonView.Owner.ActorNumber;
             _agoraToPhoton.Add(uid.ToString(), actorNumber);
             UpdatePlayersObjects();
@@ -60,9 +60,9 @@ namespace Agora
             MatchPlayerAndQuads();
         }
 
-        private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, GameObject go)
+        private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, VideoSurface vs)
         {
-            _agoraToUnity.Add(uid, go);
+            _agoraToUnity.Add(uid, vs.gameObject);
             UpdatePlayersObjects();
             _agoraToPhoton = PhotonNetwork.CurrentRoom.CustomProperties;
 
