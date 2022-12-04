@@ -12,9 +12,6 @@ namespace Init
     [RequireComponent(typeof(Animator))]
     public class ConstructAvatar : MonoBehaviourPun, IPunInstantiateMagicCallback, IInRoomCallbacks, IOnEventCallback
     {
-        [SerializeField] private GameObject prefabTouchController;
-        private UICanvasControllerInput _touchControl;
-
         private Animator _animator;
         private Avatar _avatarScheme;
         private string _currentAvatarUrl;
@@ -53,9 +50,6 @@ namespace Init
             // set my animator
             _animator = GetComponent<Animator>();
 
-            //Controller
-
-            _touchControl = Instantiate(prefabTouchController).GetComponent<UICanvasControllerInput>();
         }
 
 
@@ -96,8 +90,6 @@ namespace Init
 
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
             
-            // Cosiak control
-            _touchControl.starterAssetsInputs = gameObject.GetComponent<StarterAssetsInputs>();
         }
 
 

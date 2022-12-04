@@ -21,10 +21,12 @@ namespace Assets.Scripts.UI
         [SerializeField] private Button onMicrophone;
         [SerializeField] private Button onCamera;
         [SerializeField] private Button onChat;
+        [SerializeField] private Button mobileUIToggle;
 
+        public Button MobileUIToggle => mobileUIToggle;
+        
+        
         private List<Button> _buttons = new List<Button>();
-        
-        
         private void Start()
         {
             InitialiseButtons();
@@ -42,6 +44,7 @@ namespace Assets.Scripts.UI
            _buttons.Add(onChat);
            _buttons.Add(onCamera);
            _buttons.Add(onMicrophone);
+           _buttons.Add(mobileUIToggle);
 
            foreach (var button in _buttons)
            {
@@ -51,6 +54,7 @@ namespace Assets.Scripts.UI
            }
 
            quit.onClick.AddListener(LeaveRoom);
+       
         }
 
 
