@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class SceneStarter : MonoBehaviourPunCallbacks
 {
-   [SerializeField] private GameObject initPlayer;
    [SerializeField] private GameObject mainCamera;
    [SerializeField] private GameObject playerFollowcamera;
    [SerializeField] private GameObject UserUI;
@@ -28,18 +27,13 @@ public class SceneStarter : MonoBehaviourPunCallbacks
    private IScene _scene;
    private void Awake()
    {
-      switch (scenes)
+      _scene = scenes switch
       {
-         case Scenes.Concert:
-            _scene = gameObject.AddComponent<ConcertScene>();
-            break;
-         case Scenes.Controller:
-            _scene = new ControllerScene();
-            break;
-         default:
-            throw new ArgumentOutOfRangeException();
-      }
-      Instantiate(initPlayer);
+         Scenes.Concert => gameObject.AddComponent<ConcertScene>(),
+         Scenes.Controller => new ControllerScene(),
+         _ => throw new ArgumentOutOfRangeException()
+      };
+      
       Instantiate(mainCamera);
       Instantiate(playerFollowcamera);
       _userUIView = Instantiate(UserUI).GetComponent<UserUIView>();
@@ -55,8 +49,6 @@ public class SceneStarter : MonoBehaviourPunCallbacks
 
       var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
       _userUIMobile.starterAssetsInputs = starterAssetsInputs;
-
-      Instantiate(UserUI);
 
       ConstructAgora();
       
