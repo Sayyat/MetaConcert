@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using agora_gaming_rtc;
 using agora_utilities;
@@ -10,9 +11,13 @@ namespace Agora
 {
     public class AgoraController
     {
+        public event Action<uint, int, GameObject> OtherUserJoined;
+
+        public event Action<string, uint, int, GameObject> SelfUserJoined;
         // instance of agora engine
 
         private readonly GameObject _videoObject;
+
         public AgoraController(GameObject videoObject)
         {
             _videoObject = videoObject;
@@ -97,6 +102,7 @@ namespace Agora
             }
 
             // ChannelNameLabel.text = channelName;
+            SelfUserJoined.Invoke(channelName, uid, elapsed, _videoObject);
         }
 
         private void onUserJoined(uint uid, int elapsed)
@@ -132,6 +138,8 @@ namespace Agora
                 // TMPText = videoSurface.transform.position.ToString();
                 // TMPText = videoSurface.transform.localPosition.ToString();
             }
+            
+            OtherUserJoined.Invoke(uid, elapsed, go);
         }
 
         private void onUserOffline(uint uid, USER_OFFLINE_REASON reason)
@@ -279,7 +287,6 @@ namespace Agora
 
         public void OnSceneVideoLoaded()
         {
-        
             if (ReferenceEquals(_videoObject, null))
             {
                 Debug.Log("failed to find Quad");
@@ -381,7 +388,8 @@ namespace Agora
             Debug.LogFormat("user {0} muted video:{1}", uid, muted);
         }
 
-        private void OnClientRoleChangeFailedHandler(CLIENT_ROLE_CHANGE_FAILED_REASON reason, CLIENT_ROLE_TYPE currentRole)
+        private void OnClientRoleChangeFailedHandler(CLIENT_ROLE_CHANGE_FAILED_REASON reason,
+            CLIENT_ROLE_TYPE currentRole)
         {
             Debug.Log("Engine OnClientRoleChangeFaile: " + reason + " c-> " + currentRole);
         }
@@ -395,7 +403,8 @@ namespace Agora
 
         void OnVideoSizeChangedHandler(uint uid, int width, int height, int rotation)
         {
-            Debug.LogWarning(string.Format("OnVideoSizeChangedHandler, uid:{0}, width:{1}, height:{2}, rotation:{3}", uid,
+            Debug.LogWarning(string.Format("OnVideoSizeChangedHandler, uid:{0}, width:{1}, height:{2}, rotation:{3}",
+                uid,
                 width, height, rotation));
             if (UserVideoDict.ContainsKey(uid))
             {
@@ -433,7 +442,8 @@ namespace Agora
             switch (error)
             {
                 case 101:
-                    msg += "\nPlease make sure your AppId is valid and it does not require a certificate for this demo.";
+                    msg +=
+                        "\nPlease make sure your AppId is valid and it does not require a certificate for this demo.";
                     break;
             }
 

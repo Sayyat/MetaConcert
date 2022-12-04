@@ -19,7 +19,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private Button help;
         [SerializeField] private Button more;
         [SerializeField] private Button onMicrophone;
-        [SerializeField] private Button onCamera;
+        [SerializeField] public Button onCamera;
         [SerializeField] private Button onChat;
         [SerializeField] private Button mobileUIToggle;
 

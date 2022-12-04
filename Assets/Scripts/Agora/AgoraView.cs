@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Agora;
@@ -12,8 +13,8 @@ public class AgoraView : MonoBehaviour
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     private ArrayList permissionList = new ArrayList();
 #endif
-    private static AgoraController _controller  = null;
-
+    public AgoraController _controller { get; set; }
+    public event Action IsJoin;
 
     // PLEASE KEEP THIS App ID IN SAFE PLACE
     // Get your own App ID at https://dashboard.agora.io/
@@ -135,6 +136,7 @@ public class AgoraView : MonoBehaviour
         
         // SceneManager.sceneLoaded += OnLevelFinishedLoading; // configure GameObject after scene is loaded
         // SceneManager.LoadScene(PlaySceneName, LoadSceneMode.Single);
+        IsJoin.Invoke();
     }
 
     public void onLeaveButtonClicked()

@@ -840,7 +840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelController: {fileID: 1010514740}
   maxPlayersPerRoom: 20
-  desiredScene: Control
+  desiredScene: Concert
   avatarRenderView: {fileID: 1383316947}
 --- !u!4 &1124672804
 Transform:
