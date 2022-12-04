@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Agora;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -119,6 +120,7 @@ public class AgoraView : MonoBehaviour
             var rotationQuad = Quad.transform.rotation;
             rotationQuad =Quaternion.Euler(new Vector3(rotationQuad.x, rotationQuad.y, 180));
             Quad.transform.rotation = rotationQuad;
+            
             _controller = new AgoraController(Quad); // create app
             // _controller.tmp = debugField;
             _controller.LoadEngine(appID); // load engine
