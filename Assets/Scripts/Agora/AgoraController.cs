@@ -16,8 +16,8 @@ namespace Agora
         public event Action<string, uint, int, VideoSurface> SelfUserJoined;
         // instance of agora engine
 
-        
-        private IRtcEngine mRtcEngine { get; set; }
+
+        private IRtcEngine MRtcEngine { get; set; }
         private string ChannelName { get; set; }
 
         private CLIENT_ROLE_TYPE ClientRole { get; set; }
@@ -35,23 +35,25 @@ namespace Agora
         private bool _subVideo;
         private bool _pubAudio;
         private bool _subAudio;
+        private bool IsVideoOn { get; set; } = false;
+        private bool IsAudioOn { get; set; } = false;
 
         public void LoadEngine(string appId)
         {
             // start sdk
             Debug.Log("initializeEngine");
 
-            if (mRtcEngine != null)
+            if (MRtcEngine != null)
             {
                 Debug.Log("Engine exists. Please unload it first!");
                 return;
             }
 
             // init engine
-            mRtcEngine = IRtcEngine.GetEngine(appId);
+            MRtcEngine = IRtcEngine.GetEngine(appId);
 
             // enable log
-            mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR |
+            MRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR |
                                     LOG_FILTER.CRITICAL);
         }
 
@@ -61,31 +63,31 @@ namespace Agora
 
             // TMPText = mRtcEngine.ToString();
 
-            if (mRtcEngine == null)
+            if (MRtcEngine == null)
                 return;
             // set callbacks (optional)
-            mRtcEngine.OnJoinChannelSuccess += onJoinChannelSuccess;
-            mRtcEngine.OnUserJoined += onUserJoined;
-            mRtcEngine.OnUserOffline += onUserOffline;
-            mRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
-            mRtcEngine.OnWarning = (int warn, string msg) =>
+            MRtcEngine.OnJoinChannelSuccess += OnJoinChannelSuccess;
+            MRtcEngine.OnUserJoined += OnUserJoined;
+            MRtcEngine.OnUserOffline += OnUserOffline;
+            MRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
+            MRtcEngine.OnWarning = (int warn, string msg) =>
             {
                 Debug.LogWarningFormat("Warning code:{0} msg:{1}", warn, IRtcEngine.GetErrorDescription(warn));
             };
-            mRtcEngine.OnError += HandleError;
-            mRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
-            mRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
-            mRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
-            mRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE);
-            mRtcEngine.EnableVideo();
-            mRtcEngine.EnableVideoObserver();
-            mRtcEngine.JoinChannelByKey("", channelName);
+            MRtcEngine.OnError += HandleError;
+            MRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
+            MRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
+            MRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
+            MRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE);
+            MRtcEngine.EnableVideo();
+            MRtcEngine.EnableVideoObserver();
+            MRtcEngine.JoinChannelByKey("", channelName);
             ChannelName = channelName;
             ClientRole = CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE;
         }
 
 
-        private void onJoinChannelSuccess(string channelName, uint uid, int elapsed)
+        private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
         {
             Debug.Log("JoinChannel " + channelName + " Success: uid = " + uid);
 
@@ -94,14 +96,14 @@ namespace Agora
             {
                 textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + IRtcEngine.GetSdkVersion();
             }
-            
+
             var videoObject = MakeQuadSurface(uid.ToString());
-            
+
             // ChannelNameLabel.text = channelName;
             SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
         }
 
-        private void onUserJoined(uint uid, int elapsed)
+        private void OnUserJoined(uint uid, int elapsed)
         {
             Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
             // this is called in main thread
@@ -134,11 +136,11 @@ namespace Agora
                 // TMPText = videoSurface.transform.position.ToString();
                 // TMPText = videoSurface.transform.localPosition.ToString();
             }
-            
+
             OtherUserJoined.Invoke(uid, elapsed, videoSurface);
         }
 
-        private void onUserOffline(uint uid, USER_OFFLINE_REASON reason)
+        private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
         {
             // remove video stream
             Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
@@ -163,42 +165,44 @@ namespace Agora
             remoteUserDisplays.Clear();
         }
 
-        public void Join(string channelName, string token, bool enableVideo, bool muted = false)
+        public void Join(string channelName, string token, bool videoOn, bool audioOn = true)
         {
+            IsVideoOn = videoOn;
+            IsAudioOn = audioOn;
             Debug.Log("calling join (channel = " + channelName + ")");
 
             // TMPText = mRtcEngine.ToString();
 
-            if (mRtcEngine == null)
+            if (MRtcEngine == null)
                 return;
 
             // SetupInitState();
 
             // set callbacks (optional)
-            mRtcEngine.OnJoinChannelSuccess += onJoinChannelSuccess;
-            mRtcEngine.OnUserJoined = onUserJoined;
-            mRtcEngine.OnUserOffline += onUserOffline;
-            mRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
-            mRtcEngine.OnWarning += (int warn, string msg) =>
+            MRtcEngine.OnJoinChannelSuccess += OnJoinChannelSuccess;
+            MRtcEngine.OnUserJoined = OnUserJoined;
+            MRtcEngine.OnUserOffline += OnUserOffline;
+            MRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
+            MRtcEngine.OnWarning += (int warn, string msg) =>
             {
                 Debug.LogWarningFormat("Warning code:{0} msg:{1}", warn, IRtcEngine.GetErrorDescription(warn));
             };
-            mRtcEngine.OnError += HandleError;
+            MRtcEngine.OnError += HandleError;
 
-            mRtcEngine.OnUserMutedAudio += OnUserMutedAudio;
-            mRtcEngine.OnUserMuteVideo += OnUserMutedVideo;
+            MRtcEngine.OnUserMutedAudio += OnUserMutedAudio;
+            MRtcEngine.OnUserMuteVideo += OnUserMutedVideo;
             //   mRtcEngine.OnVolumeIndication = OnVolumeIndicationHandler;
-            mRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
-            mRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
-            mRtcEngine.OnVideoSizeChanged += OnVideoSizeChangedHandler;
+            MRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
+            MRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
+            MRtcEngine.OnVideoSizeChanged += OnVideoSizeChangedHandler;
 
-            mRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
-            mRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+            MRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
+            MRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
             // Turn this on to receive volumenIndication
             if (_testVolumeIndication)
             {
-                mRtcEngine.EnableAudioVolumeIndication(500, 8, report_vad: true);
+                MRtcEngine.EnableAudioVolumeIndication(500, 8, report_vad: true);
             }
 
             var _orientationMode = ORIENTATION_MODE.ORIENTATION_MODE_FIXED_LANDSCAPE;
@@ -210,14 +214,14 @@ namespace Agora
                 mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_DISABLED
                 // note: mirrorMode is not effective for WebGL
             };
-            mRtcEngine.SetVideoEncoderConfiguration(config);
+            MRtcEngine.SetVideoEncoderConfiguration(config);
 
             // enable video
-            if (enableVideo)
+            if (videoOn)
             {
-                mRtcEngine.EnableVideo();
+                MRtcEngine.EnableVideo();
                 // allow camera output callback
-                mRtcEngine.EnableVideoObserver();
+                MRtcEngine.EnableVideoObserver();
             }
             else
             {
@@ -227,12 +231,12 @@ namespace Agora
 
             // NOTE, we use the third button to invoke JoinChannelByKey
             // otherwise, it joins using JoinChannelWithUserAccount
-            if (muted)
+            if (!audioOn)
             {
                 // mute locally only. still subscribing
-                mRtcEngine.EnableLocalAudio(false);
-                mRtcEngine.MuteLocalAudioStream(true);
-                mRtcEngine.JoinChannelByKey(channelKey: null, channelName: channelName, info: "", uid: 0);
+                MRtcEngine.EnableLocalAudio(false);
+                MRtcEngine.MuteLocalAudioStream(true);
+                MRtcEngine.JoinChannelByKey(channelKey: null, channelName: channelName, info: "", uid: 0);
             }
             else
             {
@@ -242,7 +246,7 @@ namespace Agora
                 // !!!  We strongly recommend to use uint uid only !!!!
                 // mRtcEngine.JoinChannelWithUserAccount(null, channel, "user" + Random.Range(1, 99999),
                 // ************************************************************************************* 
-                mRtcEngine.JoinChannel(
+                MRtcEngine.JoinChannel(
                     token: token,
                     channelId: channelName,
                     info: "",
@@ -256,17 +260,48 @@ namespace Agora
             // TMPText = "END Joined";
         }
 
+
+        public void ToggleVideo()
+        {
+            IsVideoOn = !IsVideoOn;
+
+            if (IsVideoOn)
+            {
+                MRtcEngine.EnableVideo();
+                MRtcEngine.EnableVideoObserver();
+            }
+            else
+            {
+                MRtcEngine.DisableVideo();
+                MRtcEngine.DisableVideoObserver();
+            }
+        }
+
+        public void ToggleAudio()
+        {
+            IsAudioOn = !IsAudioOn;
+
+            if (IsAudioOn)
+            {
+                MRtcEngine.EnableAudio();
+            }
+            else
+            {
+                MRtcEngine.DisableAudio();
+            }
+        }
+
         public void Leave()
         {
             Debug.Log("calling leave");
 
-            if (mRtcEngine == null)
+            if (MRtcEngine == null)
                 return;
 
             // leave channel
-            mRtcEngine.LeaveChannel();
+            MRtcEngine.LeaveChannel();
             // deregister video frame observers in native-c code
-            mRtcEngine.DisableVideoObserver();
+            MRtcEngine.DisableVideoObserver();
         }
 
         public void UnloadEngine()
@@ -274,25 +309,25 @@ namespace Agora
             Debug.Log("calling unloadEngine");
 
             // delete
-            if (mRtcEngine != null)
+            if (MRtcEngine != null)
             {
                 IRtcEngine.Destroy(); // Place this call in ApplicationQuit
-                mRtcEngine = null;
+                MRtcEngine = null;
             }
         }
-        
+
 
         public void EnableVideo(bool paused)
         {
-            if (mRtcEngine != null)
+            if (MRtcEngine != null)
             {
                 if (!paused)
                 {
-                    mRtcEngine.EnableVideo();
+                    MRtcEngine.EnableVideo();
                 }
                 else
                 {
-                    mRtcEngine.DisableVideo();
+                    MRtcEngine.DisableVideo();
                 }
             }
         }
@@ -306,13 +341,8 @@ namespace Agora
                 return null;
             }
 
-            go.name = goName;
-
-            go.transform.Rotate(0f, 0.0f, 180.0f);
-            // var xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
-            // var yPos = Random.Range(Offset, Screen.height / 2f - Offset);
-            go.transform.localPosition = new Vector3(-1, 1.3f, -3.26f);
-
+            go.name = $"Video_{goName}";
+            go.layer = LayerMask.NameToLayer("Player");
 
             var videoSurface = go.AddComponent<VideoSurface>();
             return videoSurface;

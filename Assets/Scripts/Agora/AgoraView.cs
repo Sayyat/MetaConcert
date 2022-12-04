@@ -13,16 +13,17 @@ public class AgoraView : MonoBehaviour
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     private ArrayList permissionList = new ArrayList();
 #endif
-    public AgoraController _controller { get; set; }
-    public event Action IsJoin;
+    public AgoraController Controller { get; private set; }
+    public event Action OnJoinedRoom;
 
     // PLEASE KEEP THIS App ID IN SAFE PLACE
     // Get your own App ID at https://dashboard.agora.io/
     [SerializeField] private string appID = "your_appid";
     [SerializeField] private string channelName = "your_appid";
     [SerializeField] private string appToken = "your_token";
-    
-    public GameObject Quad { get; set; }
+
+
+    private bool IsJoinedRoom { get; set; } = false;
     private string ChannelName
     {
         get
@@ -50,7 +51,7 @@ public class AgoraView : MonoBehaviour
 		permissionList.Add(Permission.Camera);               
 #endif
         // keep this alive across scenes
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
     }
     
     
@@ -61,9 +62,46 @@ public class AgoraView : MonoBehaviour
     }
     
 //Temporary button on Scene
-    public void JoinVideo()
+    public void JoinRoom()
     {
-        OnJoinButtonClicked(true, false);
+        // create app if nonexistent
+        if (ReferenceEquals(Controller, null))
+        {
+            Controller = new AgoraController(); // create app
+            // _controller.tmp = debugField;
+            Controller.LoadEngine(appID); // load engine
+        }
+
+        ChannelName = channelName;
+        Controller.Join(ChannelName, appToken, true, true);
+
+        IsJoinedRoom = true;
+
+        // SceneManager.sceneLoaded += OnLevelFinishedLoading; // configure GameObject after scene is loaded
+        // SceneManager.LoadScene(PlaySceneName, LoadSceneMode.Single);
+        OnJoinedRoom?.Invoke();
+    }
+
+
+    public void ToggleVideo()
+    {
+        if (!IsJoinedRoom)
+        {
+            JoinRoom();
+            return;
+        }
+        
+        Controller.ToggleVideo();
+    }
+
+    public void ToggleAudio()
+    {
+        if (!IsJoinedRoom)
+        {
+            JoinRoom();
+            return;
+        }
+        Controller.ToggleAudio();
     }
     
     private void Update()
@@ -112,65 +150,28 @@ public class AgoraView : MonoBehaviour
     //     // SceneManager.LoadScene(_firstSceneName, LoadSceneMode.Single);
     // }
 
-    public void OnJoinButtonClicked(bool enableVideo, bool muted = false)
-    {
-        // create app if nonexistent
-        if (ReferenceEquals(_controller, null))
-        {
-            Quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            var rotationQuad = Quad.transform.rotation;
-            rotationQuad =Quaternion.Euler(new Vector3(rotationQuad.x, rotationQuad.y, 180));
-            Quad.transform.rotation = rotationQuad;
-            
-            _controller = new AgoraController(); // create app
-            // _controller.tmp = debugField;
-            _controller.LoadEngine(appID); // load engine
-        }
 
-        ChannelName = channelName;
-        _controller.Join(ChannelName, appToken, enableVideo, muted);
-        
-        var currentScene = SceneManager.GetActiveScene();
-       
-            OnLevelFinishedLoading();
-        
-        // SceneManager.sceneLoaded += OnLevelFinishedLoading; // configure GameObject after scene is loaded
-        // SceneManager.LoadScene(PlaySceneName, LoadSceneMode.Single);
-        IsJoin.Invoke();
-    }
-
-    public void onLeaveButtonClicked()
+    public void Quit()
     {
-        if (!ReferenceEquals(_controller, null))
+        if (!ReferenceEquals(Controller, null))
         {
-            _controller.Leave(); // leave channel
-            _controller.UnloadEngine(); // delete engine
-            _controller = null; // delete app
-            // SceneManager.LoadScene(HomeSceneName, LoadSceneMode.Single);
+            Controller.Leave(); // leave channel
+            Controller.UnloadEngine(); // delete engine
+            Controller = null; // delete app
         }
         Destroy(gameObject);
     }
     
-    public void OnLevelFinishedLoading()
-    {
-      
-           
-        
-    }
-    
     private void OnApplicationPause(bool paused)
     {
-        if (!ReferenceEquals(_controller, null))
+        if (!ReferenceEquals(Controller, null))
         {
-            _controller.EnableVideo(paused);
+            Controller.EnableVideo(paused);
         }
     }
 
     private void OnApplicationQuit()
     {
-        if (!ReferenceEquals(_controller, null))
-        {
-            _controller.UnloadEngine();
-        }
+        Quit();
     }
 }

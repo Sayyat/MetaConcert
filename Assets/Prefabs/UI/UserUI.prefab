@@ -1209,9 +1209,9 @@ MonoBehaviour:
   quit: {fileID: 3335592000867625266}
   help: {fileID: 3335592001353767314}
   more: {fileID: 3335592000958801126}
-  onMicrophone: {fileID: 3335592001147973087}
-  onCamera: {fileID: 3335592002582142553}
-  onChat: {fileID: 3335592002607173758}
+  microphone: {fileID: 3335592001147973087}
+  cameraBtn: {fileID: 3335592002582142553}
+  chat: {fileID: 3335592002607173758}
   mobileUIToggle: {fileID: 2111061247509444925}
 --- !u!1 &3335592001863095230
 GameObject:

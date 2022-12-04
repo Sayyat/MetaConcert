@@ -22,7 +22,9 @@ public class SceneStarter : MonoBehaviourPunCallbacks
     private UserUIView _userUIView;
     private UICanvasControllerInput _userUIMobile;
     private UserButtonsView _userUIDesktop;
-
+    private AgoraAndPhotonController _agoraAndPhotonController;
+    
+    
     [SerializeField] private Scenes scenes = Scenes.Concert;
 
     private IScene _scene;
@@ -39,6 +41,8 @@ public class SceneStarter : MonoBehaviourPunCallbacks
         Instantiate(mainCamera);
         Instantiate(playerFollowcamera);
         _userUIView = Instantiate(UserUI).GetComponent<UserUIView>();
+        _agoraAndPhotonController = gameObject.AddComponent<AgoraAndPhotonController>();
+
     }
 
     private void Start()
@@ -63,9 +67,8 @@ public class SceneStarter : MonoBehaviourPunCallbacks
         customProperties.Add(myId, null);
         PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
         
-       var t = gameObject.AddComponent<AgoraAndPhotonController>();
-       
-        _userUIDesktop.onCamera.onClick.AddListener(t._agoraView.JoinVideo);
+        _agoraAndPhotonController.ButtonsView = _userUIDesktop;
+        _agoraAndPhotonController.MyPhotonView = _photonView;
     }
 
     private void ConstructAgora()

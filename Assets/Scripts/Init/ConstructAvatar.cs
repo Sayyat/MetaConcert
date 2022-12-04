@@ -88,6 +88,8 @@ namespace Init
 
             photonView.Owner.SetCustomProperties(hashTable);
 
+            info.Sender.TagObject = gameObject;
+
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
 
             info.Sender.TagObject = this.gameObject;

@@ -695,7 +695,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2024052427}
         m_TargetAssemblyTypeName: AgoraView, Assembly-CSharp
-        m_MethodName: JoinVideo
+        m_MethodName: JoinRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
