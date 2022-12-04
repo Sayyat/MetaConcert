@@ -292,8 +292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9888e36b992f46d99b64e39b3043274a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabTouchController: {fileID: 8803517679608742270, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3,
-    type: 3}
 --- !u!136 &5464611431495743264
 CapsuleCollider:
   m_ObjectHideFlags: 0
