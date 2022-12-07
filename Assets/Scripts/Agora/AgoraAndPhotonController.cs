@@ -10,16 +10,12 @@ using UnityEngine.InputSystem;
 
 namespace Agora
 {
-    public class AgoraAndPhotonController : MonoBehaviourPun
+    public class AgoraAndPhotonController
     {
-        public AgoraView MyAgoraView { get; set; }
-        public PhotonView MyPhotonView { get; set; }
-        public UserButtonsView ButtonsView { get; set; }
+        private readonly AgoraView _agoraView;
+        private readonly PhotonView _photonView;
 
         private AgoraController _agoraController;
-
-        private bool _inAgoraRoom { get; set; } = false;
-        private bool _inPhotonRoom { get; set; } = false;
         private uint _selfAgoraId { get; set; } = 0;
 
         public Dictionary<uint, GameObject> AgoraToUnity;
@@ -27,35 +23,23 @@ namespace Agora
         public Hashtable PhotonToAgora;
         
         
-        private void Awake()
+        public AgoraAndPhotonController(AgoraView agoraView, PhotonView photonView)
         {
-            MyAgoraView = gameObject.GetComponent<AgoraView>() ?? gameObject.AddComponent<AgoraView>();
+            _agoraView = agoraView;
+            _photonView = photonView;
 
-            MyAgoraView.OnJoinedRoom += OnJoinedRoomAgoraRoomView;
+            _agoraView.OnJoinedRoom += OnJoinedRoomAgoraRoomView;
 
             AgoraToUnity = new Dictionary<uint, GameObject>();
             PhotonToUnity = new Dictionary<int, GameObject>();
             PhotonToAgora = new Hashtable();
         }
 
-        private void SetupButtonListeners()
-        {
-            ButtonsView.CameraBtn.onClick.AddListener(MyAgoraView.ToggleVideo);
-            ButtonsView.Microphone.onClick.AddListener(MyAgoraView.ToggleAudio);
-            ButtonsView.Quit.onClick.AddListener(MyAgoraView.Quit);
-        }
-
         private void OnJoinedRoomAgoraRoomView()
         {
-            _agoraController = MyAgoraView.Controller;
+            _agoraController = _agoraView.Controller;
             _agoraController.SelfUserJoined += AgoraControllerOnSelfUserJoined;
             _agoraController.OtherUserJoined += AgoraControllerOnOtherUserJoined;
-        }
-
-        private void Start()
-        {   SetupButtonListeners();
-            // var currentRoom = PhotonNetwork.CurrentRoom;
-            // var players = currentRoom.CustomProperties;
         }
 
         private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
@@ -63,7 +47,7 @@ namespace Agora
             // save local data
             _selfAgoraId = uid;
             AgoraToUnity.Add(uid, vs.gameObject);
-            var actorNumber = MyPhotonView.Owner.ActorNumber;
+            var actorNumber = _photonView.Owner.ActorNumber;
             PhotonToAgora.Add (actorNumber.ToString(), uid.ToString());
             
             
@@ -101,7 +85,7 @@ namespace Agora
         {
             foreach (var (photonId, agoraUid) in PhotonToAgora)
             {
-                if (ReferenceEquals(agoraUid, null))
+                if (ReferenceEquals(photonId, null)||ReferenceEquals(agoraUid, null))
                 {
                     continue;
                 }
@@ -114,11 +98,6 @@ namespace Agora
                 goQuad.transform.parent = goPlayer.transform;
                 goQuad.transform.localPosition = new Vector3(0, 2.5f, 0);
                 goQuad.transform.localRotation = Quaternion.Euler(new Vector3(0,0,180f));
-                
-                // goQuad.transform.parent = goPlayer.transform.Find($"Header");
-                // goQuad.transform.rotation = Quaternion.Euler(new Vector3(0f,0f,180f));
-                // goQuad.transform.localPosition = new Vector3(0f,2f,0f);
-                // goQuad.GetComponent<VideoSurface>().SetForUser(uintUid);
             }
         }
     }

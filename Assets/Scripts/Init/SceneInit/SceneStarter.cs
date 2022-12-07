@@ -17,11 +17,13 @@ public class SceneStarter : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject UserUI;
 
 
-    private GameObject _photonPlayer;
     private PhotonView _photonView;
+    private AgoraView _agoraView;
+    
+    private GameObject _photonPlayer;
     private UserUIView _userUIView;
     private UICanvasControllerInput _userUIMobile;
-    private UserButtonsView _userUIDesktop;
+    private UserButtonsView _userButtonsView;
     private AgoraAndPhotonController _agoraAndPhotonController;
     
     
@@ -38,20 +40,24 @@ public class SceneStarter : MonoBehaviourPunCallbacks
             _ => throw new ArgumentOutOfRangeException()
         };
 
+       _agoraView = GetComponent<AgoraView>();
+        
         Instantiate(mainCamera);
         Instantiate(playerFollowcamera);
         _userUIView = Instantiate(UserUI).GetComponent<UserUIView>();
-        _agoraAndPhotonController = gameObject.AddComponent<AgoraAndPhotonController>();
-
+        
     }
 
     private void Start()
     {
         _photonPlayer = PhotonNetwork.Instantiate("PlayerTemplate", Vector3.up, Quaternion.identity);
         _photonView = _photonPlayer.GetComponent<PhotonView>();
+        _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
+        
         _userUIMobile = _userUIView.MobileInput;
-        _userUIDesktop = _userUIView.UserButtonsView;
-
+        _userButtonsView = _userUIView.UserButtonsView;
+        
+        //Set starter asset to mobile control 
         var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
         _userUIMobile.starterAssetsInputs = starterAssetsInputs;
 
@@ -59,23 +65,23 @@ public class SceneStarter : MonoBehaviourPunCallbacks
 
         _scene.StartScene();
 
-
-        
         // add my photon id to current room props
+      
         var myId = _photonView.Owner.ActorNumber.ToString();
         var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
         customProperties.Add(myId, null);
         PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
         
-        _agoraAndPhotonController.ButtonsView = _userUIDesktop;
-        _agoraAndPhotonController.MyPhotonView = _photonView;
+        var userButtonsController = new UserButtonsController(_userButtonsView, _agoraView);
+        userButtonsController.SetupButtons();
+        // _agoraAndPhotonController.SetupButtonListeners();
     }
 
     private void ConstructAgora()
     {
     }
 
-    public enum Scenes
+    private enum Scenes
     {
         Concert,
         Controller
