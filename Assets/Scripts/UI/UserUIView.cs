@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.UI;
+using Goods;
 using StarterAssets;
 using UnityEngine;
 
@@ -9,9 +10,11 @@ namespace UI
     {
         [SerializeField] private UICanvasControllerInput mobileInput;
         [SerializeField] private UserButtonsView userButtonsView;
+        [SerializeField] private GoodsView goodsView;
 
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
+        public GoodsView GoodsView => goodsView;
 
         private void Start()
         {
