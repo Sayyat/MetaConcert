@@ -72,6 +72,8 @@ namespace Init
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
+            info.Sender.TagObject = gameObject;
+            
             if (!photonView.IsMine) return;
             // do these only if it is me
             
@@ -88,11 +90,9 @@ namespace Init
 
             photonView.Owner.SetCustomProperties(hashTable);
 
-            info.Sender.TagObject = gameObject;
 
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
-
-            info.Sender.TagObject = this.gameObject;
+            
         }
 
 

@@ -4,6 +4,7 @@ using agora_gaming_rtc;
 using Assets.Scripts.UI;
 using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,7 @@ namespace Agora
 
         public Dictionary<uint, GameObject> AgoraToUnity;
         public Dictionary<int, GameObject> PhotonToUnity;
-        public Hashtable AgoraToPhoton;
+        public Hashtable PhotonToAgora;
         
         
         private void Awake()
@@ -34,7 +35,7 @@ namespace Agora
 
             AgoraToUnity = new Dictionary<uint, GameObject>();
             PhotonToUnity = new Dictionary<int, GameObject>();
-            AgoraToPhoton = new Hashtable();
+            PhotonToAgora = new Hashtable();
         }
 
         private void SetupButtonListeners()
@@ -63,7 +64,7 @@ namespace Agora
             _selfAgoraId = uid;
             AgoraToUnity.Add(uid, vs.gameObject);
             var actorNumber = MyPhotonView.Owner.ActorNumber;
-            AgoraToPhoton.Add(uid.ToString(), actorNumber);
+            PhotonToAgora.Add (actorNumber.ToString(), uid.ToString());
             
             
             UpdatePlayersObjects();
@@ -72,7 +73,8 @@ namespace Agora
             var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
             customProperties[actorNumber.ToString()] = uid.ToString(); // convert it to uint
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
-
+            
+            
             MatchPlayerAndQuads();
         }
 
@@ -80,9 +82,8 @@ namespace Agora
         {
             AgoraToUnity.Add(uid, vs.gameObject);
             UpdatePlayersObjects();
-            AgoraToPhoton = PhotonNetwork.CurrentRoom.CustomProperties;
-
-
+            
+            PhotonToAgora = PhotonNetwork.CurrentRoom.CustomProperties;
             MatchPlayerAndQuads();
         }
 
@@ -98,20 +99,25 @@ namespace Agora
 
         private void MatchPlayerAndQuads()
         {
-            foreach (var (key, value) in AgoraToPhoton)
+            foreach (var (photonId, agoraUid) in PhotonToAgora)
             {
-                if (ReferenceEquals(value, null))
+                if (ReferenceEquals(agoraUid, null))
                 {
                     continue;
                 }
 
-                var uintUid = Convert.ToUInt32(key);
+                var uintUid = Convert.ToUInt32(agoraUid);
                 var goQuad = AgoraToUnity[uintUid];
-                var goPlayer = PhotonToUnity[(int) value];
+                var playerId = Convert.ToInt32(photonId);
+                var goPlayer = PhotonToUnity[playerId];
 
-                goQuad.transform.parent = goPlayer.transform.Find($"Header");
-                goQuad.transform.rotation = Quaternion.Euler(new Vector3(0f,0f,180f));
-                goQuad.transform.localPosition = new Vector3(0f,2f,0f);
+                goQuad.transform.parent = goPlayer.transform;
+                goQuad.transform.localPosition = new Vector3(0, 2.5f, 0);
+                goQuad.transform.localRotation = Quaternion.Euler(new Vector3(0,0,180f));
+                
+                // goQuad.transform.parent = goPlayer.transform.Find($"Header");
+                // goQuad.transform.rotation = Quaternion.Euler(new Vector3(0f,0f,180f));
+                // goQuad.transform.localPosition = new Vector3(0f,2f,0f);
                 // goQuad.GetComponent<VideoSurface>().SetForUser(uintUid);
             }
         }
