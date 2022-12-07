@@ -214,6 +214,8 @@ namespace Assets.Scripts
         /// </remarks>
         public override void OnJoinedRoom()
         {
+           
+            
             LogFeedback(
                 "<Color=Green>OnJoinedRoom</Color> with " + PhotonNetwork.CurrentRoom.PlayerCount + " Player(s)");
             Debug.Log(

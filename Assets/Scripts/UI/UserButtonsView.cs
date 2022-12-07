@@ -18,13 +18,23 @@ namespace Assets.Scripts.UI
         [SerializeField] private Button quit;
         [SerializeField] private Button help;
         [SerializeField] private Button more;
-        [SerializeField] private Button onMicrophone;
-        [SerializeField] private Button onCamera;
-        [SerializeField] private Button onChat;
+        [SerializeField] private Button microphone;
+        [SerializeField] private Button cameraBtn;
+        [SerializeField] private Button chat;
         [SerializeField] private Button mobileUIToggle;
 
-        public Button MobileUIToggle => mobileUIToggle;
         
+        public Button Likes => likes;
+        public TMP_Text LikesCount => likesCount;
+        public Button VideoSettings => videoSettings;
+        public Button PlayerSettings => playerSettings;
+        public Button Quit => quit;
+        public Button Help => help;
+        public Button More => more;
+        public Button Microphone => microphone;
+        public Button CameraBtn => cameraBtn;
+        public Button Chat => chat;
+        public Button MobileUIToggle => mobileUIToggle;
         
         private List<Button> _buttons = new List<Button>();
         private void Start()
@@ -41,9 +51,9 @@ namespace Assets.Scripts.UI
            _buttons.Add(quit);
            _buttons.Add(help);
            _buttons.Add(more);
-           _buttons.Add(onChat);
-           _buttons.Add(onCamera);
-           _buttons.Add(onMicrophone);
+           _buttons.Add(chat);
+           _buttons.Add(cameraBtn);
+           _buttons.Add(microphone);
            _buttons.Add(mobileUIToggle);
 
            foreach (var button in _buttons)
