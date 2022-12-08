@@ -18,10 +18,21 @@ namespace UI
 
         private void Start()
         {
+            userButtonsView.MobileUIToggle.gameObject.SetActive(false);
+            mobileInput.gameObject.SetActive(false);
+
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            mobileInput.gameObject.SetActive(true);
+#endif
+            
+#if  UNITY_WEBGL && UNITY_EDITOR
+            userButtonsView.MobileUIToggle.gameObject.SetActive(true);
             userButtonsView.MobileUIToggle.onClick.AddListener(() =>
             {
                 mobileInput.gameObject.SetActive(!mobileInput.gameObject.activeSelf);
             });
+#endif
         }
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3798702335233910275}
   - component: {fileID: 3798702335233910272}
+  - component: {fileID: 4641171195204695777}
   m_Layer: 0
   m_Name: SceneStarter
   m_TagString: Untagged
@@ -44,10 +45,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67696b01c8c939488c4cf5b36796d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initPlayer: {fileID: 7180987995258631132, guid: 9ca9faabc562bd340a6f05d0b333dfff,
-    type: 3}
   mainCamera: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f,
     type: 3}
   playerFollowcamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
     type: 3}
   UserUI: {fileID: 3335592001863095230, guid: 71c7445d8e01d064aadaa452f6ac663b, type: 3}
+  goodsContainer: {fileID: 0}
+  scenes: 0
+--- !u!114 &4641171195204695777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798702335233910273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dad08b220154f9fb8bdf963bb91b6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appID: 6616b3dd4a2845d8a2ac415370d57677
+  channelName: Alem
+  appToken: 007eJxTYIh3E9rO37JNzPTKncMVQrfzhEQM37epbMzbtK71h9nF2XEKDGZmhmZJxikpJolGFiamKRaJRonJJoamxuYGKabmZubmJw5MTG4IZGR4MVWJkZEBAkF8FgbHnNRcBgYAEj0e7w==
