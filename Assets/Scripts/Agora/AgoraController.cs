@@ -57,114 +57,6 @@ namespace Agora
                                     LOG_FILTER.CRITICAL);
         }
 
-        public void JoinAudience(string channelName)
-        {
-            Debug.Log("calling join (channel = " + channelName + ")");
-
-            // TMPText = mRtcEngine.ToString();
-
-            if (MRtcEngine == null)
-                return;
-            // set callbacks (optional)
-            MRtcEngine.OnJoinChannelSuccess += OnJoinChannelSuccess;
-            MRtcEngine.OnUserJoined += OnUserJoined;
-            MRtcEngine.OnUserOffline += OnUserOffline;
-            MRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
-            MRtcEngine.OnWarning = (int warn, string msg) =>
-            {
-                Debug.LogWarningFormat("Warning code:{0} msg:{1}", warn, IRtcEngine.GetErrorDescription(warn));
-            };
-            MRtcEngine.OnError += HandleError;
-            MRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
-            MRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
-            MRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
-            MRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE);
-            MRtcEngine.EnableVideo();
-            MRtcEngine.EnableVideoObserver();
-            MRtcEngine.JoinChannelByKey("", channelName);
-            ChannelName = channelName;
-            ClientRole = CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE;
-        }
-
-
-        private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
-        {
-            Debug.Log("JoinChannel " + channelName + " Success: uid = " + uid);
-
-            var textVersionGameObject = GameObject.Find("VersionText");
-            if (textVersionGameObject)
-            {
-                textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + IRtcEngine.GetSdkVersion();
-            }
-
-            var videoObject = MakeQuadSurface(uid.ToString());
-
-            // ChannelNameLabel.text = channelName;
-            SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
-        }
-
-        private void OnUserJoined(uint uid, int elapsed)
-        {
-            Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
-            // this is called in main thread
-
-            // TMPText = mRtcEngine.ToString();
-            // find a game object to render video stream from 'uid'
-            var go = GameObject.Find(uid.ToString());
-            if (!ReferenceEquals(go, null))
-            {
-                // TMPText = "TWO UID";
-                return; // reuse
-            }
-
-            // create a GameObject and assign to this new user
-            var videoSurface = MakeQuadSurface(uid.ToString());
-            if (!ReferenceEquals(videoSurface, null))
-            {
-                // configure videoSurface
-                videoSurface.SetForUser(uid);
-                videoSurface.SetEnable(true);
-                videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.Renderer);
-
-                remoteUserDisplays.Add(videoSurface.gameObject);
-                UserVideoDict[uid] = videoSurface;
-            }
-
-            if (videoSurface != null)
-            {
-                // TMPText = "Exist VS";
-                // TMPText = videoSurface.transform.position.ToString();
-                // TMPText = videoSurface.transform.localPosition.ToString();
-            }
-
-            OtherUserJoined.Invoke(uid, elapsed, videoSurface);
-        }
-
-        private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
-        {
-            // remove video stream
-            Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
-            // this is called in main thread
-            GameObject go = GameObject.Find(uid.ToString());
-            if (!ReferenceEquals(go, null))
-            {
-                Object.Destroy(go);
-            }
-        }
-
-        private void OnLeaveChannelHandler(RtcStats stats)
-        {
-            Debug.LogFormat("OnLeaveChannelSuccess ---- duration = {0} txVideoBytes:{1} ", stats.duration,
-                stats.txVideoBytes);
-            // Clean up the displays
-            foreach (var go in remoteUserDisplays)
-            {
-                GameObject.Destroy(go);
-            }
-
-            remoteUserDisplays.Clear();
-        }
-
         public void Join(string channelName, string token, bool videoOn, bool audioOn = true)
         {
             IsVideoOn = videoOn;
@@ -259,6 +151,112 @@ namespace Agora
             ClientRole = CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER;
             // TMPText = "END Joined";
         }
+        public void JoinAudience(string channelName)
+        {
+            Debug.Log("calling join (channel = " + channelName + ")");
+
+            // TMPText = mRtcEngine.ToString();
+
+            if (MRtcEngine == null)
+                return;
+            // set callbacks (optional)
+            MRtcEngine.OnJoinChannelSuccess += OnJoinChannelSuccess;
+            MRtcEngine.OnUserJoined += OnUserJoined;
+            MRtcEngine.OnUserOffline += OnUserOffline;
+            MRtcEngine.OnLeaveChannel += OnLeaveChannelHandler;
+            MRtcEngine.OnWarning = (int warn, string msg) =>
+            {
+                Debug.LogWarningFormat("Warning code:{0} msg:{1}", warn, IRtcEngine.GetErrorDescription(warn));
+            };
+            MRtcEngine.OnError += HandleError;
+            MRtcEngine.OnClientRoleChanged += handleOnClientRoleChanged;
+            MRtcEngine.OnClientRoleChangeFailed += OnClientRoleChangeFailedHandler;
+            MRtcEngine.SetChannelProfile(CHANNEL_PROFILE.CHANNEL_PROFILE_LIVE_BROADCASTING);
+            MRtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE);
+            MRtcEngine.EnableVideo();
+            MRtcEngine.EnableVideoObserver();
+            MRtcEngine.JoinChannelByKey("", channelName);
+            ChannelName = channelName;
+            ClientRole = CLIENT_ROLE_TYPE.CLIENT_ROLE_AUDIENCE;
+        }
+
+
+        private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
+        {
+            Debug.Log("JoinChannel " + channelName + " Success: uid = " + uid);
+
+            var textVersionGameObject = GameObject.Find("VersionText");
+            if (textVersionGameObject)
+            {
+                textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + IRtcEngine.GetSdkVersion();
+            }
+
+            var videoObject = MakeQuadSurface(uid.ToString());
+
+            // ChannelNameLabel.text = channelName;
+            SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
+        }
+
+        private void OnUserJoined(uint uid, int elapsed)
+        {
+            Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
+            // this is called in main thread
+
+            // TMPText = mRtcEngine.ToString();
+            // find a game object to render video stream from 'uid'
+            var go = GameObject.Find(uid.ToString());
+            if (!ReferenceEquals(go, null))
+            {
+                // TMPText = "TWO UID";
+                return; // reuse
+            }
+
+            // create a GameObject and assign to this new user
+            var videoSurface = MakeQuadSurface(uid.ToString());
+            if (!ReferenceEquals(videoSurface, null))
+            {
+                // configure videoSurface
+                videoSurface.SetForUser(uid);
+                videoSurface.SetEnable(true);
+                videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.Renderer);
+
+                remoteUserDisplays.Add(videoSurface.gameObject);
+                UserVideoDict[uid] = videoSurface;
+            }
+
+            if (videoSurface != null)
+            {
+              
+            }
+
+            OtherUserJoined.Invoke(uid, elapsed, videoSurface);
+        }
+
+        private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
+        {
+            // remove video stream
+            Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
+            // this is called in main thread
+            GameObject go = GameObject.Find(uid.ToString());
+            if (!ReferenceEquals(go, null))
+            {
+                Object.Destroy(go);
+            }
+        }
+
+        private void OnLeaveChannelHandler(RtcStats stats)
+        {
+            Debug.LogFormat("OnLeaveChannelSuccess ---- duration = {0} txVideoBytes:{1} ", stats.duration,
+                stats.txVideoBytes);
+            // Clean up the displays
+            foreach (var go in remoteUserDisplays)
+            {
+                GameObject.Destroy(go);
+            }
+
+            remoteUserDisplays.Clear();
+        }
+
 
 
         public void ToggleVideo()
@@ -348,46 +346,51 @@ namespace Agora
             return videoSurface;
         }
 
+        #region Histored Image on canvas. May be deleted.
+
         public VideoSurface MakeImageSurface(string goName)
-        {
-            var go = new GameObject();
-
-            if (go == null)
-            {
-                // TMPText = "NO GO";
-                return null;
-            }
-
-            go.name = goName;
-
-            // to be renderered onto
-            go.AddComponent<RawImage>();
-
-            // make the object draggable
-            go.AddComponent<UIElementDragger>();
-
-
-            GameObject canvas = GameObject.Find("Canvas");
-            // TMPText = canvas.GetComponent<RectTransform>().rect.ToString();
-
-            if (canvas == null)
-                // TMPText = "NO CANVAS";
-
-                if (canvas != null)
                 {
-                    go.transform.SetParent(canvas.transform);
+                    var go = new GameObject();
+        
+                    if (go == null)
+                    {
+                        // TMPText = "NO GO";
+                        return null;
+                    }
+        
+                    go.name = goName;
+        
+                    // to be renderered onto
+                    go.AddComponent<RawImage>();
+        
+                    // make the object draggable
+                    go.AddComponent<UIElementDragger>();
+        
+        
+                    GameObject canvas = GameObject.Find("Canvas");
+                    // TMPText = canvas.GetComponent<RectTransform>().rect.ToString();
+        
+                    if (canvas == null)
+                        // TMPText = "NO CANVAS";
+        
+                        if (canvas != null)
+                        {
+                            go.transform.SetParent(canvas.transform);
+                        }
+        
+                    // set up transform
+                    go.transform.Rotate(0f, 0.0f, 180.0f);
+                    var xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
+                    var yPos = Random.Range(Offset, Screen.height / 2f - Offset);
+                    go.transform.localPosition = new Vector3(xPos, yPos, 0f);
+        
+                    // configure videoSurface
+                    var videoSurface = go.AddComponent<VideoSurface>();
+                    return videoSurface;
                 }
 
-            // set up transform
-            go.transform.Rotate(0f, 0.0f, 180.0f);
-            var xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
-            var yPos = Random.Range(Offset, Screen.height / 2f - Offset);
-            go.transform.localPosition = new Vector3(xPos, yPos, 0f);
-
-            // configure videoSurface
-            var videoSurface = go.AddComponent<VideoSurface>();
-            return videoSurface;
-        }
+        #endregion
+        
 
 
         #region ChangesStats

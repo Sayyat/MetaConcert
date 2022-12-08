@@ -18,9 +18,9 @@ namespace Agora
         private AgoraController _agoraController;
         private uint _selfAgoraId { get; set; } = 0;
 
-        public Dictionary<uint, GameObject> AgoraToUnity;
-        public Dictionary<int, GameObject> PhotonToUnity;
-        public Hashtable PhotonToAgora;
+        private readonly Dictionary<uint, GameObject> _agoraVideoObjects;
+        private readonly Dictionary<int, GameObject> _photonPlayerObjects;
+        private Hashtable _photonIdBindAgoraUid;
         
         
         public AgoraAndPhotonController(AgoraView agoraView, PhotonView photonView)
@@ -30,9 +30,9 @@ namespace Agora
 
             _agoraView.OnJoinedRoom += OnJoinedRoomAgoraRoomView;
 
-            AgoraToUnity = new Dictionary<uint, GameObject>();
-            PhotonToUnity = new Dictionary<int, GameObject>();
-            PhotonToAgora = new Hashtable();
+            _agoraVideoObjects = new Dictionary<uint, GameObject>();
+            _photonPlayerObjects = new Dictionary<int, GameObject>();
+            _photonIdBindAgoraUid = new Hashtable();
         }
 
         private void OnJoinedRoomAgoraRoomView()
@@ -46,9 +46,9 @@ namespace Agora
         {
             // save local data
             _selfAgoraId = uid;
-            AgoraToUnity.Add(uid, vs.gameObject);
+            _agoraVideoObjects.Add(uid, vs.gameObject);
             var actorNumber = _photonView.Owner.ActorNumber;
-            PhotonToAgora.Add (actorNumber.ToString(), uid.ToString());
+            _photonIdBindAgoraUid.Add (actorNumber.ToString(), uid.ToString());
             
             
             UpdatePlayersObjects();
@@ -64,26 +64,26 @@ namespace Agora
 
         private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, VideoSurface vs)
         {
-            AgoraToUnity.Add(uid, vs.gameObject);
+            _agoraVideoObjects.Add(uid, vs.gameObject);
             UpdatePlayersObjects();
             
-            PhotonToAgora = PhotonNetwork.CurrentRoom.CustomProperties;
+            _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
             MatchPlayerAndQuads();
         }
 
         private void UpdatePlayersObjects()
         {
-            PhotonToUnity.Clear();
+            _photonPlayerObjects.Clear();
             foreach (var (number, player) in PhotonNetwork.CurrentRoom.Players)
             {
                 var playerGo = player.TagObject as GameObject;
-                PhotonToUnity.Add(player.ActorNumber, playerGo);
+                _photonPlayerObjects.Add(player.ActorNumber, playerGo);
             }
         }
 
         private void MatchPlayerAndQuads()
         {
-            foreach (var (photonId, agoraUid) in PhotonToAgora)
+            foreach (var (photonId, agoraUid) in _photonIdBindAgoraUid)
             {
                 if (ReferenceEquals(photonId, null)||ReferenceEquals(agoraUid, null))
                 {
@@ -91,9 +91,9 @@ namespace Agora
                 }
 
                 var uintUid = Convert.ToUInt32(agoraUid);
-                var goQuad = AgoraToUnity[uintUid];
+                var goQuad = _agoraVideoObjects[uintUid];
                 var playerId = Convert.ToInt32(photonId);
-                var goPlayer = PhotonToUnity[playerId];
+                var goPlayer = _photonPlayerObjects[playerId];
 
                 goQuad.transform.parent = goPlayer.transform;
                 goQuad.transform.localPosition = new Vector3(0, 2.5f, 0);
