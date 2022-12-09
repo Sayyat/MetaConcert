@@ -104,24 +104,38 @@ namespace Agora
         private void AddIdDataInRoom()
         {
             var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            // if (customProperties.ContainsKey(keyId))
+
             customProperties[_selfPhotonId.ToString()] = _selfAgoraId.ToString(); // convert it to uint
+
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
         }
 
         private void RemoveDataFromRoom()
         {
+            var hashtable = new Hashtable();
             var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
             var keyId = _selfPhotonId.ToString();
             
-            if (customProperties.ContainsKey(keyId))
+            foreach (var (key, value) in customProperties)
             {
-                customProperties.Remove(customProperties[keyId]);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+                if (key.ToString() == keyId)
+                {
+                    continue;
+                }
+
+                hashtable.Add(key, value);
             }
-            else
-            {
-                Debug.LogError("Has not or not valid key in this room");
-            }
+
+            // if (customProperties != null && customProperties.ContainsKey(keyId))
+            // {
+                // customProperties.Remove(customProperties[keyId]);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+            // }
+            // else
+            // {
+            //     Debug.LogError("Has not or not valid key in this room");
+            // }
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440221, g: 0.49316514, b: 0.5722316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -536,6 +536,7 @@ MonoBehaviour:
   playerFollowcamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
     type: 3}
   UserUI: {fileID: 3335592001863095230, guid: 71c7445d8e01d064aadaa452f6ac663b, type: 3}
+  goodsContainer: {fileID: 0}
   scenes: 1
 --- !u!4 &1410534558
 Transform:
@@ -693,9 +694,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2024052427}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AgoraView, Assembly-CSharp
-        m_MethodName: JoinRoom
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
