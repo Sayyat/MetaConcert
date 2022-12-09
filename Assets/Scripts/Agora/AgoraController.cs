@@ -14,6 +14,8 @@ namespace Agora
         public event Action<uint, int, VideoSurface> OtherUserJoined;
 
         public event Action<string, uint, int, VideoSurface> SelfUserJoined;
+
+        public event Action SelfUserLeave;
         // instance of agora engine
 
 
@@ -257,8 +259,6 @@ namespace Agora
             remoteUserDisplays.Clear();
         }
 
-
-
         public void ToggleVideo()
         {
             IsVideoOn = !IsVideoOn;
@@ -292,7 +292,8 @@ namespace Agora
         public void Leave()
         {
             Debug.Log("calling leave");
-
+            SelfUserLeave?.Invoke();
+            
             if (MRtcEngine == null)
                 return;
 

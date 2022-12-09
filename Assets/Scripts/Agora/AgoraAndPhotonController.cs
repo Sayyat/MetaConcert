@@ -16,13 +16,14 @@ namespace Agora
         private readonly PhotonView _photonView;
 
         private AgoraController _agoraController;
-        private uint _selfAgoraId { get; set; } = 0;
+        private uint _selfAgoraId;
+        private int _selfPhotonId;
 
         private readonly Dictionary<uint, GameObject> _agoraVideoObjects;
         private readonly Dictionary<int, GameObject> _photonPlayerObjects;
         private Hashtable _photonIdBindAgoraUid;
-        
-        
+
+
         public AgoraAndPhotonController(AgoraView agoraView, PhotonView photonView)
         {
             _agoraView = agoraView;
@@ -44,34 +45,33 @@ namespace Agora
 
         private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
         {
+            //subscribe on quit
+            _agoraController.SelfUserLeave += RemoveDataFromRoom;
+
             // save local data
             _selfAgoraId = uid;
             _agoraVideoObjects.Add(uid, vs.gameObject);
-            var actorNumber = _photonView.Owner.ActorNumber;
-            _photonIdBindAgoraUid.Add (actorNumber.ToString(), uid.ToString());
-            
-            
-            UpdatePlayersObjects();
 
-            // save global data
-            var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-            customProperties[actorNumber.ToString()] = uid.ToString(); // convert it to uint
-            PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
-            
-            
+            var actorNumber = _photonView.Owner.ActorNumber;
+            _selfPhotonId = actorNumber;
+
+            _photonIdBindAgoraUid.Add(_selfPhotonId.ToString(), _selfAgoraId.ToString());
+
+            UpdatePhotonObjects();
+            AddIdDataInRoom();
             MatchPlayerAndQuads();
         }
 
         private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, VideoSurface vs)
         {
             _agoraVideoObjects.Add(uid, vs.gameObject);
-            UpdatePlayersObjects();
-            
+            UpdatePhotonObjects();
+
             _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
             MatchPlayerAndQuads();
         }
 
-        private void UpdatePlayersObjects()
+        private void UpdatePhotonObjects()
         {
             _photonPlayerObjects.Clear();
             foreach (var (number, player) in PhotonNetwork.CurrentRoom.Players)
@@ -85,7 +85,7 @@ namespace Agora
         {
             foreach (var (photonId, agoraUid) in _photonIdBindAgoraUid)
             {
-                if (ReferenceEquals(photonId, null)||ReferenceEquals(agoraUid, null))
+                if (ReferenceEquals(photonId, null) || ReferenceEquals(agoraUid, null))
                 {
                     continue;
                 }
@@ -97,7 +97,30 @@ namespace Agora
 
                 goQuad.transform.parent = goPlayer.transform;
                 goQuad.transform.localPosition = new Vector3(0, 2.5f, 0);
-                goQuad.transform.localRotation = Quaternion.Euler(new Vector3(0,0,180f));
+                goQuad.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180f));
+            }
+        }
+
+        private void AddIdDataInRoom()
+        {
+            var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            customProperties[_selfPhotonId.ToString()] = _selfAgoraId.ToString(); // convert it to uint
+            PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+        }
+
+        private void RemoveDataFromRoom()
+        {
+            var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            var keyId = _selfPhotonId.ToString();
+            
+            if (customProperties.ContainsKey(keyId))
+            {
+                customProperties.Remove(customProperties[keyId]);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+            }
+            else
+            {
+                Debug.LogError("Has not or not valid key in this room");
             }
         }
     }

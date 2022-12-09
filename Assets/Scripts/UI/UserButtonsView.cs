@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI
               controller.percentScale = 10f;
            }
 
-           quit.onClick.AddListener(LeaveRoom);
+           Quit.onClick.AddListener(LeaveRoom);
        
         }
 

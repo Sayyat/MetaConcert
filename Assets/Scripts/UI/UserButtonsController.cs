@@ -1,5 +1,6 @@
 ﻿using Agora;
 using Assets.Scripts.UI;
+using Photon.Pun;
 
 namespace UI
 {
@@ -7,7 +8,7 @@ namespace UI
     {
         private UserButtonsView _buttons;
         private AgoraView _agoraView;
-        
+
 
         public UserButtonsController(UserButtonsView buttons, AgoraView agoraView)
         {
@@ -17,7 +18,10 @@ namespace UI
 
         public void SetupButtons()
         {
-            _buttons.CameraBtn.onClick.AddListener(_agoraView.ToggleVideo);
+            _buttons.CameraBtn.onClick.AddListener(()=>
+            {
+                _agoraView.ToggleVideo();
+            });
             _buttons.Microphone.onClick.AddListener(_agoraView.ToggleAudio);
             _buttons.Quit.onClick.AddListener(_agoraView.Quit);
             
