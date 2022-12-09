@@ -7,6 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 namespace Agora
 {
@@ -18,7 +19,7 @@ namespace Agora
         private AgoraController _agoraController;
         private uint _selfAgoraId;
         private int _selfPhotonId;
-
+        //todo add deleted video game object;
         private readonly Dictionary<uint, GameObject> _agoraVideoObjects;
         private readonly Dictionary<int, GameObject> _photonPlayerObjects;
         private Hashtable _photonIdBindAgoraUid;
@@ -113,29 +114,18 @@ namespace Agora
 
         private void RemoveDataFromRoom()
         {
-            var hashtable = new Hashtable();
             var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
             var keyId = _selfPhotonId.ToString();
-            
-            foreach (var (key, value) in customProperties)
-            {
-                if (key.ToString() == keyId)
-                {
-                    continue;
-                }
 
-                hashtable.Add(key, value);
+            if (customProperties != null && customProperties.ContainsKey(keyId))
+            { 
+                customProperties[keyId] = null;
+               PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
             }
-
-            // if (customProperties != null && customProperties.ContainsKey(keyId))
-            // {
-                // customProperties.Remove(customProperties[keyId]);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
-            // }
-            // else
-            // {
-            //     Debug.LogError("Has not or not valid key in this room");
-            // }
+            else
+            {
+                Debug.LogError("Has not or not valid key in this room");
+            }
         }
     }
 }
