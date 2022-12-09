@@ -1,0 +1,23 @@
+{
+    "name": "Facebook.Wit.TTS.Editor",
+    "references": [
+        "GUID:4504b1a6e0fdcc3498c30b266e4a63bf",
+        "GUID:fa958eb9f0171754fb207d563a15ddfa",
+        "GUID:8bbcefc153e1f1b4a98680670797dd16",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
