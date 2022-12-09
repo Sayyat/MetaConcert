@@ -18,7 +18,9 @@ namespace Agora
 
         private AgoraController _agoraController;
         private uint _selfAgoraId;
+
         private int _selfPhotonId;
+
         //todo add deleted video game object;
         private readonly Dictionary<uint, GameObject> _agoraVideoObjects;
         private readonly Dictionary<int, GameObject> _photonPlayerObjects;
@@ -46,6 +48,7 @@ namespace Agora
 
         private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
         {
+            
             //subscribe on quit
             _agoraController.SelfUserLeave += RemoveDataFromRoom;
 
@@ -61,6 +64,10 @@ namespace Agora
             UpdatePhotonObjects();
             AddIdDataInRoom();
             MatchPlayerAndQuads();
+            foreach (var photonId in _photonIdBindAgoraUid.Keys)
+            {
+                Debug.LogError($"{photonId}");
+            }
         }
 
         private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, VideoSurface vs)
@@ -70,6 +77,10 @@ namespace Agora
 
             _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
             MatchPlayerAndQuads();
+            foreach (var photonId in _photonIdBindAgoraUid.Keys)
+            {
+                Debug.LogError($"{photonId}");
+            }
         }
 
         private void UpdatePhotonObjects()
@@ -84,6 +95,8 @@ namespace Agora
 
         private void MatchPlayerAndQuads()
         {
+            _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
+
             foreach (var (photonId, agoraUid) in _photonIdBindAgoraUid)
             {
                 if (ReferenceEquals(photonId, null) || ReferenceEquals(agoraUid, null))
@@ -92,8 +105,15 @@ namespace Agora
                 }
 
                 var uintUid = Convert.ToUInt32(agoraUid);
+
+                if (!_agoraVideoObjects.ContainsKey(uintUid))
+                    continue;
                 var goQuad = _agoraVideoObjects[uintUid];
+
                 var playerId = Convert.ToInt32(photonId);
+                if (!_photonPlayerObjects.ContainsKey(playerId)) 
+                    continue;
+
                 var goPlayer = _photonPlayerObjects[playerId];
 
                 goQuad.transform.parent = goPlayer.transform;
@@ -118,9 +138,9 @@ namespace Agora
             var keyId = _selfPhotonId.ToString();
 
             if (customProperties != null && customProperties.ContainsKey(keyId))
-            { 
+            {
                 customProperties[keyId] = null;
-               PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
             }
             else
             {
