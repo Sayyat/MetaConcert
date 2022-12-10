@@ -10,11 +10,11 @@ namespace UI
     {
         [SerializeField] private UICanvasControllerInput mobileInput;
         [SerializeField] private UserButtonsView userButtonsView;
-        [SerializeField] private GoodsView goodsView;
+        [SerializeField] private ProductViewPanel productViewPanel;
 
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
-        public GoodsView GoodsView => goodsView;
+        public ProductViewPanel ProductViewPanel => productViewPanel;
 
         private void Start()
         {

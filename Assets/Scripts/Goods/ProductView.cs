@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Goods
 {
-    public class Goods : MonoBehaviour
+    public class ProductView : MonoBehaviour
     {
         [SerializeField] private int id = 0;
 

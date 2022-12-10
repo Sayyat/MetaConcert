@@ -16,7 +16,9 @@ public class SceneStarter : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private GameObject playerFollowcamera;
     [SerializeField] private GameObject UserUI;
-    [SerializeField] private GoodsContainer goodsContainer;
+    [SerializeField] private ProductViewController productViewController;
+    
+    private ProductViewPanelController _productViewPanelController;
     
 
     private PhotonView _photonView;
@@ -48,9 +50,9 @@ public class SceneStarter : MonoBehaviourPunCallbacks
         Instantiate(playerFollowcamera);
         _userUIView = Instantiate(UserUI).GetComponent<UserUIView>();
 
-        _userUIView.GoodsView.Init();
-        goodsContainer.GoodsView = _userUIView.GoodsView;
-
+        // _userUIView.GoodsViewPanel.Init();
+        _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
+        productViewController.ProductViewPanelController = _productViewPanelController;
     }
 
     private void Start()
