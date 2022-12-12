@@ -1,96 +1,119 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Agora;
 using Assets.Scripts.UI;
+using ExitGames.Client.Photon;
 using Goods;
 using Photon.Pun;
+using Photon.Realtime;
 using StarterAssets;
 using UI;
-using Init.SceneInit;
-using Photon.Pun;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class SceneStarter : MonoBehaviourPunCallbacks
+namespace Init.SceneInit
 {
-    [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject playerFollowcamera;
-    [SerializeField] private GameObject UserUI;
-    [SerializeField] private ProductViewController productViewController;
-    
-    private ProductViewPanelController _productViewPanelController;
-    
-
-    private PhotonView _photonView;
-    private AgoraView _agoraView;
-    
-    private GameObject _photonPlayer;
-    private UserUIView _userUIView;
-    private UICanvasControllerInput _userUIMobile;
-    private UserButtonsView _userButtonsView;
-    private AgoraAndPhotonController _agoraAndPhotonController;
-    
-    
-    [SerializeField] private Scenes scenes = Scenes.Concert;
-
-    private IScene _scene;
-
-    private void Awake()
+    public class SceneStarter : MonoBehaviourPunCallbacks
     {
-        _scene = scenes switch
+        [SerializeField] private GameObject mainCamera;
+        [SerializeField] private GameObject playerFollowcamera;
+        [SerializeField] private GameObject userUI;
+        [SerializeField] private ProductViewController productViewController;
+
+        [Header("Spawn point settings")] [SerializeField]
+        private Vector3 minSpawnPoint;
+
+        [SerializeField] private Vector3 maxSpawnPoint;
+
+
+        private ProductViewPanelController _productViewPanelController;
+
+
+        private PhotonView _photonView;
+        private AgoraView _agoraView;
+
+        private GameObject _photonPlayer;
+        private UserUIView _userUIView;
+        private UICanvasControllerInput _userUIMobile;
+        private UserButtonsView _userButtonsView;
+        private AgoraAndPhotonController _agoraAndPhotonController;
+
+
+        [SerializeField] private Scenes scenes = Scenes.Concert;
+
+        private IScene _scene;
+
+        private void Awake()
         {
-            Scenes.Concert => gameObject.AddComponent<ConcertScene>(),
-            Scenes.Controller => new ControllerScene(),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            _scene = scenes switch
+            {
+                Scenes.Concert => gameObject.AddComponent<ConcertScene>(),
+                Scenes.Controller => new ControllerScene(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
 
-       _agoraView = GetComponent<AgoraView>();
-        
-        Instantiate(mainCamera);
-        Instantiate(playerFollowcamera);
-        _userUIView = Instantiate(UserUI).GetComponent<UserUIView>();
+            _agoraView = GetComponent<AgoraView>();
 
-        // _userUIView.GoodsViewPanel.Init();
-        _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
-        productViewController.ProductViewPanelController = _productViewPanelController;
-    }
+            Instantiate(mainCamera);
+            Instantiate(playerFollowcamera);
+            _userUIView = Instantiate(userUI).GetComponent<UserUIView>();
 
-    private void Start()
-    {
-        _photonPlayer = PhotonNetwork.Instantiate("PlayerTemplate", Vector3.up, Quaternion.identity);
-        _photonView = _photonPlayer.GetComponent<PhotonView>();
-        _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
-        
-        _userUIMobile = _userUIView.MobileInput;
-        _userButtonsView = _userUIView.UserButtonsView;
-        
-        //Set starter asset to mobile control 
-        var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
-        _userUIMobile.starterAssetsInputs = starterAssetsInputs;
+            // _userUIView.GoodsViewPanel.Init();
+            _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
+            productViewController.ProductViewPanelController = _productViewPanelController;
+        }
 
-        ConstructAgora();
+        private void Start()
+        {
+            // calculate random position
+            var x = Random.Range(Math.Min(minSpawnPoint.x, maxSpawnPoint.x),
+                Math.Max(minSpawnPoint.x, maxSpawnPoint.x));
+            var y = Random.Range(Math.Min(minSpawnPoint.y, maxSpawnPoint.y),
+                Math.Max(minSpawnPoint.y, maxSpawnPoint.y));
+            var z = Random.Range(Math.Min(minSpawnPoint.z, maxSpawnPoint.z),
+                Math.Max(minSpawnPoint.z, maxSpawnPoint.z));
 
-        _scene.StartScene();
+            _photonPlayer = PhotonNetwork.Instantiate("PlayerTemplate", new Vector3(x, y, z), Quaternion.identity);
+            _photonView = _photonPlayer.GetComponent<PhotonView>();
+            _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
 
-        // add my photon id to current room props
-      
-        var myId = _photonView.Owner.ActorNumber.ToString();
-        var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-        customProperties.Add(myId, null);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
-        
-        var userButtonsController = new UserButtonsController(_userButtonsView, _agoraView);
-        userButtonsController.SetupButtons();
-        // _agoraAndPhotonController.SetupButtonListeners();
-    }
+            _userUIMobile = _userUIView.MobileInput;
+            _userButtonsView = _userUIView.UserButtonsView;
 
-    private void ConstructAgora()
-    {
-    }
+            //Set starter asset to mobile control 
+            var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
+            _userUIMobile.starterAssetsInputs = starterAssetsInputs;
 
-    private enum Scenes
-    {
-        Concert,
-        Controller
+            ConstructAgora();
+
+            _scene.StartScene();
+
+            // add my photon id to current room props
+
+            var myId = _photonView.Owner.ActorNumber.ToString();
+            var customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            customProperties.Add(myId, null);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+
+            var userButtonsController = new UserButtonsController(_userButtonsView, _agoraView, _photonView);
+            userButtonsController.SetupButtons();
+            // _agoraAndPhotonController.SetupButtonListeners();
+        }
+
+        private void ConstructAgora()
+        {
+        }
+
+
+        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+        {
+            var state = Convert.ToBoolean(changedProps["IsVideoOn"]);
+            _agoraAndPhotonController.ToggleVideoQuad(targetPlayer.ActorNumber, state);
+        }
+
+        private enum Scenes
+        {
+            Concert,
+            Controller
+        }
     }
 }
