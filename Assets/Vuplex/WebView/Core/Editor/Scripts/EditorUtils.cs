@@ -32,9 +32,9 @@ namespace Vuplex.WebView.Editor {
             var lowOverheadModeEnabled = false;
             #if VUPLEX_OCULUS
                 // The Oculus XR plugin is installed
-                Unity.XR.Oculus.OculusLoader oculusLoader = Unity.XR.Oculus.OculusSettings.CreateInstance<Unity.XR.Oculus.OculusLoader>();
-                Unity.XR.Oculus.OculusSettings oculusSettings = oculusLoader.GetSettings();
-                lowOverheadModeEnabled = oculusSettings.LowOverheadMode;
+                // Unity.XR.Oculus.OculusLoader oculusLoader = Unity.XR.Oculus.OculusSettings.CreateInstance<Unity.XR.Oculus.OculusLoader>();
+                // Unity.XR.Oculus.OculusSettings oculusSettings = oculusLoader.GetSettings();
+                // lowOverheadModeEnabled = oculusSettings.LowOverheadMode;
             #elif UNITY_2019_2_OR_NEWER && !UNITY_2020_1_OR_NEWER
                 // VROculus.lowOverheadMode is only supported from Unity 2019.2 - 2019.4
                 lowOverheadModeEnabled = PlayerSettings.VROculus.lowOverheadMode;

@@ -10,17 +10,18 @@ namespace UI
     {
         [SerializeField] private UICanvasControllerInput mobileInput;
         [SerializeField] private UserButtonsView userButtonsView;
-        [SerializeField] private GoodsView goodsView;
+        [SerializeField] private ProductViewPanel productViewPanel;
+        [SerializeField] private HintPanel hintPanel;
 
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
-        public GoodsView GoodsView => goodsView;
+        public ProductViewPanel ProductViewPanel => productViewPanel;
 
         private void Start()
         {
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
             mobileInput.gameObject.SetActive(false);
-
+            userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             mobileInput.gameObject.SetActive(true);
@@ -33,6 +34,12 @@ namespace UI
                 mobileInput.gameObject.SetActive(!mobileInput.gameObject.activeSelf);
             });
 #endif
+        }
+
+
+        private void OnDestroy()
+        {
+            userButtonsView.Help.onClick.RemoveAllListeners();
         }
     }
 }
