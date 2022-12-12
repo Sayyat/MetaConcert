@@ -199,6 +199,13 @@ namespace Agora
             SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
         }
 
+        // public override void OnTokenPrivilegeWillExpire(RtcConnection connection, string token)
+        // {
+        //     // Retrieve a fresh token from the token server.
+        //     // _videoSample.StartCoroutine(_videoSample.FetchToken(_videoSample.serverUrl, _videoSample._channelName , _videoSample.uid, _videoSample.ExpireTime, _videoSample.FetchRenew));
+        //     Debug.Log("Token Expired");
+        // }
+
         private void OnUserJoined(uint uid, int elapsed)
         {
             Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
