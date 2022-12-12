@@ -38,10 +38,4 @@ public class PanelControl : MonoBehaviour
         videoPanel.SetActive(false);
         videoPlayer.Stop();
     }
-    
-    
-    
-    
-    
-
 }
