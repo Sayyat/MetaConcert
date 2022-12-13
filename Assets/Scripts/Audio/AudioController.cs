@@ -16,7 +16,7 @@ namespace Audio
                 if (scene.name == "Concert")
                 {
                     transform.position = Vector3.zero;
-                    _audioSource.spatialBlend = 0;
+                    _audioSource.spatialBlend = 1;
                 }
             };
         }
