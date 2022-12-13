@@ -259,7 +259,7 @@ namespace Agora
             remoteUserDisplays.Clear();
         }
 
-        public void ToggleVideo()
+        public bool ToggleVideo()
         {
             IsVideoOn = !IsVideoOn;
 
@@ -273,6 +273,8 @@ namespace Agora
                 MRtcEngine.DisableVideo();
                 MRtcEngine.DisableVideoObserver();
             }
+
+            return IsVideoOn;
         }
 
         public void ToggleAudio()

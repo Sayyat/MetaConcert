@@ -48,7 +48,6 @@ namespace Agora
 
         private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
         {
-            
             //subscribe on quit
             _agoraController.SelfUserLeave += RemoveDataFromRoom;
 
@@ -93,6 +92,15 @@ namespace Agora
             }
         }
 
+        public void ToggleVideoQuad(int actorNumber, bool state)
+        {
+            var agoraUid = Convert.ToUInt32(_photonIdBindAgoraUid[$"{actorNumber}"]);
+            if (!_agoraVideoObjects.ContainsKey(agoraUid)) return;
+            var quad = _agoraVideoObjects[agoraUid];
+            quad.SetActive(state);
+        }
+
+
         private void MatchPlayerAndQuads()
         {
             _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
@@ -111,7 +119,7 @@ namespace Agora
                 var goQuad = _agoraVideoObjects[uintUid];
 
                 var playerId = Convert.ToInt32(photonId);
-                if (!_photonPlayerObjects.ContainsKey(playerId)) 
+                if (!_photonPlayerObjects.ContainsKey(playerId))
                     continue;
 
                 var goPlayer = _photonPlayerObjects[playerId];

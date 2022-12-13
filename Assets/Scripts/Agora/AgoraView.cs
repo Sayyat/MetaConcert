@@ -84,15 +84,15 @@ public class AgoraView : MonoBehaviour
     }
 
 
-    public void ToggleVideo()
+    public bool ToggleVideo()
     {
         if (!IsJoinedRoom)
         {
             JoinRoom();
-            return;
+            return true;
         }
         
-        Controller.ToggleVideo();
+        return Controller.ToggleVideo();
     }
 
     public void ToggleAudio()
