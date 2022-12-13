@@ -7,8 +7,8 @@ namespace Lift
 {
     public class LiftController : MonoBehaviour
     {
-        [SerializeField] private GameObject platform;
-        
+        [SerializeField] private PlatformController platform;
+
         [Header("Spots were lift can stop")] [SerializeField]
         private List<Transform> liftStopSpots;
 
@@ -24,14 +24,14 @@ namespace Lift
         private List<Vector3> _floorButtonTransforms = new List<Vector3>();
 
 
-        private Vector3 _targetPosition { get; set; }
+        private Vector3 TargetPosition { get; set; }
         private int _floor;
         private PlatformController _platformController;
 
         private void Awake()
         {
             _liftStates = new LiftStates();
-            _targetPosition = liftStopSpots[0].transform.position;
+            TargetPosition = liftStopSpots[0].transform.position;
             _platformController = platform.GetComponent<PlatformController>();
         }
 
@@ -51,12 +51,6 @@ namespace Lift
             // Debug.Log(l);
         }
 
-        private void Update()
-        {
-            MoveLift();
-        }
-
-
         private void OnDestroy()
         {
             liftCallButtons.ForEach(button => { button.ButtonClicked -= OnButtonClicked; });
@@ -66,35 +60,9 @@ namespace Lift
         private void OnButtonClicked(string where, int floor)
         {
             Debug.Log($"<Color=Yellow>Button clicked: {where}: {floor}</Color>");
-            _targetPosition = liftStopSpots[floor - 1].position;
+            platform.Destination = liftStopSpots[floor - 1].localPosition;
             _liftStates.IsMoving = true;
             _floor = floor;
-            
-            _platformController.AddPlayerChild();
         }
-
-        private void MoveLift()
-        {
-            if (!_liftStates.IsMoving)
-            {
-                _platformController.RemovePlayerChild();
-                return;
-            }
-
-            if (Vector3.Distance(platform.transform.position, _targetPosition) < 0.01)
-            {
-                _platformController.RemovePlayerChild();
-                _liftStates.IsMoving = false;
-                _liftStates.Floor = _floor;
-                return;
-            }
-
-
-            Debug.Log("<Color=Red>Lift started moving</Color>");
-            platform.transform.position =
-                Vector3.MoveTowards(platform.transform.position, _targetPosition, 2f * Time.deltaTime);
-        }
-
-
     }
 }
