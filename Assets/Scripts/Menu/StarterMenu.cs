@@ -53,6 +53,7 @@ namespace Assets.Scripts
 
 
         [SerializeField] private AvatarRenderView avatarRenderView;
+        [SerializeField] private GameObject BackgroundMusic;
 
         private List<string> urls = new List<string>()
         {
@@ -77,6 +78,7 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            Instantiate(BackgroundMusic);
             Debug.Log("Try to find existing DataPlayerAvatar object");
             var AvatarCashes = GameObject.Find("AvatarCashes");
 
