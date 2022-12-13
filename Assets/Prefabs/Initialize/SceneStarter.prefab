@@ -49,8 +49,10 @@ MonoBehaviour:
     type: 3}
   playerFollowcamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
     type: 3}
-  UserUI: {fileID: 3335592001863095230, guid: 71c7445d8e01d064aadaa452f6ac663b, type: 3}
-  goodsContainer: {fileID: 0}
+  userUI: {fileID: 0}
+  productViewController: {fileID: 0}
+  minSpawnPoint: {x: 0, y: 0, z: 0}
+  maxSpawnPoint: {x: 0, y: 0, z: 0}
   scenes: 0
 --- !u!114 &4641171195204695777
 MonoBehaviour:
@@ -66,4 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appID: 6616b3dd4a2845d8a2ac415370d57677
   channelName: Alem
-  appToken: 007eJxTYNjz8Yfo1v8iL92r6txipdZ/ihct2J9ZO8O02TL0z6O2yDgFBjMzQ7Mk45QUk0QjCxPTFItEo8RkE0NTY3ODFFNzM3NzvueTkhsCGRmiZycxMTJAIIjPwuCYk5rLwAAAiXwfbQ==
+  appToken: 007eJxTYJB5IvJ0friG7rHfLx2rCx7M/RuwfftHryMR3JkTqi+qLHukwGBmZmiWZJySYpJoZGFimmKRaJSYbGJoamxukGJqbmZufo1nRnJDICODoWkaAyMUgvgsDI45qbkMDADCZx/t
