@@ -46,9 +46,9 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 10f9ff49bda5a6448b0644909e541b90, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
-  m_Pitch: -0.37
+  m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -57,9 +57,9 @@ AudioSource:
   MaxDistance: 50
   Pan2D: -0
   rolloffMode: 1
-  BypassEffects: 1
-  BypassListenerEffects: 1
-  BypassReverbZones: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
