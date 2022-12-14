@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Assets.Scripts.UI;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 namespace UI
 {
@@ -40,10 +42,7 @@ namespace UI
 
         private const string Pattern = @"yyyyMMddHHmmssfff";
 
-        
-        
-        
-        
+
         private void Start()
         {
             InitialiseButtons();
@@ -80,7 +79,6 @@ namespace UI
             var path = Application.persistentDataPath + $"/{date}.png";
             ScreenCapture.CaptureScreenshot(path);
             Debug.Log($"Image saved in : {path}");
-            
         }
 
 
