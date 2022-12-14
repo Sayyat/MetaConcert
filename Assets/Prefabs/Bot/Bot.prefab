@@ -682,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialog: {fileID: 6148279790653071285}
+  botDialog: {fileID: 3460232434228480105}
 --- !u!135 &4324251614746822927
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2485,7 +2486,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textInDialog: {fileID: 3529640984333768066}
-  _dialogPanel: {fileID: 8109033322709653500}
 --- !u!114 &8109033322709653500
 MonoBehaviour:
   m_ObjectHideFlags: 0

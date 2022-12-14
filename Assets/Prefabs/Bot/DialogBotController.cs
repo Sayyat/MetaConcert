@@ -6,6 +6,7 @@ using UnityEngine;
 public class DialogBotController : MonoBehaviour
 {
     [SerializeField] private GameObject _dialog;
+    [SerializeField] private DialogPanelClicked botDialog;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class DialogBotController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
            _dialog.SetActive(true);
+           botDialog.enabled = true;
         }
     }
 
@@ -25,6 +27,7 @@ public class DialogBotController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _dialog.SetActive(false);
+            botDialog.enabled = true;
         }
     }
 }

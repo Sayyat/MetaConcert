@@ -11,7 +11,6 @@ public class DialogPanelClicked : MonoBehaviour
     private const byte StartedDialogue = 0;
 
     [SerializeField] private TextMeshProUGUI textInDialog;
-    [SerializeField] private Button _dialogPanel;
 
     private int _numDialog;
 
@@ -25,9 +24,9 @@ public class DialogPanelClicked : MonoBehaviour
 
     private void Start()
     {
-        _numDialog = StartedDialogue;
-        textInDialog.text = _phrases[_numDialog];
-        transform.localScale = Vector3.zero;
+        // _numDialog = StartedDialogue;
+        // textInDialog.text = _phrases[_numDialog];
+        // transform.localScale = Vector3.zero;
 
         DG.Tweening.Sequence s = DOTween.Sequence();
         s.Append(transform.DOScale(1, 1));
