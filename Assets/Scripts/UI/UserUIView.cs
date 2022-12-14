@@ -12,16 +12,20 @@ namespace UI
         [SerializeField] private UserButtonsView userButtonsView;
         [SerializeField] private ProductViewPanel productViewPanel;
         [SerializeField] private HintPanel hintPanel;
+        [SerializeField] private SettingsPanel settingsPanel;
 
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
         public ProductViewPanel ProductViewPanel => productViewPanel;
+        public HintPanel HintPanel => hintPanel;
+        public SettingsPanel SettingsPanel => settingsPanel;
 
         private void Start()
         {
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
             mobileInput.gameObject.SetActive(false);
             userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
+            userButtonsView.More.onClick.AddListener(() => settingsPanel.Toggle());
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             mobileInput.gameObject.SetActive(true);

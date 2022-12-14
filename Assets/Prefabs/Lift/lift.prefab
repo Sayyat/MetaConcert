@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e080843b75e7e39419ffd43deb0ef0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platform: {fileID: 7708408085001176834}
+  platform: {fileID: 1678751098303538474}
   liftStopSpots:
   - {fileID: 4264954023965480945}
   - {fileID: 2015468777559028078}
@@ -1163,7 +1163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e346bad80bde4cd3be8e60c0b785b14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childPlayers: []
   playersParent: {fileID: 4510682777609030759}
 --- !u!64 &380909273765978308
 MeshCollider:

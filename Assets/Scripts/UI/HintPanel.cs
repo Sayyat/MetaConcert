@@ -1,27 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HintPanel : MonoBehaviour
+namespace UI
 {
-   [SerializeField] private Button close;
-
-   private void OnEnable()
+   public class HintPanel : MonoBehaviour
    {
-      close.onClick.AddListener(() => gameObject.SetActive(false));
-   }
+      [SerializeField] private Button close;
+
+      private void OnEnable()
+      {
+         close.onClick.AddListener(() => gameObject.SetActive(false));
+      }
 
    
-   private void OnDisable()
-   {
-      close.onClick.RemoveAllListeners();
-   }
+      private void OnDisable()
+      {
+         close.onClick.RemoveAllListeners();
+      }
 
 
-   public void Toggle()
-   {
-      gameObject.SetActive(!gameObject.activeSelf);
+      public void Toggle()
+      {
+         gameObject.SetActive(!gameObject.activeSelf);
+      }
    }
 }
