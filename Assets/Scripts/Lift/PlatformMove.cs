@@ -18,11 +18,6 @@ namespace Lift
             get => _destination;
             set
             {
-                foreach (var player in players)
-                {
-                    player.GetComponent<CharacterController>().enabled = false;
-                }
-
                 _destination = value;
                 IsMoving = true;
             }
@@ -33,11 +28,6 @@ namespace Lift
         {
             if (!IsMoving)
             {
-                foreach (var player in players)
-                {
-                    player.GetComponent<CharacterController>().enabled = true;
-                }
-
                 enabled = false;
             }
 
