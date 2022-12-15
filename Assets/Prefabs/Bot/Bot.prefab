@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 7159390230711184973}
   - component: {fileID: 9031025196482326028}
   - component: {fileID: 4324251614746822927}
+  - component: {fileID: 4321828115581365651}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -683,6 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dialog: {fileID: 6148279790653071285}
   botDialog: {fileID: 3460232434228480105}
+  _turret: {fileID: 4321828115581365651}
 --- !u!135 &4324251614746822927
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -696,6 +698,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.87
   m_Center: {x: 0, y: -0.8183594, z: 0}
+--- !u!114 &4321828115581365651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839195996678353460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fcf8f214f35c1348a04894fbcc5ef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yawSegment: {fileID: 8015057703448739237}
+  pitchSegment: {fileID: 8015057703448739237}
+  yawSpeed: 30
+  pitchSpeed: 30
+  yawLimit: 180
+  pitchLimit: 0
+  target: {x: 0, y: 0, z: 0}
 --- !u!1 &2873801352827917943
 GameObject:
   m_ObjectHideFlags: 0

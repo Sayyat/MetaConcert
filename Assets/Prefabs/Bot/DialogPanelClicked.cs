@@ -28,11 +28,11 @@ public class DialogPanelClicked : MonoBehaviour
         // textInDialog.text = _phrases[_numDialog];
         // transform.localScale = Vector3.zero;
 
-        DG.Tweening.Sequence s = DOTween.Sequence();
-        s.Append(transform.DOScale(1, 1));
-        s.AppendInterval(2f);
-        s.Append(transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
-        s.SetLoops(-1, LoopType.Restart);
+        DG.Tweening.Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOScale(1, 1));
+        sequence.AppendInterval(2f);
+        sequence.Append(transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
+        sequence.SetLoops(-1, LoopType.Restart);
     }
 
     private void NextPhrase()
