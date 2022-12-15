@@ -94,13 +94,11 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDDance;
 
         private int _idle;
-        private int _dance1;
-        private int _dance2;
-        private int _dance3;
 
-        private bool IsDancing = false;
+        private bool _isDancing = false;
 
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -175,26 +173,27 @@ namespace StarterAssets
         {
             if (Input.anyKeyDown)
             {
-                if (IsDancing)
+                if (_isDancing)
                 {
+                    Dance(0);
                     _animator.Play(_idle);
-                    IsDancing = false;
+                    _isDancing = false;
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Dance(_dance1);
+                Dance(1);
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Dance(_dance2);
+                Dance(2);
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Dance(_dance3);
+                Dance(3);
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
@@ -215,10 +214,8 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDDance = Animator.StringToHash("Dance");
             _idle = Animator.StringToHash("Idle Walk Run Blend");
-            _dance1 = Animator.StringToHash("Dance1");
-            _dance2 = Animator.StringToHash("Dance2");
-            _dance3 = Animator.StringToHash("Dance3");
         }
 
         private void GroundedCheck()
@@ -330,10 +327,8 @@ namespace StarterAssets
             // update animator if using character
             if (!_hasAnimator) return;
 
-            // if(IsDancing) return;
-
-            _animator.Play(dance);
-            IsDancing = true;
+            _animator.SetInteger(_animIDDance, dance);
+            _isDancing = true;
         }
 
 
@@ -449,11 +444,5 @@ namespace StarterAssets
             }
         }
 
-        private void OnDanceFinished(AnimationEvent animationEvent)
-        {
-            Debug.Log("Dance finished");
-            _animator.Play(_idle);
-            IsDancing = false;
-        }
     }
 }

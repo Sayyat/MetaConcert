@@ -7,7 +7,8 @@ namespace Lift
 {
     public class LiftController : MonoBehaviour
     {
-        [SerializeField] private PlatformController platform;
+        [SerializeField] private PlatformMove platformMove;
+        [SerializeField] private PlatformTrigger platformTrigger;
 
         [Header("Spots were lift can stop")] [SerializeField]
         private List<Transform> liftStopSpots;
@@ -18,21 +19,20 @@ namespace Lift
         [Header("Buttons inside the lift")] [SerializeField]
         private List<Button3d> floorButtons;
 
+        private List<Transform> _liftStopSpotsGlobal;
         private LiftStates _liftStates;
 
-        private List<Vector3> _liftCallButtonTransforms = new List<Vector3>();
-        private List<Vector3> _floorButtonTransforms = new List<Vector3>();
-
-
-        private Vector3 TargetPosition { get; set; }
-        private int _floor;
-        private PlatformController _platformController;
-
+        private List<Transform> PlayerTransforms => platformTrigger.PlayersTransform;
+        
         private void Awake()
         {
             _liftStates = new LiftStates();
-            TargetPosition = liftStopSpots[0].transform.position;
-            _platformController = platform.GetComponent<PlatformController>();
+            _liftStopSpotsGlobal = new List<Transform>();
+
+            foreach (var liftStopSpot in liftStopSpots)
+            {
+                _liftStopSpotsGlobal.Add(liftStopSpot.transform);
+            }
         }
 
         private void Start()
@@ -57,12 +57,12 @@ namespace Lift
             floorButtons.ForEach(button => { button.ButtonClicked -= OnButtonClicked; });
         }
 
-        private void OnButtonClicked(string where, int floor)
+        private void OnButtonClicked(int floor)
         {
-            Debug.Log($"<Color=Yellow>Button clicked: {where}: {floor}</Color>");
-            platform.Destination = liftStopSpots[floor - 1].localPosition;
+            platformMove.enabled = true;
+            platformMove.players = PlayerTransforms;
+            platformMove.Destination = _liftStopSpotsGlobal[floor - 1].position;
             _liftStates.IsMoving = true;
-            _floor = floor;
         }
     }
 }
