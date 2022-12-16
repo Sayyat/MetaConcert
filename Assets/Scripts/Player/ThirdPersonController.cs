@@ -443,6 +443,5 @@ namespace StarterAssets
                     FootstepAudioVolume);
             }
         }
-
     }
 }

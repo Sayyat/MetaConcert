@@ -61,6 +61,12 @@ namespace Lift
         {
             platformMove.enabled = true;
             platformMove.players = PlayerTransforms;
+            var initialPositions = new List<Vector3>();
+            foreach (var lp in PlayerTransforms)
+            {
+                initialPositions.Add(lp.localPosition);
+            }
+            platformMove.initialPositions = initialPositions;
             platformMove.Destination = _liftStopSpotsGlobal[floor - 1].position;
             _liftStates.IsMoving = true;
         }

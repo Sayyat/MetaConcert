@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,17 +6,22 @@ namespace UI
 {
    public class HintPanel : MonoBehaviour
    {
-      [SerializeField] private Button close;
+      private Button _close;
+
+      private void Awake()
+      {
+         _close = GetComponent<Button>();
+      }
 
       private void OnEnable()
       {
-         close.onClick.AddListener(() => gameObject.SetActive(false));
+         _close.onClick.AddListener(() => gameObject.SetActive(false));
       }
 
    
       private void OnDisable()
       {
-         close.onClick.RemoveAllListeners();
+         _close.onClick.RemoveAllListeners();
       }
 
 

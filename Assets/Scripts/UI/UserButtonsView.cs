@@ -18,11 +18,12 @@ namespace UI
         [SerializeField] private Button playerSettings;
         [SerializeField] private Button quit;
         [SerializeField] private Button help;
-        [SerializeField] private Button more;
+        [SerializeField] private Button dance;
         [SerializeField] private Button microphone;
         [SerializeField] private Button cameraBtn;
         [SerializeField] private Button chat;
         [SerializeField] private Button mobileUIToggle;
+        [SerializeField] private DancePanel dancePanel;
 
 
         public Button Likes => likes;
@@ -31,11 +32,12 @@ namespace UI
         public Button PlayerSettings => playerSettings;
         public Button Quit => quit;
         public Button Help => help;
-        public Button More => more;
+        public Button Dance => dance;
         public Button Microphone => microphone;
         public Button CameraBtn => cameraBtn;
         public Button Chat => chat;
         public Button MobileUIToggle => mobileUIToggle;
+        public DancePanel DancePanel => dancePanel;
 
         private List<Button> _buttons = new List<Button>();
 
@@ -56,7 +58,7 @@ namespace UI
             _buttons.Add(playerSettings);
             _buttons.Add(quit);
             _buttons.Add(help);
-            _buttons.Add(more);
+            _buttons.Add(dance);
             _buttons.Add(chat);
             _buttons.Add(cameraBtn);
             _buttons.Add(microphone);
@@ -71,6 +73,7 @@ namespace UI
 
             Screenshot.onClick.AddListener(TakeScreenshot);
             Quit.onClick.AddListener(LeaveRoom);
+            Dance.onClick.AddListener(ToggleDancePanel);
         }
 
         private void TakeScreenshot()
@@ -87,6 +90,11 @@ namespace UI
             PhotonNetwork.LeaveRoom();
         }
 
+        private void ToggleDancePanel()
+        {
+            DancePanel.gameObject.SetActive(!DancePanel.gameObject.activeSelf);
+        }
+
         public override void OnLeftRoom()
         {
             // SceneManager.LoadSceneAsync(0);
@@ -95,6 +103,7 @@ namespace UI
             // unsubscribe events
             Screenshot.onClick.AddListener(TakeScreenshot);
             Quit.onClick.AddListener(LeaveRoom);
+            Dance.onClick.RemoveListener(ToggleDancePanel);
         }
     }
 }

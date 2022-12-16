@@ -25,7 +25,7 @@ namespace UI
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
             mobileInput.gameObject.SetActive(false);
             userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
-            userButtonsView.More.onClick.AddListener(() => settingsPanel.Toggle());
+            userButtonsView.PlayerSettings.onClick.AddListener(() => settingsPanel.Toggle());
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             mobileInput.gameObject.SetActive(true);
@@ -44,6 +44,7 @@ namespace UI
         private void OnDestroy()
         {
             userButtonsView.Help.onClick.RemoveAllListeners();
+            userButtonsView.PlayerSettings.onClick.RemoveAllListeners();
         }
     }
 }
