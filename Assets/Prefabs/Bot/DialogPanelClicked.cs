@@ -16,10 +16,12 @@ public class DialogPanelClicked : MonoBehaviour
 
     private readonly string[] _phrases = new[]
     {
-        "Hello! ...",
-        "Welcome to MetaWorld! ...",
-        "My name is Android. ...",
-        "How can I help you? ..."
+        "Сәлем! Менің атым АНДРОГҮЛ! ...",
+        "Сіз Орталық Азияның алғашқы Метаәлем ішіндесіз! ...",
+        "Құттықтаймыз және қош келдіңіз! ...",
+        "Приветствую! Меня зовут АНДРОГҮЛ! ...",
+        "Вы находитесь внутри первой Метавселенной Центральной Азии!",
+        "Поздравляем Вас и Добро пожаловать!"
     };
 
     private void Start()

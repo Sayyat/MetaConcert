@@ -23,7 +23,6 @@ namespace UI
         [SerializeField] private Button cameraBtn;
         [SerializeField] private Button chat;
         [SerializeField] private Button mobileUIToggle;
-        [SerializeField] private DancePanel dancePanel;
 
 
         public Button Likes => likes;
@@ -37,7 +36,6 @@ namespace UI
         public Button CameraBtn => cameraBtn;
         public Button Chat => chat;
         public Button MobileUIToggle => mobileUIToggle;
-        public DancePanel DancePanel => dancePanel;
 
         private List<Button> _buttons = new List<Button>();
 
@@ -73,7 +71,6 @@ namespace UI
 
             Screenshot.onClick.AddListener(TakeScreenshot);
             Quit.onClick.AddListener(LeaveRoom);
-            Dance.onClick.AddListener(ToggleDancePanel);
         }
 
         private void TakeScreenshot()
@@ -90,10 +87,6 @@ namespace UI
             PhotonNetwork.LeaveRoom();
         }
 
-        private void ToggleDancePanel()
-        {
-            DancePanel.gameObject.SetActive(!DancePanel.gameObject.activeSelf);
-        }
 
         public override void OnLeftRoom()
         {
@@ -103,7 +96,6 @@ namespace UI
             // unsubscribe events
             Screenshot.onClick.AddListener(TakeScreenshot);
             Quit.onClick.AddListener(LeaveRoom);
-            Dance.onClick.RemoveListener(ToggleDancePanel);
         }
     }
 }
