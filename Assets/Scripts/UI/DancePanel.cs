@@ -65,6 +65,8 @@ namespace UI
                 _dance2InitialPosition,
                 _dance3InitialPosition
             };
+            
+            HidePanel(0f);
         }
 
         // private void OnEnable()
@@ -81,15 +83,15 @@ namespace UI
         {
             if (IsVisible)
             {
-                HidePanel();
+                HidePanel(0.3f);
             }
             else
             {
-                ShowPanel();
+                ShowPanel(0.3f);
             }
         }
 
-        private void ShowPanel()
+        private void ShowPanel(float duration)
         {
             if (IsAnimating) return;
 
@@ -99,7 +101,7 @@ namespace UI
             for (var i = 0; i < _myButtons.Count; i++)
             {
                 var button = _myButtons[i];
-                var loop = button.GetComponent<RectTransform>().DOMove(_initialPositions[i], 0.5f);
+                var loop = button.GetComponent<RectTransform>().DOMove(_initialPositions[i], duration);
                 seq.Join(loop);
             }
 
@@ -111,7 +113,7 @@ namespace UI
         }
 
 
-        private void HidePanel()
+        private void HidePanel(float duration)
         {
             if (IsAnimating) return;
 
@@ -120,7 +122,7 @@ namespace UI
 
             foreach (var button in _myButtons)
             {
-                var loop = button.GetComponent<RectTransform>().DOMove(_commonInitialPosition, 0.5f);
+                var loop = button.GetComponent<RectTransform>().DOMove(_commonInitialPosition, duration);
                 seq.Join(loop);
                 
             }
