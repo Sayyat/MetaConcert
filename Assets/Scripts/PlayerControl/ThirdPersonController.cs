@@ -1,19 +1,22 @@
-﻿using Photon.Pun;
+﻿using System;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using StarterAssets;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
-#endif
+using Random = UnityEngine.Random;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace PlayerControl
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviourPun
+    public class ThirdPersonController : MonoBehaviourPunCallbacks
     {
         [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -94,11 +97,6 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-        private int _animIDDance;
-
-        private int _idle;
-
-        private bool _isDancing = false;
 
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -157,50 +155,15 @@ namespace StarterAssets
 
         private void Update()
         {
-            if (photonView.IsMine)
-            {
-                _hasAnimator = TryGetComponent(out _animator);
+            if (!photonView.IsMine) return;
+            _hasAnimator = TryGetComponent(out _animator);
 
 
-                JumpAndGravity();
-                GroundedCheck();
-                Move();
-                HandleKeyBoard();
-            }
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
         }
 
-        private void HandleKeyBoard()
-        {
-            if (Input.anyKeyDown)
-            {
-                if (_isDancing)
-                {
-                    Dance(0);
-                    _animator.Play(_idle);
-                    _isDancing = false;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Dance(1);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Dance(2);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Dance(3);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                Dance(0);
-            }
-        }
 
         private void LateUpdate()
         {
@@ -214,8 +177,6 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDDance = Animator.StringToHash("Dance");
-            _idle = Animator.StringToHash("Idle Walk Run Blend");
         }
 
         private void GroundedCheck()
@@ -320,15 +281,6 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
-        }
-
-        private void Dance(int dance)
-        {
-            // update animator if using character
-            if (!_hasAnimator) return;
-
-            _animator.SetInteger(_animIDDance, dance);
-            _isDancing = true;
         }
 
 

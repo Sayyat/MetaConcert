@@ -31,7 +31,7 @@ namespace UI
             mobileInput.gameObject.SetActive(true);
 #endif
             
-#if  UNITY_WEBGL && UNITY_EDITOR
+#if  UNITY_WEBGL && !UNITY_EDITOR
             userButtonsView.MobileUIToggle.gameObject.SetActive(true);
             userButtonsView.MobileUIToggle.onClick.AddListener(() =>
             {
