@@ -12,30 +12,39 @@ namespace UI
 {
     public class UserButtonsView : MonoBehaviourPunCallbacks
     {
+        [SerializeField] private Button quit;
+        [SerializeField] private Button playerSettings;
         [SerializeField] private Button likes;
         [SerializeField] private TMP_Text likesCount;
         [SerializeField] private Button screenshot;
-        [SerializeField] private Button playerSettings;
-        [SerializeField] private Button quit;
+        [SerializeField] private Button mobileUIToggle;
+        [SerializeField] private Button microphone;
+        [SerializeField] private Button video;
+        [SerializeField] private Button chat;
+        [SerializeField] private Button profile;
         [SerializeField] private Button help;
         [SerializeField] private Button dance;
-        [SerializeField] private Button microphone;
-        [SerializeField] private Button cameraBtn;
-        [SerializeField] private Button chat;
-        [SerializeField] private Button mobileUIToggle;
+
+        [SerializeField] private DancePanel dancePanel;
 
 
+        public Button Quit => quit;
+        public Button PlayerSettings => playerSettings;
         public Button Likes => likes;
         public TMP_Text LikesCount => likesCount;
         public Button Screenshot => screenshot;
-        public Button PlayerSettings => playerSettings;
-        public Button Quit => quit;
+        public Button MobileUIToggle => mobileUIToggle;
+        public Button Microphone => microphone;
+        public Button Video => video;
+        public Button Chat => chat;
+        public Button Profile => profile;
         public Button Help => help;
         public Button Dance => dance;
-        public Button Microphone => microphone;
-        public Button CameraBtn => cameraBtn;
-        public Button Chat => chat;
-        public Button MobileUIToggle => mobileUIToggle;
+        public Button Hello => dancePanel.Hello;
+        public Button Applause => dancePanel.Applause;
+        public Button Dance1 => dancePanel.Dance1;
+        public Button Dance2 => dancePanel.Dance2;
+        public Button Dance3 => dancePanel.Dance3;
 
         private List<Button> _buttons = new List<Button>();
 
@@ -51,16 +60,22 @@ namespace UI
 
         private void InitialiseButtons()
         {
+            _buttons.Add(quit);
+            _buttons.Add(playerSettings);
             _buttons.Add(likes);
             _buttons.Add(screenshot);
-            _buttons.Add(playerSettings);
-            _buttons.Add(quit);
+            _buttons.Add(mobileUIToggle);
+            _buttons.Add(microphone);
+            _buttons.Add(video);
+            _buttons.Add(chat);
+            _buttons.Add(profile);
             _buttons.Add(help);
             _buttons.Add(dance);
-            _buttons.Add(chat);
-            _buttons.Add(cameraBtn);
-            _buttons.Add(microphone);
-            _buttons.Add(mobileUIToggle);
+            _buttons.Add(dancePanel.Hello);
+            _buttons.Add(dancePanel.Applause);
+            _buttons.Add(dancePanel.Dance1);
+            _buttons.Add(dancePanel.Dance2);
+            _buttons.Add(dancePanel.Dance3);
 
             foreach (var button in _buttons)
             {
@@ -71,6 +86,8 @@ namespace UI
 
             Screenshot.onClick.AddListener(TakeScreenshot);
             Quit.onClick.AddListener(LeaveRoom);
+            dancePanel.Init();
+            Dance.onClick.AddListener(ToggleDancePanel);
         }
 
         private void TakeScreenshot()
@@ -81,6 +98,11 @@ namespace UI
             Debug.Log($"Image saved in : {path}");
         }
 
+
+        private void ToggleDancePanel()
+        {
+            dancePanel.Toggle();
+        }
 
         private void LeaveRoom()
         {
@@ -94,8 +116,9 @@ namespace UI
             PhotonNetwork.LoadLevel(0);
 
             // unsubscribe events
-            Screenshot.onClick.AddListener(TakeScreenshot);
-            Quit.onClick.AddListener(LeaveRoom);
+            Screenshot.onClick.RemoveListener(TakeScreenshot);
+            Quit.onClick.RemoveListener(LeaveRoom);
+            Dance.onClick.RemoveListener(ToggleDancePanel);
         }
     }
 }

@@ -8,13 +8,9 @@ namespace PlayerControl
 {
     public class AnimationControl : MonoBehaviourPunCallbacks
     {
-        // animation IDs
-        private int _animIDSpeed;
-        private int _animIDGrounded;
-        private int _animIDJump;
-        private int _animIDFreeFall;
-        private int _animIDMotionSpeed;
+       
         private int _animIDDance;
+        private int _animIDIsDancing;
 
         private Animator _animator;
         private bool _hasAnimator;
@@ -22,12 +18,8 @@ namespace PlayerControl
         private void Start()
         {
             _hasAnimator = TryGetComponent(out _animator);
-            _animIDSpeed = Animator.StringToHash("Speed");
-            _animIDGrounded = Animator.StringToHash("Grounded");
-            _animIDJump = Animator.StringToHash("Jump");
-            _animIDFreeFall = Animator.StringToHash("FreeFall");
-            _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDDance = Animator.StringToHash("Dance");
+            _animIDIsDancing = Animator.StringToHash("IsDancing");
         }
 
 

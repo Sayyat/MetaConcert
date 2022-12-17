@@ -23,15 +23,14 @@ namespace UI
         private void Start()
         {
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
-            mobileInput.gameObject.SetActive(false);
             userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
             userButtonsView.PlayerSettings.onClick.AddListener(() => settingsPanel.Toggle());
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-            mobileInput.gameObject.SetActive(true);
-#endif
-            
-#if  UNITY_WEBGL && !UNITY_EDITOR
+
+#if !UNITY_ANDROID
+            userButtonsView.MobileUIToggle.gameObject.SetActive(false);
+
+#else
             userButtonsView.MobileUIToggle.gameObject.SetActive(true);
             userButtonsView.MobileUIToggle.onClick.AddListener(() =>
             {

@@ -36,6 +36,7 @@ namespace Init.SceneInit
         private UICanvasControllerInput _userUIMobile;
         private UserButtonsView _userButtonsView;
         private AgoraAndPhotonController _agoraAndPhotonController;
+        private UserButtonsController _userButtonsController;
 
 
         [SerializeField] private Scenes scenes = Scenes.Concert;
@@ -94,9 +95,8 @@ namespace Init.SceneInit
             customProperties.Add(myId, null);
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
 
-            var userButtonsController = new UserButtonsController(_userButtonsView, _agoraView, _photonView);
-            userButtonsController.SetupButtons();
-            // _agoraAndPhotonController.SetupButtonListeners();
+            _userButtonsController = new UserButtonsController(_userButtonsView, _agoraView, _photonView);
+            _userButtonsController.SetupButtons();
         }
 
         private void ConstructAgora()
@@ -109,6 +109,12 @@ namespace Init.SceneInit
             var state = Convert.ToBoolean(changedProps["IsVideoOn"]);
             _agoraAndPhotonController.ToggleVideoQuad(targetPlayer.ActorNumber, state);
         }
+
+        private void OnDestroy()
+        {
+            _userButtonsController.RemoveAllListeners();
+        }
+
 
         private enum Scenes
         {

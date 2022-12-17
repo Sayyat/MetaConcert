@@ -20,7 +20,7 @@ namespace UI
 
         public void SetupButtons()
         {
-            _buttons.CameraBtn.onClick.AddListener(() =>
+            _buttons.Video.onClick.AddListener(() =>
             {
                 var state = _agoraView.ToggleVideo();
                 var customProperties = _photonView.Owner.CustomProperties;
@@ -37,6 +37,37 @@ namespace UI
             });
             _buttons.Microphone.onClick.AddListener(_agoraView.ToggleAudio);
             _buttons.Quit.onClick.AddListener(_agoraView.Quit);
+            
+            _buttons.Hello.onClick.AddListener(() => SetCustomPropertiesDance(4));
+            _buttons.Applause.onClick.AddListener(() => SetCustomPropertiesDance(5));
+            _buttons.Dance1.onClick.AddListener(() => SetCustomPropertiesDance(1));
+            _buttons.Dance2.onClick.AddListener(() => SetCustomPropertiesDance(2));
+            _buttons.Dance3.onClick.AddListener(() => SetCustomPropertiesDance(3));
+            
+            
+        }
+
+        private void SetCustomPropertiesDance(int id)
+        {
+            var customProperties = _photonView.Owner.CustomProperties;
+            if (customProperties.ContainsKey("DanceID"))
+            {
+                customProperties["DanceID"] = id;
+            }
+            else
+            {
+                customProperties.Add("DanceID", id);
+            }
+
+            _photonView.Owner.SetCustomProperties(customProperties);
+        }
+        
+        public void RemoveAllListeners()
+        {
+            _buttons.Microphone.onClick.RemoveListener(_agoraView.ToggleAudio);
+            _buttons.Quit.onClick.RemoveListener(_agoraView.Quit);
+            
+            
         }
     }
 }
