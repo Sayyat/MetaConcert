@@ -26,8 +26,13 @@ namespace UI
             userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
             userButtonsView.PlayerSettings.onClick.AddListener(() => settingsPanel.Toggle());
 
-
-#if !UNITY_ANDROID
+#if UNITY_ANDROID
+            mobileInput.gameObject.SetActive(true);
+#else
+            mobileInput.gameObject.SetActive(false);
+#endif
+            
+#if !UNITY_WEBGL
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
 
 #else

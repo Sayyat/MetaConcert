@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 1175356980278069067}
   - component: {fileID: 3314918692120517892}
   - component: {fileID: 1382182161505120527}
+  - component: {fileID: 8326580018109733494}
   m_Layer: 0
   m_Name: WomanBot
   m_TagString: Untagged
@@ -529,6 +530,18 @@ MonoBehaviour:
   _dialog: {fileID: 6148279790653071285, guid: 46861060065c86f43a7b43c7bd1aee63, type: 3}
   botDialog: {fileID: 2248910699687313638}
   _turret: {fileID: 1175356980278069067}
+--- !u!114 &8326580018109733494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723140401621679697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c756f42f9ee5c554ba553b28d8075bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1985296296628938553
 GameObject:
   m_ObjectHideFlags: 0
