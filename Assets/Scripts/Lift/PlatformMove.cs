@@ -24,7 +24,7 @@ namespace Lift
         }
 
 
-        private void LateUpdate()
+        private void Update()
         {
             if (!IsMoving)
             {
