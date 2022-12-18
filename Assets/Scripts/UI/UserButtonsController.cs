@@ -43,8 +43,6 @@ namespace UI
             _buttons.Dance1.onClick.AddListener(() => SetCustomPropertiesDance(1));
             _buttons.Dance2.onClick.AddListener(() => SetCustomPropertiesDance(2));
             _buttons.Dance3.onClick.AddListener(() => SetCustomPropertiesDance(3));
-            
-            
         }
 
         private void SetCustomPropertiesDance(int id)
@@ -66,8 +64,6 @@ namespace UI
         {
             _buttons.Microphone.onClick.RemoveListener(_agoraView.ToggleAudio);
             _buttons.Quit.onClick.RemoveListener(_agoraView.Quit);
-            
-            
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Init
         private Animator _animator;
         private Avatar _avatarScheme;
         private string _currentAvatarUrl;
+        private string _lastAvatarUrl;
         private AvatarCashes _avatarCashes;
 
         private bool IsDownLoaded = false;
@@ -43,13 +44,11 @@ namespace Init
             if (photonView.IsMine)
             {
                 _currentAvatarUrl = _avatarCashes.SelectedAvatarUrl;
-
                 Debug.Log($"Getting my avatar from cash: {_currentAvatarUrl}");
             }
 
             // set my animator
             _animator = GetComponent<Animator>();
-
         }
 
 
@@ -73,10 +72,10 @@ namespace Init
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             info.Sender.TagObject = gameObject;
-            
+
             if (!photonView.IsMine) return;
             // do these only if it is me
-            
+
             // save my avatarUrl to my own CustomProperties
             var hashTable = photonView.Owner.CustomProperties;
             if (hashTable.ContainsKey("avatarUrl"))
@@ -92,17 +91,8 @@ namespace Init
 
 
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
-            
         }
 
-
-        private void LoadAvatar()
-        {
-            // get my avatarUrl from photonView customProperties
-            var hashTable = photonView.Owner.CustomProperties;
-            var url = hashTable["avatarUrl"] as string;
-            LoadAvatar(url);
-        }
 
         private void LoadAvatar(string url)
         {
@@ -162,7 +152,14 @@ namespace Init
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
-            LoadAvatar();
+            // don't load avatar if no avatar url
+            if (!changedProps.ContainsKey("avatarUrl")) return;
+
+            var url = changedProps["avatarUrl"] as string;
+            // don't load avatar if avatar url not changed
+            if (url == _lastAvatarUrl) return;
+            LoadAvatar(url);
+            _lastAvatarUrl = url;
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)

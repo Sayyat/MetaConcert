@@ -42,8 +42,8 @@ namespace UI
         {
             IsVisible = true;
             _commonInitialPosition = commonInitialPosition.position;
-            _helloInitialPosition =  hello.GetComponent<RectTransform>().position;
-            _applauseInitialPosition =  applause.GetComponent<RectTransform>().position;
+            _helloInitialPosition = hello.GetComponent<RectTransform>().position;
+            _applauseInitialPosition = applause.GetComponent<RectTransform>().position;
             _dance1InitialPosition = dance1.GetComponent<RectTransform>().position;
             _dance2InitialPosition = dance2.GetComponent<RectTransform>().position;
             _dance3InitialPosition = dance3.GetComponent<RectTransform>().position;
@@ -66,6 +66,7 @@ namespace UI
                 _dance3InitialPosition
             };
             
+            // hide dance panel when start
             HidePanel(0f);
         }
 
@@ -124,7 +125,6 @@ namespace UI
             {
                 var loop = button.GetComponent<RectTransform>().DOMove(_commonInitialPosition, duration);
                 seq.Join(loop);
-                
             }
 
             seq.onComplete = () =>
