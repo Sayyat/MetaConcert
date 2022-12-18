@@ -1,0 +1,155 @@
+# Blender MTL File: '0104.blend'
+# Material Count: 14
+
+newmtl 4545
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\5215973.jpg
+map_Ke D:\\exchibition\\textURES\\5215973.jpg
+
+newmtl EMISSION_001
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.334630 0.000000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 2.100000 2.100000 2.100000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl None
+Ns 500
+Ka 0.8 0.8 0.8
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl banner1
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\7371612.jpg
+map_Ke D:\\exchibition\\textURES\\7371612.jpg
+
+newmtl banner2
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\medium-shot-man-wearing-vr-glasses.jpg
+map_Ke D:\\exchibition\\textURES\\medium-shot-man-wearing-vr-glasses.jpg
+
+newmtl banner_3
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\11842.jpg
+map_Ke D:\\exchibition\\textURES\\11842.jpg
+
+newmtl black
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl cell
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\2570874.jpg
+map_Ke D:\\exchibition\\textURES\\2570874.jpg
+
+newmtl emission
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.130405 0.000000 6.700000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl emission_asyl
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.219949 0.000000 0.019957
+Ks 0.500000 0.500000 0.500000
+Ke 4.700000 4.500908 4.649755
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl floo
+Ns 671.281009
+Ka 0.677273 0.677273 0.677273
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd D:\\exchibition\\textURES\\44.jpg
+
+newmtl red
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.358841 0.008026 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl video_Back
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\textURES\\fon.mp4
+map_Ke D:\\exchibition\\textURES\\fon.mp4
+
+newmtl video_Back2
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\exchibition\\posters-neon-2022-05-20-15-31-00-utc\\Posters_Neon\\Poster_199.mp4
+map_Ke D:\\exchibition\\posters-neon-2022-05-20-15-31-00-utc\\Posters_Neon\\Poster_199.mp4
