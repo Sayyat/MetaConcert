@@ -155,11 +155,11 @@ namespace Init
             // don't load avatar if no avatar url
             if (!changedProps.ContainsKey("avatarUrl")) return;
 
-            var url = changedProps["avatarUrl"] as string;
+            var url = Convert.ToString(changedProps["avatarUrl"]);
             // don't load avatar if avatar url not changed
-            if (url == _lastAvatarUrl) return;
+            // if (url == _lastAvatarUrl) return;
             LoadAvatar(url);
-            _lastAvatarUrl = url;
+            // _lastAvatarUrl = url;
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)
