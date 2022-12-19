@@ -140,6 +140,8 @@ namespace Init
 
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
+            var url = Convert.ToString(photonView.Owner.CustomProperties["avatarUrl"]);
+            LoadAvatar(url);
         }
 
         public void OnPlayerLeftRoom(Player otherPlayer)
@@ -152,6 +154,7 @@ namespace Init
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
+            if (photonView.Owner.ActorNumber != targetPlayer.ActorNumber) return;
             // don't load avatar if no avatar url
             if (!changedProps.ContainsKey("avatarUrl")) return;
 
