@@ -35,49 +35,49 @@ namespace PlayerControl
         {
             if (Input.anyKeyDown)
             {
-                SetCustomPropertiesDance(0);
+                StartCoroutine(Dance(0));
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
             {
-                SetCustomPropertiesDance(1);
+                StartCoroutine(Dance(1));
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SetCustomPropertiesDance(2);
+                StartCoroutine(Dance(2));
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
             {
-                SetCustomPropertiesDance(3);
+                StartCoroutine(Dance(3));
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4))
             {
-                SetCustomPropertiesDance(4);
+                StartCoroutine(Dance(4));
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5))
             {
-                SetCustomPropertiesDance(5);
+                StartCoroutine(Dance(5));
             }
         }
 
-        private void SetCustomPropertiesDance(int id)
-        {
-            var customProperties = photonView.Owner.CustomProperties;
-            if (customProperties.ContainsKey("DanceID"))
-            {
-                customProperties["DanceID"] = id;
-            }
-            else
-            {
-                customProperties.Add("DanceID", id);
-            }
-
-            photonView.Owner.SetCustomProperties(customProperties);
-        }
+        // private void SetCustomPropertiesDance(int id)
+        // {
+        //     var customProperties = photonView.Owner.CustomProperties;
+        //     if (customProperties.ContainsKey("DanceID"))
+        //     {
+        //         customProperties["DanceID"] = id;
+        //     }
+        //     else
+        //     {
+        //         customProperties.Add("DanceID", id);
+        //     }
+        //
+        //     photonView.Owner.SetCustomProperties(customProperties);
+        // }
 
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -94,12 +94,12 @@ namespace PlayerControl
         {
             // update animator if using character
             if (!_hasAnimator) yield break;
-            
+
             _animator.SetInteger(_animIDDance, dance);
             _animator.SetBool(_animIDIsDancing, true);
 
             yield return new WaitForSeconds(0.1f);
-            
+
             _animator.SetBool(_animIDIsDancing, false);
         }
     }
