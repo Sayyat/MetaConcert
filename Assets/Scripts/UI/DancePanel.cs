@@ -65,7 +65,7 @@ namespace UI
                 _dance2InitialPosition,
                 _dance3InitialPosition
             };
-            
+
             // hide dance panel when start
             HidePanel(0f);
         }
@@ -106,11 +106,11 @@ namespace UI
                 seq.Join(loop);
             }
 
-            seq.onComplete = () =>
+            seq.OnComplete(() =>
             {
                 IsVisible = true;
                 IsAnimating = false;
-            };
+            });
         }
 
 

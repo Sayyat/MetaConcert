@@ -43,6 +43,8 @@ public class AvatarCashes : MonoBehaviour
 
     public GameObject GetAvatar(string url)
     {
+        
+        // todo add load from ReadyPlayer if avatar not found in cashes
         var sh = ShortenUrl(url);
         Debug.Log($"Try to find {sh}");
         var ch = transform.Find(sh);
