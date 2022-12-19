@@ -154,9 +154,11 @@ namespace Init
         {
             // if (photonView.Owner.ActorNumber != targetPlayer.ActorNumber) return;
             // don't load avatar if no avatar url
-            if (!changedProps.ContainsKey("avatarUrl")) return;
 
-            var url = Convert.ToString(changedProps["avatarUrl"]);
+            var props = photonView.Owner.CustomProperties;
+            if (!props.ContainsKey("avatarUrl")) return;
+
+            var url = Convert.ToString(props["avatarUrl"]);
             // don't load avatar if avatar url not changed
             // if (url == _lastAvatarUrl) return;
             LoadAvatar(url);

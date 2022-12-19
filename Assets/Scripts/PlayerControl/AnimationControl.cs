@@ -64,32 +64,6 @@ namespace PlayerControl
             }
         }
 
-        // private void SetCustomPropertiesDance(int id)
-        // {
-        //     var customProperties = photonView.Owner.CustomProperties;
-        //     if (customProperties.ContainsKey("DanceID"))
-        //     {
-        //         customProperties["DanceID"] = id;
-        //     }
-        //     else
-        //     {
-        //         customProperties.Add("DanceID", id);
-        //     }
-        //
-        //     photonView.Owner.SetCustomProperties(customProperties);
-        // }
-
-
-        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-        {
-            if (photonView.Controller.ActorNumber != targetPlayer.ActorNumber) return;
-            var customProperties = targetPlayer.CustomProperties;
-            if (!customProperties.ContainsKey("DanceID")) return;
-            var danceID = Convert.ToInt32(customProperties["DanceID"]);
-            StartCoroutine(Dance(danceID));
-        }
-
-
         private IEnumerator Dance(int dance)
         {
             // update animator if using character
