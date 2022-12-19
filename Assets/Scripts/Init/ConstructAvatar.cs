@@ -15,10 +15,9 @@ namespace Init
         private Animator _animator;
         private Avatar _avatarScheme;
         private string _currentAvatarUrl;
-        private string _lastAvatarUrl;
         private AvatarCashes _avatarCashes;
 
-        private bool IsDownLoaded = false;
+        private bool _isDownLoaded = false;
 
         private string _actorNumber;
         // public string CurrentAvatarUrl
@@ -108,7 +107,7 @@ namespace Init
         private void Construct(GameObject playerTemplate)
         {
             // skip if this clone already downloaded its avatar
-            if (IsDownLoaded) return;
+            if (_isDownLoaded) return;
 
             _avatarScheme = playerTemplate.GetComponent<Animator>().avatar;
 
@@ -134,7 +133,7 @@ namespace Init
             Debug.Log($"Destroy GO");
 
             _animator.avatar = _avatarScheme;
-            IsDownLoaded = true;
+            _isDownLoaded = true;
         }
 
 
@@ -152,17 +151,11 @@ namespace Init
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
-            // if (photonView.Owner.ActorNumber != targetPlayer.ActorNumber) return;
-            // don't load avatar if no avatar url
-
             var props = photonView.Owner.CustomProperties;
             if (!props.ContainsKey("avatarUrl")) return;
 
             var url = Convert.ToString(props["avatarUrl"]);
-            // don't load avatar if avatar url not changed
-            // if (url == _lastAvatarUrl) return;
             LoadAvatar(url);
-            // _lastAvatarUrl = url;
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)
