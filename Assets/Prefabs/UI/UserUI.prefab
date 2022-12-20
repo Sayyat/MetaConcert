@@ -2903,7 +2903,7 @@ MonoBehaviour:
   profile: {fileID: 3335592000867625266}
   help: {fileID: 3335592001353767314}
   dance: {fileID: 3335592000958801126}
-  dancePanel: {fileID: 0}
+  dancePanel: {fileID: 8299027311354836929}
 --- !u!1 &3335592001863095230
 GameObject:
   m_ObjectHideFlags: 0
@@ -6858,6 +6858,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2641228164884840609}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8299027311354836929 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6308301021456512864, guid: 45b107f78c584d8882aa19d839b01416,
+    type: 3}
+  m_PrefabInstance: {fileID: 2641228164884840609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d5660277a60744dbb4755bbf650203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9134484089707267902 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6513247293641213855, guid: 45b107f78c584d8882aa19d839b01416,

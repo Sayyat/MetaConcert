@@ -56,6 +56,7 @@ namespace Bot
 
         private void OnDisable()
         {
+            DOTween.Clear();
             _numDialog = StartedDialogue;
             textInDialog.text = _phrases[_numDialog];
             transform.localScale = Vector3.zero;
