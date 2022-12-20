@@ -22,12 +22,12 @@ namespace UI
         public Button Dance2 => dance2;
         public Button Dance3 => dance3;
 
-        private Vector3 _commonInitialPosition;
-        private Vector3 _helloInitialPosition;
-        private Vector3 _applauseInitialPosition;
-        private Vector3 _dance1InitialPosition;
-        private Vector3 _dance2InitialPosition;
-        private Vector3 _dance3InitialPosition;
+        private Vector2 _commonInitialPosition;
+        private Vector2 _helloInitialPosition;
+        private Vector2 _applauseInitialPosition;
+        private Vector2 _dance1InitialPosition;
+        private Vector2 _dance2InitialPosition;
+        private Vector2 _dance3InitialPosition;
 
 
         public bool IsVisible = true;
@@ -35,18 +35,18 @@ namespace UI
 
 
         private List<Button> _myButtons;
-        private List<Vector3> _initialPositions;
+        private List<Vector2> _initialPositions;
 
 
         public void Init()
         {
             IsVisible = true;
-            _commonInitialPosition = commonInitialPosition.position;
-            _helloInitialPosition = hello.GetComponent<RectTransform>().position;
-            _applauseInitialPosition = applause.GetComponent<RectTransform>().position;
-            _dance1InitialPosition = dance1.GetComponent<RectTransform>().position;
-            _dance2InitialPosition = dance2.GetComponent<RectTransform>().position;
-            _dance3InitialPosition = dance3.GetComponent<RectTransform>().position;
+            _commonInitialPosition = commonInitialPosition.anchoredPosition;
+            _helloInitialPosition = hello.GetComponent<RectTransform>().anchoredPosition;
+            _applauseInitialPosition = applause.GetComponent<RectTransform>().anchoredPosition;
+            _dance1InitialPosition = dance1.GetComponent<RectTransform>().anchoredPosition;
+            _dance2InitialPosition = dance2.GetComponent<RectTransform>().anchoredPosition;
+            _dance3InitialPosition = dance3.GetComponent<RectTransform>().anchoredPosition;
 
             _myButtons = new List<Button>()
             {
@@ -57,7 +57,7 @@ namespace UI
                 dance3
             };
 
-            _initialPositions = new List<Vector3>()
+            _initialPositions = new List<Vector2>()
             {
                 _helloInitialPosition,
                 _applauseInitialPosition,
@@ -102,7 +102,7 @@ namespace UI
             for (var i = 0; i < _myButtons.Count; i++)
             {
                 var button = _myButtons[i];
-                var loop = button.GetComponent<RectTransform>().DOMove(_initialPositions[i], duration);
+                var loop = button.GetComponent<RectTransform>().DOAnchorPos(_initialPositions[i], duration);
                 seq.Join(loop);
             }
 
@@ -123,7 +123,7 @@ namespace UI
 
             foreach (var button in _myButtons)
             {
-                var loop = button.GetComponent<RectTransform>().DOMove(_commonInitialPosition, duration);
+                var loop = button.GetComponent<RectTransform>().DOAnchorPos(_commonInitialPosition, duration);
                 seq.Join(loop);
             }
 
