@@ -16,7 +16,7 @@ namespace Bot
             _dialog.SetActive(false);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (_findTarget)
             {
@@ -26,26 +26,22 @@ namespace Bot
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                _player = other.transform;
-                _findTarget = true;
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            _player = other.transform;
+            _findTarget = true;
             
-                _dialog.SetActive(true);
-                botDialog.enabled = true;
-            }
+            _dialog.SetActive(true);
+            botDialog.enabled = true;
         }
     
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                _findTarget = false;
-                _turret.Target(_defaultTarget);
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            _findTarget = false;
+            _turret.Target(_defaultTarget);
             
-                _dialog.SetActive(false);
-                botDialog.enabled = true;
-            }
+            _dialog.SetActive(false);
+            botDialog.enabled = false;
         }
     }
 }

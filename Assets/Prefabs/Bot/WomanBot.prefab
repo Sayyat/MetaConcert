@@ -461,7 +461,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723140401621679697}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8112819fa10b2549869292e920d4a6e, type: 3}
   m_Name: 
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723140401621679697}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bf4ff6de4560d44d9b3b0697e00c1b8, type: 3}
   m_Name: 
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe7ce66615882a542bd8ce3d27f0075a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialog: {fileID: 6148279790653071285, guid: 46861060065c86f43a7b43c7bd1aee63, type: 3}
+  _dialog: {fileID: 8819060344348448570}
   botDialog: {fileID: 2248910699687313638}
   _turret: {fileID: 1175356980278069067}
 --- !u!114 &8326580018109733494
@@ -2774,6 +2774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8961290663830850045, guid: 2d1ee9a13a395d94082f223a697cc872,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d1ee9a13a395d94082f223a697cc872, type: 3}
 --- !u!114 &2248910699687313638 stripped
@@ -2791,6 +2796,12 @@ MonoBehaviour:
 --- !u!224 &4631517697628189849 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5078101084265130590, guid: 2d1ee9a13a395d94082f223a697cc872,
+    type: 3}
+  m_PrefabInstance: {fileID: 450217891111247559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8819060344348448570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8961290663830850045, guid: 2d1ee9a13a395d94082f223a697cc872,
     type: 3}
   m_PrefabInstance: {fileID: 450217891111247559}
   m_PrefabAsset: {fileID: 0}

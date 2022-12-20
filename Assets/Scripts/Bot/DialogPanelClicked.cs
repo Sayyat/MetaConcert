@@ -27,8 +27,7 @@ namespace Bot
             // _numDialog = StartedDialogue;
             // textInDialog.text = _phrases[_numDialog];
             // transform.localScale = Vector3.zero;
-
-            DG.Tweening.Sequence sequence = DOTween.Sequence();
+            var sequence = DOTween.Sequence();
             sequence.Append(transform.DOScale(1, 1));
             sequence.AppendInterval(2f);
             sequence.Append(transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
