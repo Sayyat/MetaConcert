@@ -103,7 +103,7 @@ VideoPlayer:
   m_TargetMaterialProperty: _EmissionMap
   m_RenderMode: 3
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
@@ -584,7 +584,7 @@ VideoPlayer:
   m_TargetMaterialProperty: _EmissionMap
   m_RenderMode: 3
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
@@ -1651,6 +1651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6495303160740330715}
+  - component: {fileID: 4196031298057734677}
   m_Layer: 0
   m_Name: stage2
   m_TagString: Untagged
@@ -1702,6 +1703,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -180, z: -3.3380127}
+--- !u!114 &4196031298057734677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865977423813043809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4e95680d417da4c9aca0bba3730dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoPlayers:
+  - {fileID: 6749007647543655223}
+  - {fileID: 6749007647865158279}
+  - {fileID: 6749007648735764405}
+  urls:
+  - Side
+  - Center
+  - Side
 --- !u!1 &6805259198696713009
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,7 +2437,7 @@ VideoPlayer:
   m_TargetMaterialProperty: _EmissionMap
   m_RenderMode: 3
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
