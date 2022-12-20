@@ -5,6 +5,7 @@ using ExitGames.Client.Photon;
 using Goods;
 using Photon.Pun;
 using Photon.Realtime;
+using PlayerControl;
 using StarterAssets;
 using UI;
 using UnityEngine;
@@ -95,7 +96,10 @@ namespace Init.SceneInit
             customProperties.Add(myId, null);
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
 
-            _userButtonsController = new UserButtonsController(_userButtonsView, _agoraView, _photonView);
+            var animationControl = _photonPlayer.GetComponent<AnimationControl>();
+
+            _userButtonsController =
+                new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
         }
 
