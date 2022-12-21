@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bot
 {
@@ -10,6 +11,7 @@ namespace Bot
         private const byte StartedDialogue = 0;
 
         [SerializeField] private GameObject cloudPanel;
+        [SerializeField] private Button cloudButton;
         [SerializeField] private TextMeshProUGUI textInDialog;
         
         private int _numDialog;
@@ -36,12 +38,12 @@ namespace Bot
             _sequence.Append(cloudPanel.transform.DOScale(1, 1));
             _sequence.AppendInterval(_interval);
             _sequence.SetLoops(-1, LoopType.Restart);
-        }
-
-        private void OnMouseDown()
-        {
-            Debug.Log("Mouse down");
-            _sequence.Restart();
+            
+            cloudButton.onClick.AddListener(() =>
+            {
+                Debug.Log("Clicked");
+                _sequence.Restart();
+            });
         }
 
         private void NextPhrase()
@@ -67,6 +69,7 @@ namespace Bot
         private void OnDisable()
         {
             DOTween.Clear();
+            cloudButton.onClick.RemoveAllListeners();
             _numDialog = StartedDialogue;
             textInDialog.text = _phrases[_numDialog];
             cloudPanel.transform.localScale = Vector3.zero;
