@@ -22,7 +22,7 @@ namespace Bot
             "Поздравляем Вас и Добро пожаловать!"
         };
 
-        private void Start()
+        private void OnEnable()
         {
             // _numDialog = StartedDialogue;
             // textInDialog.text = _phrases[_numDialog];
