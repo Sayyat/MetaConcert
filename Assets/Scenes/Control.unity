@@ -466,6 +466,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f05f3e7ec203ae49bae6126e33134ce,
+        type: 2}
+    - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
+        type: 3}
+      propertyPath: m_StyleSheet
+      value: 
+      objectReference: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e,
+        type: 2}
+    - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
+        type: 3}
       propertyPath: m_fontSizeMax
       value: 45
       objectReference: {fileID: 0}
@@ -476,6 +488,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
         type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c41005c129ba4d66911b75229fd70b45,
+        type: 2}
+    - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 22
       objectReference: {fileID: 0}
@@ -484,6 +502,12 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8497179680864877572, guid: 2f05f3e7ec203ae49bae6126e33134ce,
+        type: 2}
     - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
         type: 3}
       propertyPath: m_verticalMapping
@@ -522,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
         type: 3}
       propertyPath: m_geometrySortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7801073279339509308, guid: 5219bd2dc98ff004da5de2967f2be812,
         type: 3}
