@@ -13,11 +13,11 @@ namespace Bot
         [SerializeField] private GameObject cloudPanel;
         [SerializeField] private Button cloudButton;
         [SerializeField] private TextMeshProUGUI textInDialog;
-        
+
         private int _numDialog;
         private float _interval = 2f;
         private Sequence _sequence;
-        
+
         private readonly string[] _phrases = new[]
         {
             "Сәлем! Менің атым АНДРОГҮЛ! ...",
@@ -28,17 +28,21 @@ namespace Bot
             "Поздравляем Вас и Добро пожаловать!"
         };
 
+        private void Awake()
+        {
+            transform.GetComponent<Canvas>().worldCamera = Camera.main;
+            Debug.Log("Awake");
+        }
+
         private void OnEnable()
         {
-            // _numDialog = StartedDialogue;
-            // textInDialog.text = _phrases[_numDialog];
-            // transform.localScale = Vector3.zero;
+            _numDialog = -1;
             _sequence = DOTween.Sequence();
             _sequence.Append(cloudPanel.transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
             _sequence.Append(cloudPanel.transform.DOScale(1, 1));
             _sequence.AppendInterval(_interval);
             _sequence.SetLoops(-1, LoopType.Restart);
-            
+
             cloudButton.onClick.AddListener(() =>
             {
                 Debug.Log("Clicked");
@@ -53,25 +57,17 @@ namespace Bot
                 textInDialog.text = "Bye-Bye!";
                 return;
             }
-        
-            if (_numDialog < _phrases.Length - 1)
-            {
-                _numDialog++;
-                textInDialog.text = _phrases[_numDialog];
-            }
-            else
-            {
-                _numDialog = 0;
-                textInDialog.text = _phrases[_numDialog];
-            }
+
+            _numDialog = (_numDialog + 1) % _phrases.Length;
+            textInDialog.text = _phrases[_numDialog];
         }
 
         private void OnDisable()
         {
             DOTween.Clear();
             cloudButton.onClick.RemoveAllListeners();
-            _numDialog = StartedDialogue;
-            textInDialog.text = _phrases[_numDialog];
+            // _numDialog = StartedDialogue;
+            // textInDialog.text = _phrases[_numDialog];
             cloudPanel.transform.localScale = Vector3.zero;
         }
     }
