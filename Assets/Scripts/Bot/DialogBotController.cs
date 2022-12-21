@@ -1,26 +1,32 @@
+using System;
 using UnityEngine;
 
 namespace Bot
 {
     public class DialogBotController : MonoBehaviour
     {
-        [SerializeField] private GameObject _dialog;
-        [SerializeField] private DialogPanelClicked botDialog;
-        [SerializeField] private Turret _turret;
-        private Vector3 _defaultTarget = Vector3.zero;
+        [SerializeField] private BotCanvas botCanvas;
+        
+        private Turret _turret;
+        private readonly Vector3 _defaultTarget = Vector3.zero;
         private bool _findTarget;
         private Transform _player;
 
+        private void Awake()
+        {
+            _turret = GetComponent<Turret>();
+        }
+
         private void Start()
         {
-            _dialog.SetActive(false);
+            botCanvas.gameObject.SetActive(false);
         }
 
         private void Update()
         {
             if (_findTarget)
             {
-                _turret.Target(_player.position);  
+                _turret.Target(_player.position);
             }
         }
 
@@ -29,19 +35,17 @@ namespace Bot
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             _player = other.transform;
             _findTarget = true;
-            
-            _dialog.SetActive(true);
-            botDialog.enabled = true;
+
+            botCanvas.gameObject.SetActive(true);
         }
-    
+
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             _findTarget = false;
             _turret.Target(_defaultTarget);
-            
-            _dialog.SetActive(false);
-            botDialog.enabled = false;
+
+            botCanvas.gameObject.SetActive(false);
         }
     }
 }

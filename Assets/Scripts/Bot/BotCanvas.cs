@@ -1,17 +1,21 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 namespace Bot
 {
-    public class DialogPanelClicked : MonoBehaviour
+    public class BotCanvas : MonoBehaviour
     {
         private const byte StartedDialogue = 0;
 
+        [SerializeField] private GameObject cloudPanel;
         [SerializeField] private TextMeshProUGUI textInDialog;
-
+        
         private int _numDialog;
-
+        private float _interval = 2f;
+        private Sequence _sequence;
+        
         private readonly string[] _phrases = new[]
         {
             "Сәлем! Менің атым АНДРОГҮЛ! ...",
@@ -27,11 +31,17 @@ namespace Bot
             // _numDialog = StartedDialogue;
             // textInDialog.text = _phrases[_numDialog];
             // transform.localScale = Vector3.zero;
-            var sequence = DOTween.Sequence();
-            sequence.Append(transform.DOScale(1, 1));
-            sequence.AppendInterval(2f);
-            sequence.Append(transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
-            sequence.SetLoops(-1, LoopType.Restart);
+            _sequence = DOTween.Sequence();
+            _sequence.Append(cloudPanel.transform.DOScale(0.01f, 0.01f).OnComplete(NextPhrase));
+            _sequence.Append(cloudPanel.transform.DOScale(1, 1));
+            _sequence.AppendInterval(_interval);
+            _sequence.SetLoops(-1, LoopType.Restart);
+        }
+
+        private void OnMouseDown()
+        {
+            Debug.Log("Mouse down");
+            _sequence.Restart();
         }
 
         private void NextPhrase()
@@ -59,7 +69,7 @@ namespace Bot
             DOTween.Clear();
             _numDialog = StartedDialogue;
             textInDialog.text = _phrases[_numDialog];
-            transform.localScale = Vector3.zero;
+            cloudPanel.transform.localScale = Vector3.zero;
         }
     }
 }
