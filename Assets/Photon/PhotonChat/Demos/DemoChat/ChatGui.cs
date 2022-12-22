@@ -125,7 +125,7 @@ namespace Photon.Chat.Demo
 
             this.UserIdText.text = "";
             this.StateText.text  = "";
-            this.StateText.gameObject.SetActive(true);
+            // this.StateText.gameObject.SetActive(true);
             // this.UserIdText.gameObject.SetActive(true);
             // this.Title.SetActive(true);
             this.ChatPanel.gameObject.SetActive(false);
