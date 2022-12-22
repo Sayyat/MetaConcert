@@ -7,6 +7,7 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using TMPro;
 using UnityEngine;  
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,11 +18,11 @@ namespace Photon.Chat.UtilityScripts
 	/// <summary>
 	/// Use this on Button texts to have some color transition on the text as well without corrupting button's behaviour.
 	/// </summary>
-	[RequireComponent(typeof(Text))]
+	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class TextButtonTransition : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 		
-		Text _text;
+	    TextMeshProUGUI _text;
 
         /// <summary>
         /// The selectable Component.
@@ -40,7 +41,7 @@ namespace Photon.Chat.UtilityScripts
 
 		public void Awake()
 		{
-			_text = GetComponent<Text>();
+			_text = GetComponent<TextMeshProUGUI>();
 		}
 
         public void OnEnable()
