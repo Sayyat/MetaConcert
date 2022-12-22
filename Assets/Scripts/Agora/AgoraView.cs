@@ -21,10 +21,10 @@ public class AgoraView : MonoBehaviour
     // Get your own App ID at https://dashboard.agora.io/
     [SerializeField] private string appID = "your_appid";
     [SerializeField] private string channelName = "your_appid";
-    [SerializeField] private string appToken = "your_token";
-
 
     private bool IsJoinedRoom { get; set; } = false;
+    private string _appToken = "your_token";
+
     private string ChannelName
     {
         get
@@ -38,30 +38,27 @@ public class AgoraView : MonoBehaviour
             return cached;
         }
 
-        set
-        {
-            PlayerPrefs.SetString("ChannelName", value);
-        }
+        set { PlayerPrefs.SetString("ChannelName", value); }
     }
 
 
-    void Awake()
+    private void Awake()
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 		permissionList.Add(Permission.Microphone);         
-		permissionList.Add(Permission.Camera);               
+		permissionList.Add(Permission.Camera);
 #endif
         // keep this alive across scenes
         // DontDestroyOnLoad(this.gameObject);
+        _appToken = RequestToken.GetToken();
     }
-    
-    
-    
+
+
     private void Start()
     {
         CheckAppId();
     }
-    
+
 //Temporary button on Scene
     public void JoinRoom()
     {
@@ -74,7 +71,7 @@ public class AgoraView : MonoBehaviour
         }
 
         ChannelName = channelName;
-        Controller.Join(ChannelName, appToken, true, true);
+        Controller.Join(ChannelName, _appToken, true, true);
 
         IsJoinedRoom = true;
 
@@ -91,7 +88,7 @@ public class AgoraView : MonoBehaviour
             JoinRoom();
             return true;
         }
-        
+
         return Controller.ToggleVideo();
     }
 
@@ -102,14 +99,15 @@ public class AgoraView : MonoBehaviour
             JoinRoom();
             return;
         }
+
         Controller.ToggleAudio();
     }
-    
+
     private void Update()
     {
         CheckPermissions();
     }
-    
+
     /// <summary>
     ///   Checks for platform dependent permissions.
     /// </summary>
@@ -125,12 +123,12 @@ public class AgoraView : MonoBehaviour
         }
 #endif
     }
-    
+
     private void CheckAppId()
     {
         Debug.Assert(appID.Length > 10, "Please fill in your AppId first on Game Controller object.");
     }
-    
+
     // public void OnJoinAudience()
     // {
     //     // create app if nonexistent
@@ -160,9 +158,10 @@ public class AgoraView : MonoBehaviour
             Controller.UnloadEngine(); // delete engine
             Controller = null; // delete app
         }
+
         Destroy(gameObject);
     }
-    
+
     private void OnApplicationPause(bool paused)
     {
         if (!ReferenceEquals(Controller, null))
