@@ -82,7 +82,7 @@ namespace Photon.Chat.Demo
 
         public bool ShowState = true;
         public GameObject Title;
-        public Text StateText; // set in inspector
+        public TextMeshProUGUI StateText; // set in inspector
         public Text UserIdText; // set in inspector
 
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
@@ -126,8 +126,8 @@ namespace Photon.Chat.Demo
             this.UserIdText.text = "";
             this.StateText.text  = "";
             this.StateText.gameObject.SetActive(true);
-            this.UserIdText.gameObject.SetActive(true);
-            this.Title.SetActive(true);
+            // this.UserIdText.gameObject.SetActive(true);
+            // this.Title.SetActive(true);
             this.ChatPanel.gameObject.SetActive(false);
             this.ConnectingLabel.SetActive(false);
 
