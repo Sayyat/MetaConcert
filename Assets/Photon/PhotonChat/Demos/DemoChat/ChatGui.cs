@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 using Photon.Chat;
 using Photon.Realtime;
+using TMPro;
 using AuthenticationValues = Photon.Chat.AuthenticationValues;
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -68,7 +69,7 @@ namespace Photon.Chat.Demo
 
         public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
         public GameObject UserIdFormPanel;
-        public InputField InputFieldChat;   // set in inspector
+        public TMP_InputField InputFieldChat;   // set in inspector
         public Text CurrentChannelText;     // set in inspector
         public Toggle ChannelToggleToInstantiate; // set in inspector
 
