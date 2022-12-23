@@ -1,17 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using AvatarLoader;
 using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Photon.Realtime;
-using ReadyPlayerMe;
-using UnityEngine.Video;
+using UnityEngine;
 
-namespace Assets.Scripts
+namespace Menu
 {
 #pragma warning disable 649
 
@@ -42,7 +35,7 @@ namespace Assets.Scripts
         /// we need to keep track of this to properly adjust the behavior when we receive call back by Photon.
         /// Typically this is used for the OnConnectedToMaster() callback.
         /// </summary>
-        bool isConnecting;
+        private bool _isConnecting;
 
         /// <summary>
         /// This client's version number. Users are separated from each other by gameVersion (which allows you to make breaking changes).
@@ -53,7 +46,7 @@ namespace Assets.Scripts
 
 
         [SerializeField] private AvatarRenderView avatarRenderView;
-        [SerializeField] private GameObject BackgroundMusic;
+        [SerializeField] private GameObject backgroundMusic;
 
         private List<string> urls = new List<string>()
         {
@@ -72,21 +65,21 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            Instantiate(BackgroundMusic);
+            Instantiate(backgroundMusic);
             Debug.Log("Try to find existing DataPlayerAvatar object");
-            var AvatarCashes = GameObject.Find("AvatarCashes");
+            var avatarCashes = GameObject.Find("AvatarCashes");
 
-            if (AvatarCashes == null)
+            if (avatarCashes == null)
             {
-                AvatarCashes = new GameObject("AvatarCashes");
+                avatarCashes = new GameObject("AvatarCashes");
                 Debug.LogError("Dont have Avatar cashes. New Cash");
             }
 
-            _avatarCashes = AvatarCashes.GetComponent<AvatarCashes>();
+            _avatarCashes = avatarCashes.GetComponent<AvatarCashes>();
 
             if (_avatarCashes == null)
             {
-                _avatarCashes = AvatarCashes.AddComponent<AvatarCashes>();
+                _avatarCashes = avatarCashes.AddComponent<AvatarCashes>();
             }
 
             _avatarRenderController = 
@@ -113,7 +106,7 @@ namespace Assets.Scripts
         public void Connect()
         {
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
-            isConnecting = true;
+            _isConnecting = true;
 
 
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
@@ -157,7 +150,7 @@ namespace Assets.Scripts
             // we don't want to do anything if we are not attempting to join a room. 
             // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
             // we don't want to do anything.
-            if (isConnecting)
+            if (_isConnecting)
             {
                 LogFeedback("OnConnectedToMaster: Next -> try to Join Random Room");
                 Debug.Log(
@@ -194,7 +187,7 @@ namespace Assets.Scripts
             Debug.LogError("PUN Basics Tutorial/Launcher:Disconnected");
 
 
-            isConnecting = false;
+            _isConnecting = false;
         }
 
         /// <summary>

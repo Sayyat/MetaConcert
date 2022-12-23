@@ -544,6 +544,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 500470645709480910, guid: 38c429c88ae992f49a6e1eddca6e5c38,
         type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 1167989865729304734, guid: 1995d6ce9ddcff640b8a8940553b2507,
+        type: 3}
+    - target: {fileID: 500470645709480910, guid: 38c429c88ae992f49a6e1eddca6e5c38,
+        type: 3}
       propertyPath: panelController
       value: 
       objectReference: {fileID: 1010514740}

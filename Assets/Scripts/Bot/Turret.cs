@@ -12,20 +12,20 @@ namespace Bot
         public float pitchLimit = 90f;
         public Vector3 target;
 
-        private Quaternion yawSegmentStartRotation;
-        private Quaternion pitchSegmentStartRotation;
+        private Quaternion _yawSegmentStartRotation;
+        private Quaternion _pitchSegmentStartRotation;
 
         public void Start()
         {
-            yawSegmentStartRotation = yawSegment.localRotation;
-            pitchSegmentStartRotation = pitchSegment.localRotation;
+            _yawSegmentStartRotation = yawSegment.localRotation;
+            _pitchSegmentStartRotation = pitchSegment.localRotation;
         }
 
         public void Update()
         {
             float angle = 0.0f;
-            Vector3 targetRelative = default(Vector3);
-            Quaternion targetRotation = default(Quaternion);
+            var targetRelative = default(Vector3);
+            var targetRotation = default(Quaternion);
             if (this.yawSegment && (this.yawLimit != 0f))
             {
                 targetRelative = this.yawSegment.InverseTransformPoint(this.target);
@@ -37,7 +37,7 @@ namespace Bot
                 if ((this.yawLimit < 360f) && (this.yawLimit > 0f))
                     this.yawSegment.rotation = Quaternion.RotateTowards(
                         // this.yawSegment.parent.rotation *
-                        this.yawSegmentStartRotation, targetRotation, this.yawLimit);
+                        this._yawSegmentStartRotation, targetRotation, this.yawLimit);
                 else this.yawSegment.rotation = targetRotation;
             }
 
@@ -52,7 +52,7 @@ namespace Bot
                 if ((this.pitchLimit < 360f) && (this.pitchLimit > 0f))
                     this.pitchSegment.rotation = Quaternion.RotateTowards(
                         // this.pitchSegment.parent.rotation *
-                        this.pitchSegmentStartRotation, targetRotation,
+                        this._pitchSegmentStartRotation, targetRotation,
                         this.pitchLimit);
                 else this.pitchSegment.rotation = targetRotation;
             }
