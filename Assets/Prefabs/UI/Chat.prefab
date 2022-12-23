@@ -4608,12 +4608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChannelsToJoinOnConnect:
-  - Region
-  - Guild
-  FriendsList:
-  - Joe
-  - Jane
-  - Bob
+  - Main
+  FriendsList: []
   HistoryLengthToFetch: 0
   missingAppIdErrorPanel: {fileID: 5775565206880180859}
   ConnectingLabel: {fileID: 5775565207414405787}
