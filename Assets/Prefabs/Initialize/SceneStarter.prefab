@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3798702335233910275}
   - component: {fileID: 3798702335233910272}
   - component: {fileID: 4641171195204695777}
+  - component: {fileID: 8351404447384037629}
   m_Layer: 0
   m_Name: SceneStarter
   m_TagString: Untagged
@@ -66,6 +67,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dad08b220154f9fb8bdf963bb91b6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appID: b79fdafba2a84c2a9e28e9b250ff90df
+  appID: 6616b3dd4a2845d8a2ac415370d57677
   channelName: Alem
-  appToken: 
+--- !u!114 &8351404447384037629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798702335233910273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e429b8b2d5544fa8bfc747540ccdcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
