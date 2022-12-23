@@ -28,7 +28,11 @@ namespace UI
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
             userButtonsView.Help.onClick.AddListener(() => hintPanel.Toggle());
             userButtonsView.PlayerSettings.onClick.AddListener(() => settingsPanel.Toggle());
-
+            userButtonsView.Chat.onClick.AddListener(() =>
+            {
+                var parent = NamePickGui.gameObject.transform.parent.gameObject;
+                parent.SetActive(!parent.activeSelf);
+            });
 #if UNITY_ANDROID
             mobileInput.gameObject.SetActive(true);
 #else
