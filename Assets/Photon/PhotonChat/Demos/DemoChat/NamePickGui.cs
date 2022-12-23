@@ -21,6 +21,7 @@ namespace Photon.Chat.Demo
 
         public InputField idInput;
 
+        public bool autoStart { get; set; }
         public void Start()
         {
             this.chatNewComponent = FindObjectOfType<ChatGui>();
@@ -31,6 +32,9 @@ namespace Photon.Chat.Demo
             {
                 this.idInput.text = prefsName;
             }
+
+            if(autoStart)
+                StartChat();
         }
 
 

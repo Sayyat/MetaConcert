@@ -62,6 +62,7 @@ namespace Init.SceneInit
             // _userUIView.GoodsViewPanel.Init();
             _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
             productViewController.ProductViewPanelController = _productViewPanelController;
+            _userUIView.NamePickGui.autoStart = true;
         }
 
         private void Start()

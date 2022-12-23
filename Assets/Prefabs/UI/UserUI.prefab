@@ -3028,6 +3028,7 @@ MonoBehaviour:
   productViewPanel: {fileID: 8157383143931447146}
   hintPanel: {fileID: 3477084713761858291}
   settingsPanel: {fileID: 5405075521594785615}
+  namePickGui: {fileID: 15503614336749954}
 --- !u!1 &3335592002054754660
 GameObject:
   m_ObjectHideFlags: 0
@@ -7592,6 +7593,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5775565208414826310, guid: 5af563bffeb3ba541a1c4ae415c839db,
+        type: 3}
+      propertyPath: autoStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5775565208497361069, guid: 5af563bffeb3ba541a1c4ae415c839db,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7629,6 +7635,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af563bffeb3ba541a1c4ae415c839db, type: 3}
+--- !u!114 &15503614336749954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5775565208414826310, guid: 5af563bffeb3ba541a1c4ae415c839db,
+    type: 3}
+  m_PrefabInstance: {fileID: 5769666927700836036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696a5174ff5e707479b3540eb56d14b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2084041562069866151 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5547864378889365603, guid: 5af563bffeb3ba541a1c4ae415c839db,

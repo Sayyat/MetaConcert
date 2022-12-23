@@ -1,6 +1,7 @@
 using System;
 using Assets.Scripts.UI;
 using Goods;
+using Photon.Chat.Demo;
 using StarterAssets;
 using UnityEngine;
 
@@ -13,12 +14,14 @@ namespace UI
         [SerializeField] private ProductViewPanel productViewPanel;
         [SerializeField] private HintPanel hintPanel;
         [SerializeField] private SettingsPanel settingsPanel;
+        [SerializeField] private NamePickGui namePickGui;
 
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
         public ProductViewPanel ProductViewPanel => productViewPanel;
         public HintPanel HintPanel => hintPanel;
         public SettingsPanel SettingsPanel => settingsPanel;
+        public NamePickGui NamePickGui => namePickGui;
 
         private void Start()
         {
