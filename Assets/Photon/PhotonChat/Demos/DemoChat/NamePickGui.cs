@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +46,7 @@ namespace Photon.Chat.Demo
         public void StartChat()
         {
             ChatGui chatNewComponent = FindObjectOfType<ChatGui>();
-            chatNewComponent.UserName = this.idInput.text.Trim();
+            chatNewComponent.UserName = PhotonNetwork.NickName.Trim();
             chatNewComponent.Connect();
             this.enabled = false;
 

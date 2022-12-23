@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 using Photon.Chat;
 using Photon.Realtime;
+using TMPro;
 using AuthenticationValues = Photon.Chat.AuthenticationValues;
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -68,8 +69,8 @@ namespace Photon.Chat.Demo
 
         public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
         public GameObject UserIdFormPanel;
-        public InputField InputFieldChat;   // set in inspector
-        public Text CurrentChannelText;     // set in inspector
+        public TMP_InputField InputFieldChat;   // set in inspector
+        public TextMeshProUGUI CurrentChannelText;     // set in inspector
         public Toggle ChannelToggleToInstantiate; // set in inspector
 
 
@@ -81,7 +82,7 @@ namespace Photon.Chat.Demo
 
         public bool ShowState = true;
         public GameObject Title;
-        public Text StateText; // set in inspector
+        public TextMeshProUGUI StateText; // set in inspector
         public Text UserIdText; // set in inspector
 
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
@@ -124,9 +125,9 @@ namespace Photon.Chat.Demo
 
             this.UserIdText.text = "";
             this.StateText.text  = "";
-            this.StateText.gameObject.SetActive(true);
-            this.UserIdText.gameObject.SetActive(true);
-            this.Title.SetActive(true);
+            // this.StateText.gameObject.SetActive(true);
+            // this.UserIdText.gameObject.SetActive(true);
+            // this.Title.SetActive(true);
             this.ChatPanel.gameObject.SetActive(false);
             this.ConnectingLabel.SetActive(false);
 
