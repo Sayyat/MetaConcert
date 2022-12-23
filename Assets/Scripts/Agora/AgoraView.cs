@@ -22,6 +22,7 @@ public class AgoraView : MonoBehaviour
     [SerializeField] private string appID = "your_appid";
     [SerializeField] private string channelName = "your_appid";
 
+    private RequestToken _requestToken;
     private bool IsJoinedRoom { get; set; } = false;
     private string _appToken = "your_token";
 
@@ -50,7 +51,13 @@ public class AgoraView : MonoBehaviour
 #endif
         // keep this alive across scenes
         // DontDestroyOnLoad(this.gameObject);
-        _appToken = RequestToken.GetToken();
+        _requestToken = GetComponent<RequestToken>();
+        _requestToken.RequestSuccess += RequestTokenOnRequestSuccess;
+    }
+
+    private void RequestTokenOnRequestSuccess(string token)
+    {
+        _appToken = token;
     }
 
 
@@ -152,6 +159,8 @@ public class AgoraView : MonoBehaviour
 
     public void Quit()
     {
+        _requestToken.RequestSuccess -= RequestTokenOnRequestSuccess;
+
         if (!ReferenceEquals(Controller, null))
         {
             Controller.Leave(); // leave channel

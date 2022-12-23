@@ -1,28 +1,52 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Agora
 {
-    public class RequestToken
+    public class RequestToken:MonoBehaviour
     {
         private const string URL = "https://agora-token-generator-beryl.vercel.app/api/generate";
-        public static string GetToken()
+
+        public event Action<string> RequestSuccess; 
+        private void Start()
         {
-            var token = GetAsync(URL).Result;
-            return token;
+            StartCoroutine(GetRequest(URL));
         }
 
-
-        private static async Task<string> GetAsync(string uri)
+        private IEnumerator GetRequest(string uri)
         {
-            var request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            using var webRequest = UnityWebRequest.Get(uri);
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
 
-            using var response = (HttpWebResponse)await request.GetResponseAsync();
-            await using var stream = response.GetResponseStream();
-            using var reader = new StreamReader(stream);
-            return await reader.ReadToEndAsync();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError("Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError("HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    var json = JsonUtility.FromJson<GeneratorResponse>(webRequest.downloadHandler.text);
+                    RequestSuccess?.Invoke(json.token);
+                    Debug.Log("Received: " + json.token);
+                    break;
+                case UnityWebRequest.Result.InProgress:
+                    break;
+            }
+        }
+
+        [Serializable]
+        public class GeneratorResponse
+        {
+            public string token;
         }
     }
 }
