@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using Photon.Chat;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.InputSystem;
 using AuthenticationValues = Photon.Chat.AuthenticationValues;
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -40,7 +41,8 @@ namespace Photon.Chat.Demo
     /// </remarks>
     public class ChatGui : MonoBehaviour, IChatClientListener
     {
-
+        [SerializeField] private InputActionAsset playerInputAsset;
+        
         public string[] ChannelsToJoinOnConnect; // set in inspector. Demo channels to join automatically.
 
         public string[] FriendsList;
@@ -121,9 +123,18 @@ namespace Photon.Chat.Demo
 
         public void Start()
         {
-            InputFieldChat.onSubmit.AddListener(message => { OnEnterSend();});
-            InputFieldChat.onSelect.AddListener(message => { message.ToString();});
-            InputFieldChat.onDeselect.AddListener(message => { message.ToString();});
+            InputFieldChat.onSubmit.AddListener(message =>
+            {
+                OnEnterSend();
+            });
+            InputFieldChat.onSelect.AddListener(message =>
+            {
+                playerInputAsset.FindActionMap("Player").Disable();
+            });
+            InputFieldChat.onDeselect.AddListener(message =>
+            {
+                playerInputAsset.FindActionMap("Player").Enable();
+            });
             
             DontDestroyOnLoad(this.gameObject);
 

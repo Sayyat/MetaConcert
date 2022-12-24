@@ -4595,6 +4595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d148d0890b2d44dbdf7f1c1b39a499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputAsset: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e,
+    type: 3}
   ChannelsToJoinOnConnect:
   - Main
   FriendsList: []
