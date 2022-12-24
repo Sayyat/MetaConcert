@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 8831267269748539542}
   - component: {fileID: 6903350093926548397}
   - component: {fileID: 2842842345660956535}
+  - component: {fileID: 7048584492237355287}
   m_Layer: 0
   m_Name: Woman
   m_TagString: Untagged
@@ -309,6 +310,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &7048584492237355287
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574255527243965116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &595415521007256593
 GameObject:
   m_ObjectHideFlags: 0
