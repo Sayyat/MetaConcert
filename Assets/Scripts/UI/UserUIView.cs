@@ -14,6 +14,7 @@ namespace UI
         [SerializeField] private ProductViewPanel productViewPanel;
         [SerializeField] private HintPanel hintPanel;
         [SerializeField] private SettingsPanel settingsPanel;
+        [SerializeField] private ScreenshotPanel screenshotPanel;
         [SerializeField] private NamePickGui namePickGui;
 
         public UICanvasControllerInput MobileInput => mobileInput;
@@ -21,6 +22,7 @@ namespace UI
         public ProductViewPanel ProductViewPanel => productViewPanel;
         public HintPanel HintPanel => hintPanel;
         public SettingsPanel SettingsPanel => settingsPanel;
+        public ScreenshotPanel ScreenshotPanel => screenshotPanel;
         public NamePickGui NamePickGui => namePickGui;
 
         private void Start()
@@ -37,8 +39,9 @@ namespace UI
             mobileInput.gameObject.SetActive(true);
 #else
             mobileInput.gameObject.SetActive(false);
+            userButtonsView.Screenshot.onClick.AddListener(() => ScreenshotPanel.gameObject.SetActive(true));
 #endif
-            
+
 #if !UNITY_WEBGL
             userButtonsView.MobileUIToggle.gameObject.SetActive(false);
 
@@ -56,6 +59,9 @@ namespace UI
         {
             userButtonsView.Help.onClick.RemoveAllListeners();
             userButtonsView.PlayerSettings.onClick.RemoveAllListeners();
+#if !UNITY_ANDROID
+            userButtonsView.Screenshot.onClick.RemoveAllListeners();
+#endif
         }
     }
 }

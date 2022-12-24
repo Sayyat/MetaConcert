@@ -47,10 +47,7 @@ namespace UI
         public Button Dance3 => dancePanel.Dance3;
 
         private List<Button> _buttons = new List<Button>();
-
-
-        private const string Pattern = @"yyyyMMddHHmmssfff";
-
+        
 
         private void Start()
         {
@@ -84,19 +81,14 @@ namespace UI
                 controller.percentScale = 10f;
             }
 
-            Screenshot.onClick.AddListener(TakeScreenshot);
+#if UNITY_ANDROID
+            screenshot.gameObject.SetActive(false);
+#endif
             Quit.onClick.AddListener(LeaveRoom);
             dancePanel.Init();
             Dance.onClick.AddListener(ToggleDancePanel);
         }
-
-        private void TakeScreenshot()
-        {
-            var date = DateTime.Now.ToString(Pattern);
-            var path = Application.persistentDataPath + $"/{date}.png";
-            ScreenCapture.CaptureScreenshot(path);
-            Debug.Log($"Image saved in : {path}");
-        }
+        
 
 
         private void ToggleDancePanel()
@@ -116,7 +108,6 @@ namespace UI
             PhotonNetwork.LoadLevel(0);
 
             // unsubscribe events
-            Screenshot.onClick.RemoveListener(TakeScreenshot);
             Quit.onClick.RemoveListener(LeaveRoom);
             Dance.onClick.RemoveListener(ToggleDancePanel);
         }

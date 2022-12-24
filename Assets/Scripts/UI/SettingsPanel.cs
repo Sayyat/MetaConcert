@@ -31,7 +31,7 @@ namespace UI
         {
             soundOn.gameObject.SetActive(false);
             close.onClick.AddListener(() => gameObject.SetActive(false));
-            openScreenshotsFolder.onClick.AddListener(() => OpenFolder(Application.persistentDataPath));
+            openScreenshotsFolder.onClick.AddListener(() => Process.Start(Application.persistentDataPath));
             musicSlider.onValueChanged.AddListener((value) => _audioSource.volume = value);
             sensibilitySlider.onValueChanged.AddListener((value) => virtualTouchZone.magnitudeMultiplier = value);
             soundOn.onClick.AddListener(() =>
@@ -74,12 +74,6 @@ namespace UI
         public void Toggle()
         {
             gameObject.SetActive(!gameObject.activeSelf);
-        }
-
-
-        private void OpenFolder(string path)
-        {
-            Process.Start(path);
         }
     }
 }

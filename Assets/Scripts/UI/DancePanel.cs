@@ -82,6 +82,7 @@ namespace UI
 
         public void Toggle()
         {
+            Debug.Log("DancePanelToggle");
             if (IsVisible)
             {
                 HidePanel(0.3f);
