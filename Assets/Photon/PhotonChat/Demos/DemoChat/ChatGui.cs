@@ -121,6 +121,10 @@ namespace Photon.Chat.Demo
 
         public void Start()
         {
+            InputFieldChat.onSubmit.AddListener(message => { OnEnterSend();});
+            InputFieldChat.onSelect.AddListener(message => { message.ToString();});
+            InputFieldChat.onDeselect.AddListener(message => { message.ToString();});
+            
             DontDestroyOnLoad(this.gameObject);
 
             this.UserIdText.text = "";
