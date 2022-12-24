@@ -1,9 +1,11 @@
 using System;
 using Assets.Scripts.UI;
+using DG.Tweening;
 using Goods;
 using Photon.Chat.Demo;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -17,6 +19,9 @@ namespace UI
         [SerializeField] private ScreenshotPanel screenshotPanel;
         [SerializeField] private NamePickGui namePickGui;
 
+        private Image _background;
+
+
         public UICanvasControllerInput MobileInput => mobileInput;
         public UserButtonsView UserButtonsView => userButtonsView;
         public ProductViewPanel ProductViewPanel => productViewPanel;
@@ -24,6 +29,11 @@ namespace UI
         public SettingsPanel SettingsPanel => settingsPanel;
         public ScreenshotPanel ScreenshotPanel => screenshotPanel;
         public NamePickGui NamePickGui => namePickGui;
+
+        private void Awake()
+        {
+            _background = GetComponent<Image>();
+        }
 
         private void Start()
         {
@@ -39,7 +49,7 @@ namespace UI
             mobileInput.gameObject.SetActive(true);
 #else
             mobileInput.gameObject.SetActive(false);
-            userButtonsView.Screenshot.onClick.AddListener(() => ScreenshotPanel.gameObject.SetActive(true));
+            userButtonsView.Screenshot.onClick.AddListener(TakeScreenshot);
 #endif
 
 #if !UNITY_WEBGL
@@ -54,6 +64,17 @@ namespace UI
 #endif
         }
 
+
+        private void TakeScreenshot()
+        {
+            // take screenshot
+            ScreenshotPanel.gameObject.SetActive(true);  
+            
+            // blink effect
+            var sequence = DOTween.Sequence();
+            sequence.Append(_background.DOColor(new Color(1, 1, 1, 1), 0.5f));
+            sequence.Append(_background.DOColor(new Color(1, 1, 1, 0), 0f));
+        }
 
         private void OnDestroy()
         {
