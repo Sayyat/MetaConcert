@@ -46,6 +46,8 @@ namespace agora_gaming_rtc
         public uint videoFps = 30;
         [SerializeField]
         AgoraVideoSurfaceType VideoSurfaceType = AgoraVideoSurfaceType.Renderer;
+
+        public AgoraVideoSurfaceType GetVideoSurfaceType => VideoSurfaceType;
 #if !UNITY_EDITOR && UNITY_WEBGL
         // new addition for WebGL
         // required for getting textures from webgl

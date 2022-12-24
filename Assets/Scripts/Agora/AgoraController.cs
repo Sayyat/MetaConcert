@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using agora_gaming_rtc;
 using agora_utilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -11,9 +12,9 @@ namespace Agora
 {
     public class AgoraController
     {
-        public event Action<uint, int, VideoSurface> OtherUserJoined;
+        public event Action<uint, int, GameObject> OtherUserJoined;
 
-        public event Action<string, uint, int, VideoSurface> SelfUserJoined;
+        public event Action<string, uint, int, GameObject> SelfUserJoined;
 
         public event Action SelfUserLeave;
         // instance of agora engine
@@ -193,8 +194,15 @@ namespace Agora
                 textVersionGameObject.GetComponent<Text>().text = "SDK Version : " + IRtcEngine.GetSdkVersion();
             }
 
-            var videoObject = MakeQuadSurface(uid.ToString());
+            var videoSurface = MakeQuadCanvasSurface(uid.ToString());
+            videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
 
+            var videoObject = videoSurface.gameObject;
+            if (videoSurface.GetVideoSurfaceType == AgoraVideoSurfaceType.RawImage)
+            {
+                videoObject = videoSurface.gameObject.transform.parent.gameObject;
+            }
+            
             // ChannelNameLabel.text = channelName;
             SelfUserJoined.Invoke(channelName, uid, elapsed, videoObject);
         }
@@ -214,24 +222,26 @@ namespace Agora
             }
 
             // create a GameObject and assign to this new user
-            var videoSurface = MakeQuadSurface(uid.ToString());
+            var videoSurface = MakeQuadCanvasSurface(uid.ToString());
             if (!ReferenceEquals(videoSurface, null))
             {
                 // configure videoSurface
                 videoSurface.SetForUser(uid);
                 videoSurface.SetEnable(true);
-                videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.Renderer);
+                videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
 
                 remoteUserDisplays.Add(videoSurface.gameObject);
                 UserVideoDict[uid] = videoSurface;
             }
-
-            if (videoSurface != null)
+            
+            var videoObject = videoSurface.gameObject;
+            //get parent object when make Canvas
+            if (videoSurface.GetVideoSurfaceType == AgoraVideoSurfaceType.RawImage)
             {
-              
+                videoObject = videoSurface.gameObject.transform.parent.gameObject;
             }
 
-            OtherUserJoined.Invoke(uid, elapsed, videoSurface);
+            OtherUserJoined.Invoke(uid, elapsed, videoObject);
         }
 
         private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
@@ -346,6 +356,24 @@ namespace Agora
             go.layer = LayerMask.NameToLayer("Player");
 
             var videoSurface = go.AddComponent<VideoSurface>();
+            return videoSurface;
+        }
+        
+        public VideoSurface MakeQuadCanvasSurface(string goName)
+        {
+            var go = Object.Instantiate(Resources.Load("QuadCanvas") as GameObject);
+
+            if (go == null)
+            {
+                return null;
+            }
+
+            go.name = $"Video_{goName}";
+            go.layer = LayerMask.NameToLayer("Player");
+
+            var raw = go.transform.Find("Video");
+            
+            var videoSurface = raw.gameObject.AddComponent<VideoSurface>();
             return videoSurface;
         }
 

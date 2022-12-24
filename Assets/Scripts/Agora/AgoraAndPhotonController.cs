@@ -46,14 +46,14 @@ namespace Agora
             _agoraController.OtherUserJoined += AgoraControllerOnOtherUserJoined;
         }
 
-        private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, VideoSurface vs)
+        private void AgoraControllerOnSelfUserJoined(string channel, uint uid, int elapsed, GameObject goVideo)
         {
             //subscribe on quit
             _agoraController.SelfUserLeave += RemoveDataFromRoom;
 
             // save local data
             _selfAgoraId = uid;
-            _agoraVideoObjects.Add(uid, vs.gameObject);
+            _agoraVideoObjects.Add(uid, goVideo);
 
             var actorNumber = _photonView.Owner.ActorNumber;
             _selfPhotonId = actorNumber;
@@ -69,9 +69,9 @@ namespace Agora
             }
         }
 
-        private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, VideoSurface vs)
+        private void AgoraControllerOnOtherUserJoined(uint uid, int elapsed, GameObject goVideo)
         {
-            _agoraVideoObjects.Add(uid, vs.gameObject);
+            _agoraVideoObjects.Add(uid, goVideo);
             UpdatePhotonObjects();
 
             _photonIdBindAgoraUid = PhotonNetwork.CurrentRoom.CustomProperties;
