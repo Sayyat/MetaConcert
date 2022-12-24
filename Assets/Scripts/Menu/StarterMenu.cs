@@ -50,10 +50,9 @@ namespace Menu
 
         private List<string> urls = new List<string>()
         {
-            "https://api.readyplayer.me/v1/avatars/637774c5152ef07e2427a19f.glb",
-            "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
-            "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
+            "https://api.readyplayer.me/v1/avatars/6360d011fff3a4d4797b7cf1.glb",
+            "https://api.readyplayer.me/v1/avatars/63775fb2152ef07e24278a03.glb",
             "https://api.readyplayer.me/v1/avatars/63777cba152ef07e2427ac52.glb",
             "https://api.readyplayer.me/v1/avatars/637871d1a9869f44e5e7a2ce.glb"
         };
