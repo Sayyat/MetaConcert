@@ -9,6 +9,7 @@ using PlayerControl;
 using StarterAssets;
 using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Init.SceneInit
@@ -35,6 +36,7 @@ namespace Init.SceneInit
         private GameObject _photonPlayer;
         private UserUIView _userUIView;
         private UICanvasControllerInput _userUIMobile;
+        private MobileDisableAutoSwitchControls _mobileDisableAutoSwitchControls;
         private UserButtonsView _userButtonsView;
         private AgoraAndPhotonController _agoraAndPhotonController;
         private UserButtonsController _userButtonsController;
@@ -80,11 +82,13 @@ namespace Init.SceneInit
             _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
 
             _userUIMobile = _userUIView.MobileInput;
+            _mobileDisableAutoSwitchControls = _userUIView.MobileDisableAutoSwitchControls;
             _userButtonsView = _userUIView.UserButtonsView;
 
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
+            _mobileDisableAutoSwitchControls.playerInput = _photonPlayer.GetComponent<PlayerInput>();
 
             ConstructAgora();
 

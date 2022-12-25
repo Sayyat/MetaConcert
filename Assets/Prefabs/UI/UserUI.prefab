@@ -3027,6 +3027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobileInput: {fileID: 7252714407875645407}
+  mobileDisableAutoSwitchControls: {fileID: 2289150127785156165}
   userButtonsView: {fileID: 7652171147491826257}
   productViewPanel: {fileID: 8157383143931447146}
   hintPanel: {fileID: 3477084713761858291}
@@ -7911,6 +7912,18 @@ PrefabInstance:
     - {fileID: 1051221369040012482, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3, type: 3}
     - {fileID: 8384894406679704512, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3, type: 3}
+--- !u!114 &2289150127785156165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6701286033206102030, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4844590952798869067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901182334643ba1438a25accc6bd0c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5404474445058124246 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 593346031307489181, guid: 7484ce6f8ca3d81408c606b5ae8b9ff3,

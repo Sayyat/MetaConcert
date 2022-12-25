@@ -12,6 +12,7 @@ namespace UI
     public class UserUIView : MonoBehaviour
     {
         [SerializeField] private UICanvasControllerInput mobileInput;
+        [SerializeField] private MobileDisableAutoSwitchControls mobileDisableAutoSwitchControls;
         [SerializeField] private UserButtonsView userButtonsView;
         [SerializeField] private ProductViewPanel productViewPanel;
         [SerializeField] private HintPanel hintPanel;
@@ -23,6 +24,7 @@ namespace UI
 
 
         public UICanvasControllerInput MobileInput => mobileInput;
+        public MobileDisableAutoSwitchControls MobileDisableAutoSwitchControls => mobileDisableAutoSwitchControls;
         public UserButtonsView UserButtonsView => userButtonsView;
         public ProductViewPanel ProductViewPanel => productViewPanel;
         public HintPanel HintPanel => hintPanel;

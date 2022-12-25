@@ -12,11 +12,21 @@ namespace VideoLoaders
         [SerializeField] private List<VideoPlayer> videoPlayers;
         [SerializeField] private List<string> urls;
 
+        private string _prefix = "file://";
+
         private void Start()
         {
+#if UNITY_WEBGL
+            _prefix = "https://";
+#elif UNITY_ANDROID || UNITY_IOS
+            _prefix = "";
+#else
+            _prefix = "file://";
+#endif
+            
             for (var i = 0; i < videoPlayers.Count; i++)
             {
-                var path = $"{Application.streamingAssetsPath}/{urls[i]}.mp4";
+                var path = $"{_prefix}{Application.streamingAssetsPath}/{urls[i]}.mp4";
                 videoPlayers[i].url = path;
             }
         }
