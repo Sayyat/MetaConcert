@@ -88,7 +88,7 @@ namespace Init.SceneInit
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
-            _mobileDisableAutoSwitchControls.playerInput = _photonPlayer.GetComponent<PlayerInput>();
+            // _mobileDisableAutoSwitchControls.playerInput = _photonPlayer.GetComponent<PlayerInput>();
 
             ConstructAgora();
 

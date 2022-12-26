@@ -16,7 +16,7 @@ namespace VideoLoaders
 
         private void Start()
         {
-#if UNITY_WEBGL
+#if !UNITY_EDITOR && UNITY_WEBGL
             _prefix = "https://";
 #elif UNITY_ANDROID || UNITY_IOS
             _prefix = "";
