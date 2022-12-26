@@ -1,6 +1,5 @@
 using System;
 using Agora;
-using Assets.Scripts.UI;
 using ExitGames.Client.Photon;
 using Goods;
 using Photon.Pun;
@@ -9,15 +8,14 @@ using PlayerControl;
 using StarterAssets;
 using UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Init.SceneInit
 {
-    public class SceneStarter : MonoBehaviourPunCallbacks
+    public class ConcertSceneStarter : MonoBehaviourPunCallbacks
     {
         [SerializeField] private GameObject mainCamera;
-        [SerializeField] private GameObject playerFollowcamera;
+        [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
         [SerializeField] private ProductViewController productViewController;
 
@@ -36,29 +34,16 @@ namespace Init.SceneInit
         private GameObject _photonPlayer;
         private UserUIView _userUIView;
         private UICanvasControllerInput _userUIMobile;
-        private MobileDisableAutoSwitchControls _mobileDisableAutoSwitchControls;
         private UserButtonsView _userButtonsView;
         private AgoraAndPhotonController _agoraAndPhotonController;
         private UserButtonsController _userButtonsController;
 
-
-        [SerializeField] private Scenes scenes = Scenes.Concert;
-
-        private IScene _scene;
-
         private void Awake()
         {
-            _scene = scenes switch
-            {
-                Scenes.Concert => gameObject.AddComponent<ConcertScene>(),
-                Scenes.Controller => new ControllerScene(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
             _agoraView = GetComponent<AgoraView>();
 
             Instantiate(mainCamera);
-            Instantiate(playerFollowcamera);
+            Instantiate(playerFollowCamera);
             _userUIView = Instantiate(userUI).GetComponent<UserUIView>();
 
             // _userUIView.GoodsViewPanel.Init();
@@ -82,17 +67,13 @@ namespace Init.SceneInit
             _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
 
             _userUIMobile = _userUIView.MobileInput;
-            _mobileDisableAutoSwitchControls = _userUIView.MobileDisableAutoSwitchControls;
             _userButtonsView = _userUIView.UserButtonsView;
 
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
-            // _mobileDisableAutoSwitchControls.playerInput = _photonPlayer.GetComponent<PlayerInput>();
 
             ConstructAgora();
-
-            _scene.StartScene();
 
             // add my photon id to current room props
 
@@ -122,13 +103,6 @@ namespace Init.SceneInit
         private void OnDestroy()
         {
             _userButtonsController.RemoveAllListeners();
-        }
-
-
-        private enum Scenes
-        {
-            Concert,
-            Controller
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Quest
 
             var collector = other.gameObject.GetComponent<Collector>();
             collector.AddCoin(value);
+
+            gameObject.SetActive(false);
         }
     }
 }
