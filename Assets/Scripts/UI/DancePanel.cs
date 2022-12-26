@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -30,17 +31,31 @@ namespace UI
         private Vector2 _dance3InitialPosition;
 
 
-        public bool IsVisible = true;
-        public bool IsAnimating = false;
+        public bool isVisible = true;
+        public bool isAnimating = false;
 
 
         private List<Button> _myButtons;
         private List<Vector2> _initialPositions;
 
-
-        public void Init()
+        private void Awake()
         {
-            IsVisible = true;
+            Debug.Log("Awake");
+            Init();
+        }
+
+        private void Start()
+        {
+            Debug.Log("Start");
+            // hide dance panel when start
+            Debug.Log("Hiding the panel");
+            DOTween.KillAll(true);
+            HidePanel(0f);
+        }
+
+        private void Init()
+        {
+            isVisible = true;
             _commonInitialPosition = commonInitialPosition.anchoredPosition;
             _helloInitialPosition = hello.GetComponent<RectTransform>().anchoredPosition;
             _applauseInitialPosition = applause.GetComponent<RectTransform>().anchoredPosition;
@@ -65,25 +80,13 @@ namespace UI
                 _dance2InitialPosition,
                 _dance3InitialPosition
             };
-
-            // hide dance panel when start
-            HidePanel(0f);
         }
-
-        // private void OnEnable()
-        // {
-        //     ShowPanel();
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     IsVisible = false;
-        // }
+        
 
         public void Toggle()
         {
             Debug.Log("DancePanelToggle");
-            if (IsVisible)
+            if (isVisible)
             {
                 HidePanel(0.3f);
             }
@@ -95,9 +98,9 @@ namespace UI
 
         private void ShowPanel(float duration)
         {
-            if (IsAnimating) return;
+            if (isAnimating) return;
 
-            IsAnimating = true;
+            isAnimating = true;
             var seq = DOTween.Sequence();
 
             for (var i = 0; i < _myButtons.Count; i++)
@@ -106,20 +109,22 @@ namespace UI
                 var loop = button.GetComponent<RectTransform>().DOAnchorPos(_initialPositions[i], duration);
                 seq.Join(loop);
             }
-
             seq.OnComplete(() =>
             {
-                IsVisible = true;
-                IsAnimating = false;
+                Debug.Log("<Color=Blue>OnComplete</Color>");
+
+                isVisible = true;
+                isAnimating = false;
+                seq.Kill();
             });
         }
 
 
         private void HidePanel(float duration)
         {
-            if (IsAnimating) return;
+            if (isAnimating) return;
 
-            IsAnimating = true;
+            isAnimating = true;
             var seq = DOTween.Sequence();
 
             foreach (var button in _myButtons)
@@ -128,11 +133,20 @@ namespace UI
                 seq.Join(loop);
             }
 
-            seq.onComplete = () =>
+            seq.AppendCallback(() =>
             {
-                IsVisible = false;
-                IsAnimating = false;
-            };
+                Debug.Log("<Color=Blue>OnComplete</Color>");
+                isVisible = false;
+                isAnimating = false;
+                seq.Kill();
+            });
+        }
+
+
+        public void OnDestroy()
+        {
+            Debug.Log("Ondestroy");
+            DOTween.KillAll(true);
         }
     }
 }

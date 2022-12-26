@@ -85,7 +85,7 @@ namespace UI
             screenshot.gameObject.SetActive(false);
 #endif
             Quit.onClick.AddListener(LeaveRoom);
-            dancePanel.Init();
+            // dancePanel.Init();
             Dance.onClick.AddListener(ToggleDancePanel);
         }
         

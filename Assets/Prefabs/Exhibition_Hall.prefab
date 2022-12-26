@@ -8759,7 +8759,7 @@ GameObject:
   - component: {fileID: 9143965201866607525}
   - component: {fileID: 1406716203655456782}
   m_Layer: 0
-  m_Name: hall_part_08
+  m_Name: walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9312,7 +9312,7 @@ GameObject:
   - component: {fileID: 8188975447056569897}
   - component: {fileID: 8573180613447053052}
   m_Layer: 0
-  m_Name: hall_part_07
+  m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14828,7 +14828,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056784645192315}
-  m_LocalRotation: {x: 0.13417128, y: -0.85464764, z: 0.49783802, w: 0.06109711}
+  m_LocalRotation: {x: 0.016683303, y: -0.8616846, z: 0.49560007, w: 0.10771205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2000, y: 2000, z: 2000}
   m_ConstrainProportionsScale: 0
@@ -15908,7 +15908,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056785002237997}
-  m_LocalRotation: {x: -0.5012786, y: -0.01718409, z: -0.0005729166, w: 0.86511517}
+  m_LocalRotation: {x: -0.49723107, y: 0.09991284, z: 0.0031440929, w: 0.8618404}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19439,7 +19439,7 @@ GameObject:
   - component: {fileID: 7542288158563166075}
   - component: {fileID: 1356626568822423552}
   m_Layer: 0
-  m_Name: hall_part_06
+  m_Name: grasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
