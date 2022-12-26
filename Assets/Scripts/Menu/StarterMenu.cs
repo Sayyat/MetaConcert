@@ -3,6 +3,7 @@ using AvatarLoader;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Menu
 {
@@ -60,11 +61,15 @@ namespace Menu
         private AvatarCashes _avatarCashes;
         private MainLoadAvatars _mainLoadAvatars;
         private AvatarRenderController _avatarRenderController;
-
+        private GameObject _backgroundMusic;
 
         private void Start()
         {
-            Instantiate(backgroundMusic);
+            //todo refactored for save game object
+            _backgroundMusic = GameObject.Find("BackgroundMusic(Clone)");
+            if(_backgroundMusic == null)
+                _backgroundMusic = Instantiate(backgroundMusic);
+            
             Debug.Log("Try to find existing DataPlayerAvatar object");
             var avatarCashes = GameObject.Find("AvatarCashes");
 

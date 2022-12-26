@@ -7,7 +7,8 @@ namespace Audio
     public class AudioController : MonoBehaviour
     {
         
-        [SerializeField] private AudioSource _audioSource;  
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private Transform backgroundConcert; 
         private void Awake()
         {
             DontDestroyOnLoad(this);
@@ -15,7 +16,7 @@ namespace Audio
             {
                 if (scene.name == "Concert")
                 {
-                    transform.position = Vector3.zero;
+                    transform.position =backgroundConcert.position;
                     _audioSource.spatialBlend = 1;
                 }
             };
