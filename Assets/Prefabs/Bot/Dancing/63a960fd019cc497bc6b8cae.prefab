@@ -1413,6 +1413,7 @@ GameObject:
   - component: {fileID: 806915382550795104}
   - component: {fileID: 8257519226594486050}
   - component: {fileID: 2150762011870571631}
+  - component: {fileID: 3325930588936092551}
   m_Layer: 0
   m_Name: 63a960fd019cc497bc6b8cae
   m_TagString: Untagged
@@ -1486,6 +1487,20 @@ MonoBehaviour:
   AudioClip: {fileID: 0}
   AudioSource: {fileID: 0}
   AudioProvider: 0
+--- !u!136 &3325930588936092551
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729839915975872282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.23448867
+  m_Height: 1.8710124
+  m_Direction: 1
+  m_Center: {x: 0.01079309, y: 0.9315535, z: 0.051807076}
 --- !u!1 &5858377735731164318
 GameObject:
   m_ObjectHideFlags: 0
