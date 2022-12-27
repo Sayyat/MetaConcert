@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using Agora;
 using ExitGames.Client.Photon;
 using Goods;
@@ -9,7 +10,9 @@ using PlayerControl;
 using StarterAssets;
 using UI;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Init.SceneInit
 {
@@ -19,11 +22,12 @@ namespace Init.SceneInit
         [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
         [SerializeField] private ProductViewController productViewController;
-        
-        [SerializeField] private GameObject liftsParent;
-        
-        [Header("Spawn point settings")] 
-        [SerializeField] private Vector3 minSpawnPoint;
+
+        [SerializeField] private Transform liftsParent;
+
+        [Header("Spawn point settings")] [SerializeField]
+        private Vector3 minSpawnPoint;
+
         [SerializeField] private Vector3 maxSpawnPoint;
 
 
@@ -56,8 +60,6 @@ namespace Init.SceneInit
 
         private void Start()
         {
-            InstantiateLifts();
-
             // calculate random position
             var x = Random.Range(Math.Min(minSpawnPoint.x, maxSpawnPoint.x),
                 Math.Max(minSpawnPoint.x, maxSpawnPoint.x));
@@ -91,6 +93,9 @@ namespace Init.SceneInit
             _userButtonsController =
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
+
+
+            InstantiateLifts();
         }
 
         private void InstantiateLifts()
@@ -111,12 +116,10 @@ namespace Init.SceneInit
                 new Vector3(-25.95f, 0f, -310.85f),
             };
 
-            for (var index = 0; index < positions.Count; index++)
+            for (int i = 0; i < positions.Count; i++)
             {
-                var position = positions[index];
-                var yRot = index > 5 ? 180f : 0f;
-                var lift = PhotonNetwork.Instantiate("Lift", Vector3.zero, Quaternion.Euler(-90f, yRot, 0f),data: new []{});
-                
+                var yRot = i < 6 ? 0f : 180f;
+                var lift = PhotonNetwork.Instantiate("Lift", positions[i], Quaternion.Euler(-90f, 0f, 0f), 0);
             }
         }
 
