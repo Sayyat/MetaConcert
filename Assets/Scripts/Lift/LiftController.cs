@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +24,13 @@ namespace Lift
         private LiftStates _liftStates;
 
         private List<Transform> PlayerTransforms => platformTrigger.PlayersTransform;
-        
+
+
+        private PhotonView _photonView;
+
         private void Awake()
         {
+            _photonView = GetComponent<PhotonView>();
             _liftStates = new LiftStates();
             _liftStopSpotsGlobal = new List<Transform>();
 
@@ -37,16 +42,12 @@ namespace Lift
 
         private void Start()
         {
-            string l = "<Color=Green>\n";
-
             for (int i = 0; i < liftCallButtons.Count; i++)
             {
-                l += liftCallButtons[i].ToString() + "\n";
                 liftCallButtons[i].ButtonClicked += OnButtonClicked;
                 floorButtons[i].ButtonClicked += OnButtonClicked;
             }
 
-            l += "</Color>";
 
             // Debug.Log(l);
         }
@@ -59,6 +60,12 @@ namespace Lift
 
         private void OnButtonClicked(int floor)
         {
+            _photonView.RPC("MovePlatform", RpcTarget.All, floor);
+        }
+
+        [PunRPC]
+        private void MovePlatform(int floor)
+        {
             platformMove.enabled = true;
             platformMove.players = PlayerTransforms;
             var initialPositions = new List<Vector3>();
@@ -66,6 +73,7 @@ namespace Lift
             {
                 initialPositions.Add(lp.localPosition);
             }
+
             platformMove.initialPositions = initialPositions;
             platformMove.Destination = _liftStopSpotsGlobal[floor - 1].position;
             _liftStates.IsMoving = true;

@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lift
@@ -23,13 +22,11 @@ namespace Lift
             }
         }
 
-
         private void Update()
         {
             if (!IsMoving)
             {
                 enabled = false;
-                
             }
 
             if (Vector3.Distance(transform.position, _destination) < 0.001)
@@ -38,12 +35,6 @@ namespace Lift
             }
 
             transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime);
-
-            for (var i = 0; i < players.Count; i++)
-            {
-                var pTransform = players[i];
-                pTransform.localPosition = initialPositions[i];
-            }
         }
     }
 }

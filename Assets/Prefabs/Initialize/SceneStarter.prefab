@@ -48,13 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f,
     type: 3}
-  playerFollowcamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
+  playerFollowCamera: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8,
     type: 3}
-  userUI: {fileID: 0}
+  userUI: {fileID: 3335592001863095230, guid: 71c7445d8e01d064aadaa452f6ac663b, type: 3}
   productViewController: {fileID: 0}
-  minSpawnPoint: {x: 0, y: 0, z: 0}
-  maxSpawnPoint: {x: 0, y: 0, z: 0}
-  scenes: 0
+  minSpawnPoint: {x: -10, y: 1, z: -10}
+  maxSpawnPoint: {x: 10, y: 5, z: 10}
 --- !u!114 &4641171195204695777
 MonoBehaviour:
   m_ObjectHideFlags: 0

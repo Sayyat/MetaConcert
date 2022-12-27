@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Numerics;
 using Agora;
-using Assets.Scripts.UI;
 using ExitGames.Client.Photon;
 using Goods;
 using Photon.Pun;
@@ -9,17 +10,20 @@ using PlayerControl;
 using StarterAssets;
 using UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Init.SceneInit
 {
-    public class SceneStarter : MonoBehaviourPunCallbacks
+    public class ConcertSceneStarter : MonoBehaviourPunCallbacks
     {
         [SerializeField] private GameObject mainCamera;
-        [SerializeField] private GameObject playerFollowcamera;
+        [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
         [SerializeField] private ProductViewController productViewController;
+
+        [SerializeField] private Transform liftsParent;
 
         [Header("Spawn point settings")] [SerializeField]
         private Vector3 minSpawnPoint;
@@ -36,29 +40,16 @@ namespace Init.SceneInit
         private GameObject _photonPlayer;
         private UserUIView _userUIView;
         private UICanvasControllerInput _userUIMobile;
-        private MobileDisableAutoSwitchControls _mobileDisableAutoSwitchControls;
         private UserButtonsView _userButtonsView;
         private AgoraAndPhotonController _agoraAndPhotonController;
         private UserButtonsController _userButtonsController;
 
-
-        [SerializeField] private Scenes scenes = Scenes.Concert;
-
-        private IScene _scene;
-
         private void Awake()
         {
-            _scene = scenes switch
-            {
-                Scenes.Concert => gameObject.AddComponent<ConcertScene>(),
-                Scenes.Controller => new ControllerScene(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
             _agoraView = GetComponent<AgoraView>();
 
             Instantiate(mainCamera);
-            Instantiate(playerFollowcamera);
+            Instantiate(playerFollowCamera);
             _userUIView = Instantiate(userUI).GetComponent<UserUIView>();
 
             // _userUIView.GoodsViewPanel.Init();
@@ -82,17 +73,13 @@ namespace Init.SceneInit
             _agoraAndPhotonController = new AgoraAndPhotonController(_agoraView, _photonView);
 
             _userUIMobile = _userUIView.MobileInput;
-            _mobileDisableAutoSwitchControls = _userUIView.MobileDisableAutoSwitchControls;
             _userButtonsView = _userUIView.UserButtonsView;
 
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
-            // _mobileDisableAutoSwitchControls.playerInput = _photonPlayer.GetComponent<PlayerInput>();
 
             ConstructAgora();
-
-            _scene.StartScene();
 
             // add my photon id to current room props
 
@@ -106,6 +93,37 @@ namespace Init.SceneInit
             _userButtonsController =
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
+
+            var count = PhotonNetwork.CurrentRoom.PlayerCount;
+            if (count == 1)
+            {
+                InstantiateLifts();
+            }
+        }
+
+        private void InstantiateLifts()
+        {
+            var positions = new List<Vector3>()
+            {
+                new Vector3(31f, 0f, -16.6f),
+                new Vector3(31f, 0f, -31.38f),
+                new Vector3(31f, 0f, -156.6f),
+                new Vector3(31f, 0f, -171.08f),
+                new Vector3(31f, 0f, -296.07f),
+                new Vector3(31f, 0f, -310.85f),
+                new Vector3(-25.95f, 0f, -16.6f),
+                new Vector3(-25.95f, 0f, -31.38f),
+                new Vector3(-25.95f, 0f, -156.6f),
+                new Vector3(-25.95f, 0f, -171.08f),
+                new Vector3(-25.95f, 0f, -296.07f),
+                new Vector3(-25.95f, 0f, -310.85f),
+            };
+
+            for (int i = 0; i < positions.Count; i++)
+            {
+                var yRot = i < 6 ? 0f : 180f;
+                var lift = PhotonNetwork.Instantiate("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f), 0);
+            }
         }
 
         private void ConstructAgora()
@@ -122,13 +140,6 @@ namespace Init.SceneInit
         private void OnDestroy()
         {
             _userButtonsController.RemoveAllListeners();
-        }
-
-
-        private enum Scenes
-        {
-            Concert,
-            Controller
         }
     }
 }
