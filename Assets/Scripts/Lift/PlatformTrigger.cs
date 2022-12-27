@@ -16,20 +16,16 @@ namespace Lift
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                PlayersTransform.Add(other.transform);
-                other.transform.parent = transform;
-            }
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            PlayersTransform.Add(other.transform);
+            other.transform.parent = transform;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                PlayersTransform.Remove(other.transform);
-                other.transform.parent = null;
-            }
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            PlayersTransform.Remove(other.transform);
+            other.transform.parent = null;
         }
     }
 }

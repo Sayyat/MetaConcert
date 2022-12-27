@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Agora;
 using ExitGames.Client.Photon;
 using Goods;
@@ -18,10 +19,11 @@ namespace Init.SceneInit
         [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
         [SerializeField] private ProductViewController productViewController;
-
-        [Header("Spawn point settings")] [SerializeField]
-        private Vector3 minSpawnPoint;
-
+        
+        [SerializeField] private GameObject liftsParent;
+        
+        [Header("Spawn point settings")] 
+        [SerializeField] private Vector3 minSpawnPoint;
         [SerializeField] private Vector3 maxSpawnPoint;
 
 
@@ -54,6 +56,8 @@ namespace Init.SceneInit
 
         private void Start()
         {
+            InstantiateLifts();
+
             // calculate random position
             var x = Random.Range(Math.Min(minSpawnPoint.x, maxSpawnPoint.x),
                 Math.Max(minSpawnPoint.x, maxSpawnPoint.x));
@@ -87,6 +91,33 @@ namespace Init.SceneInit
             _userButtonsController =
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
+        }
+
+        private void InstantiateLifts()
+        {
+            var positions = new List<Vector3>()
+            {
+                new Vector3(31f, 0f, -16.6f),
+                new Vector3(31f, 0f, -31.38f),
+                new Vector3(31f, 0f, -156.6f),
+                new Vector3(31f, 0f, -171.08f),
+                new Vector3(31f, 0f, -296.07f),
+                new Vector3(31f, 0f, -310.85f),
+                new Vector3(-25.95f, 0f, -16.6f),
+                new Vector3(-25.95f, 0f, -31.38f),
+                new Vector3(-25.95f, 0f, -156.6f),
+                new Vector3(-25.95f, 0f, -171.08f),
+                new Vector3(-25.95f, 0f, -296.07f),
+                new Vector3(-25.95f, 0f, -310.85f),
+            };
+
+            for (var index = 0; index < positions.Count; index++)
+            {
+                var position = positions[index];
+                var yRot = index > 5 ? 180f : 0f;
+                var lift = PhotonNetwork.Instantiate("Lift", Vector3.zero, Quaternion.Euler(-90f, yRot, 0f),data: new []{});
+                
+            }
         }
 
         private void ConstructAgora()

@@ -37,16 +37,13 @@ namespace Lift
 
         private void Start()
         {
-            string l = "<Color=Green>\n";
 
             for (int i = 0; i < liftCallButtons.Count; i++)
             {
-                l += liftCallButtons[i].ToString() + "\n";
                 liftCallButtons[i].ButtonClicked += OnButtonClicked;
                 floorButtons[i].ButtonClicked += OnButtonClicked;
             }
 
-            l += "</Color>";
 
             // Debug.Log(l);
         }
