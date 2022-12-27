@@ -29,12 +29,11 @@ namespace Quest
             {
                 progressImages[i].color = new Color(1, 1, 1, 1);
             }
+
             for (int i = 0; i < _progress; i++)
             {
                 progressImages[i].color = new Color(1, 1, 1, 1);
             }
-            
-            
         }
     }
 }

@@ -1,8 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using Agora;
-using ExitGames.Client.Photon;
 using Goods;
 using Photon.Pun;
 using Photon.Realtime;
@@ -11,6 +11,8 @@ using Quest;
 using StarterAssets;
 using UI;
 using UnityEngine;
+using UnityEngine.Networking;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
@@ -101,7 +103,7 @@ namespace Init.SceneInit
             {
                 InstantiateLifts();
             }
-            
+
             _collector = _photonPlayer.GetComponent<Collector>();
             _collector.CoinGrabbed += CollectorOnCoinGrabbed;
         }
@@ -109,6 +111,11 @@ namespace Init.SceneInit
         private void CollectorOnCoinGrabbed(int coinSum, int valueSum)
         {
             _userUIView.CoinProgress.Progress = coinSum;
+            if (coinSum == 10)
+            {
+                var nick = _photonView.Owner.NickName;
+                Upload(nick);
+            }
         }
 
         private void InstantiateLifts()
@@ -146,6 +153,21 @@ namespace Init.SceneInit
             var state = Convert.ToBoolean(changedProps["IsVideoOn"]);
             _agoraAndPhotonController.ToggleVideoQuad(targetPlayer.ActorNumber, state);
         }
+
+
+        private IEnumerator Upload(string nick)
+        {
+            
+            var form = new WWWForm();
+            form.AddField("nick", nick);
+            form.AddField("time", System.DateTime.Now.ToString());
+
+            using UnityWebRequest www = UnityWebRequest.Post("https://agora-token-generator-beryl.vercel.app/api/upload", form);
+            yield return www.SendWebRequest();
+
+            Debug.Log(www.result != UnityWebRequest.Result.Success ? www.error : "Form upload complete!");
+        }
+
 
         private void OnDestroy()
         {
