@@ -94,8 +94,11 @@ namespace Init.SceneInit
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
 
-
-            InstantiateLifts();
+            var count = PhotonNetwork.CurrentRoom.PlayerCount;
+            if (count == 1)
+            {
+                InstantiateLifts();
+            }
         }
 
         private void InstantiateLifts()
