@@ -3,6 +3,7 @@ using Assets.Scripts.UI;
 using DG.Tweening;
 using Goods;
 using Photon.Chat.Demo;
+using Quest;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ namespace UI
         [SerializeField] private SettingsPanel settingsPanel;
         [SerializeField] private ScreenshotPanel screenshotPanel;
         [SerializeField] private NamePickGui namePickGui;
+        [SerializeField] private CoinProgress coinProgress;
 
         private Image _background;
 
@@ -31,6 +33,7 @@ namespace UI
         public SettingsPanel SettingsPanel => settingsPanel;
         public ScreenshotPanel ScreenshotPanel => screenshotPanel;
         public NamePickGui NamePickGui => namePickGui;
+        public CoinProgress CoinProgress => coinProgress;
 
         private void Awake()
         {
