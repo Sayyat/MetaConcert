@@ -18,14 +18,14 @@ namespace Lift
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             PlayersTransform.Add(other.transform);
-            other.transform.parent = transform;
+            // other.transform.parent = transform;
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             PlayersTransform.Remove(other.transform);
-            other.transform.parent = null;
+            // other.transform.parent = null;
         }
     }
 }

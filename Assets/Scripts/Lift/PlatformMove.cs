@@ -42,7 +42,7 @@ namespace Lift
             for (var i = 0; i < players.Count; i++)
             {
                 var pTransform = players[i];
-                pTransform.localPosition = initialPositions[i];
+                // pTransform.localPosition = initialPositions[i];
             }
         }
     }
