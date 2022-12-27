@@ -7,6 +7,7 @@ using Goods;
 using Photon.Pun;
 using Photon.Realtime;
 using PlayerControl;
+using Quest;
 using StarterAssets;
 using UI;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace Init.SceneInit
         private AgoraView _agoraView;
 
         private GameObject _photonPlayer;
+        private Collector _collector;
         private UserUIView _userUIView;
         private UICanvasControllerInput _userUIMobile;
         private UserButtonsView _userButtonsView;
@@ -99,6 +101,14 @@ namespace Init.SceneInit
             {
                 InstantiateLifts();
             }
+            
+            _collector = _photonPlayer.GetComponent<Collector>();
+            _collector.CoinGrabbed += CollectorOnCoinGrabbed;
+        }
+
+        private void CollectorOnCoinGrabbed(int coinSum, int valueSum)
+        {
+            _userUIView.CoinProgress.Progress = coinSum;
         }
 
         private void InstantiateLifts()
