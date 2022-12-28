@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8765865578994311074}
   - component: {fileID: 5623104610148847623}
   - component: {fileID: 7632951077542323405}
+  - component: {fileID: 8270693434822180309}
   m_Layer: 0
   m_Name: VITRINA_4
   m_TagString: Untagged
@@ -85,3 +86,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8270693434822180309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281359816546829592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ab350a3e614f7f827ea2a9597ef2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3

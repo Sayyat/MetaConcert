@@ -13,6 +13,7 @@ namespace Goods
             foreach (var good in products)
             {
                 good.ShareMyId += ProductViewPanelController.GoodClicked;
+                Debug.Log($"Clicked{good}");
             }
         }
         
