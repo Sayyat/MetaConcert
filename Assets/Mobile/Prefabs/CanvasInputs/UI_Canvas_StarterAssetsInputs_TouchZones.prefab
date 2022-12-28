@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9108414266783072577}
   - component: {fileID: 3603141287258900167}
   - component: {fileID: 2854614339647494548}
-  - component: {fileID: 6701286033206102030}
   m_Layer: 5
   m_Name: UI_Canvas_StarterAssetsInputs_TouchZones
   m_TagString: Untagged
@@ -119,18 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starterAssetsInputs: {fileID: 0}
---- !u!114 &6701286033206102030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803517679608742270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 901182334643ba1438a25accc6bd0c79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2846493628060374845
 PrefabInstance:
   m_ObjectHideFlags: 0
