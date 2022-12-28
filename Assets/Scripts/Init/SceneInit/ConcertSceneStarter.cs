@@ -111,11 +111,9 @@ namespace Init.SceneInit
         private void CollectorOnCoinGrabbed(int coinSum, int valueSum)
         {
             _userUIView.CoinProgress.Progress = coinSum;
-            if (coinSum == 10)
-            {
-                var nick = _photonView.Owner.NickName;
-                Upload(nick);
-            }
+
+            var nick = _photonView.Owner.NickName;
+            StartCoroutine(Upload(nick));
         }
 
         private void InstantiateLifts()
@@ -157,12 +155,11 @@ namespace Init.SceneInit
 
         private IEnumerator Upload(string nick)
         {
-            
             var form = new WWWForm();
             form.AddField("nick", nick);
-            form.AddField("time", System.DateTime.Now.ToString());
+            form.AddField("time", DateTime.Now.ToString());
 
-            using UnityWebRequest www = UnityWebRequest.Post("https://agora-token-generator-beryl.vercel.app/api/upload", form);
+            using var www = UnityWebRequest.Post("http://localhost:3000/api/upload", form);
             yield return www.SendWebRequest();
 
             Debug.Log(www.result != UnityWebRequest.Result.Success ? www.error : "Form upload complete!");
