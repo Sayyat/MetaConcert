@@ -113,7 +113,10 @@ namespace Init.SceneInit
             _userUIView.CoinProgress.Progress = coinSum;
 
             var nick = _photonView.Owner.NickName;
-            StartCoroutine(Upload(nick));
+            if (coinSum == 10)
+            {
+                StartCoroutine(Upload(nick));
+            }
         }
 
         private void InstantiateLifts()
