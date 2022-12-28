@@ -17,17 +17,19 @@ namespace VideoLoaders
 
         private void Start()
         {
-#if !UNITY_EDITOR && UNITY_WEBGL
+#if UNITY_EDITOR && UNITY_STANDALONE
+            _prefix = "file://";
+#elif UNITY_WEBGL
             _prefix = "https://";
 #elif UNITY_ANDROID || UNITY_IOS
             _prefix = "";
 #else
             _prefix = "file://";
 #endif
-            
+
             for (var i = 0; i < videoPlayers.Count; i++)
             {
-                var path = Path.Combine(_prefix, Application.streamingAssetsPath,$"{urls[i]}.mp4");
+                var path = Path.Combine(_prefix, Application.streamingAssetsPath, $"{urls[i]}.mp4");
                 videoPlayers[i].url = path;
             }
         }
