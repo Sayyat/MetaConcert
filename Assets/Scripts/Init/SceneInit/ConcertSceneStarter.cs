@@ -139,7 +139,7 @@ namespace Init.SceneInit
             for (int i = 0; i < positions.Count; i++)
             {
                 var yRot = i < 6 ? 0f : 180f;
-                var lift = PhotonNetwork.Instantiate("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f));
+                var lift = PhotonNetwork.InstantiateRoomObject("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f));
             }
         }
 
