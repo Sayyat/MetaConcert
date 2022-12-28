@@ -8,6 +8,6 @@ public class LiftInstantiate : MonoBehaviour
 {
     private void Start()
     {
-        PhotonNetwork.Instantiate("Lift", Vector3.zero, Quaternion.Euler(-90f, 0f, 0f), 0);
+        Debug.Log(Application.streamingAssetsPath);
     }
 }

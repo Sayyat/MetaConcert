@@ -833,8 +833,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b6c55bb6931b7cf41961cfe38c73e112, type: 2}
-  - {fileID: 2100000, guid: b6c55bb6931b7cf41961cfe38c73e112, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -984,10 +983,8 @@ MonoBehaviour:
   - {fileID: 7501056783640833221}
   - {fileID: 7501056785068015324}
   - {fileID: 7501056785232193558}
-  - {fileID: 0}
   - {fileID: 7501056784737751838}
   urls:
-  - fon
   - fon
   - fon
   - fon
@@ -4221,7 +4218,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f2248c0bdc96f064bbaf5eb2dc2d42ef, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6318,7 +6315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c28d5660ccb69ef4496f1dbc741afe9e, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7423,7 +7420,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b3f0db5fee6b424689cb6eb03f0f071, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8317,7 +8314,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7748cd09d01fb3d4faa4f895206fad5b, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9432,7 +9429,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70ae1c7c52bf0d4429bd8aaec3a0f734, type: 2}
+  - {fileID: 2100000, guid: 7489e55bdbd296e4dab4821d3b681663, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19608,7 +19605,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056784645192315}
-  m_LocalRotation: {x: -0.74419796, y: -0.45421985, z: 0.27289686, w: -0.40667078}
+  m_LocalRotation: {x: 0.78358597, y: -0.0041388054, z: -0.0074172993, w: 0.62122536}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2000, y: 2000, z: 2000}
   m_ConstrainProportionsScale: 0
@@ -20688,7 +20685,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056785002237997}
-  m_LocalRotation: {x: -0.4892852, y: 0.021305144, z: 0.00041685766, w: 0.87186354}
+  m_LocalRotation: {x: -0.62114435, y: 0.0124830175, z: 0.0022513128, w: 0.7835936}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28942,133 +28939,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c531ef612ed19843b02a036dbca15d6, type: 3}
---- !u!1 &171513509544449254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7701800031974779041, guid: 5c531ef612ed19843b02a036dbca15d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7530894829453130823}
-  m_PrefabAsset: {fileID: 0}
---- !u!328 &3071352845194581418
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171513509544449254}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 0}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 3
-  m_AspectRatio: 2
-  m_DataSource: 1
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: file://C:/Users/ZIZ/Documents/GitHub/MetaConcert/Assets/StreamingAssets/fon.mp4
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 01
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
---- !u!1 &173756244758912649 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7704060891540316878, guid: 5c531ef612ed19843b02a036dbca15d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7530894829453130823}
-  m_PrefabAsset: {fileID: 0}
---- !u!328 &1428594716181858723
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173756244758912649}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 93d90a2240b5a964680d6ab105188c99, type: 3}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
-  m_Url: 
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
 --- !u!4 &658263106722202675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7035047290268891252, guid: 5c531ef612ed19843b02a036dbca15d6,
     type: 3}
   m_PrefabInstance: {fileID: 7530894829453130823}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6122804144338014429 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4358232231025552538, guid: 5c531ef612ed19843b02a036dbca15d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7530894829453130823}
-  m_PrefabAsset: {fileID: 0}
---- !u!328 &2255710860643225039
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6122804144338014429}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 4e708dcfeaab33b4d9f348036af2ee02, type: 3}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 3
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
 --- !u!1001 &7667462031679067005
 PrefabInstance:
   m_ObjectHideFlags: 0

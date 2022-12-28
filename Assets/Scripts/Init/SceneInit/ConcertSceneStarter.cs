@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Globalization;
 using Agora;
 using Goods;
 using Photon.Pun;
@@ -114,7 +114,7 @@ namespace Init.SceneInit
             if (coinSum == 10)
             {
                 var nick = _photonView.Owner.NickName;
-                Upload(nick);
+                StartCoroutine(Upload(nick));
             }
         }
 
@@ -139,7 +139,7 @@ namespace Init.SceneInit
             for (int i = 0; i < positions.Count; i++)
             {
                 var yRot = i < 6 ? 0f : 180f;
-                var lift = PhotonNetwork.Instantiate("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f), 0);
+                var lift = PhotonNetwork.Instantiate("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f));
             }
         }
 
@@ -160,9 +160,9 @@ namespace Init.SceneInit
             
             var form = new WWWForm();
             form.AddField("nick", nick);
-            form.AddField("time", System.DateTime.Now.ToString());
+            form.AddField("time", DateTime.Now.ToString(CultureInfo.CurrentCulture));
 
-            using UnityWebRequest www = UnityWebRequest.Post("https://agora-token-generator-beryl.vercel.app/api/upload", form);
+            using var www = UnityWebRequest.Post("https://agora-token-generator-beryl.vercel.app/api/upload", form);
             yield return www.SendWebRequest();
 
             Debug.Log(www.result != UnityWebRequest.Result.Success ? www.error : "Form upload complete!");
