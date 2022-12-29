@@ -16073,7 +16073,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056784645192315}
-  m_LocalRotation: {x: 0.44009888, y: 0.4259828, z: -0.03046008, w: 0.78988844}
+  m_LocalRotation: {x: -0.19590622, y: -0.7843755, z: 0.5756168, w: -0.12264246}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2000, y: 2000, z: 2000}
   m_ConstrainProportionsScale: 0
@@ -16239,7 +16239,7 @@ MonoBehaviour:
   baseTexture: {fileID: 2800000, guid: a4a96292a1acf604cb1aa94a20081081, type: 3}
   strength: 1
   speed: 5
-  age: 1594.9106
+  age: 2650.478
 --- !u!1 &7501056784911068379
 GameObject:
   m_ObjectHideFlags: 0
@@ -16463,7 +16463,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056785002237997}
-  m_LocalRotation: {x: -0.47928762, y: -0.6285977, z: -0.114955276, w: 0.6016092}
+  m_LocalRotation: {x: -0.588096, y: 0.022780173, z: 0.0031419783, w: 0.80846417}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22187,7 +22187,7 @@ PrefabInstance:
     - target: {fileID: 5237769513379233623, guid: 1a3b492e3c72c384b81b635dcc7076c0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2505.4
+      value: -2505.55
       objectReference: {fileID: 0}
     - target: {fileID: 5237769513379233623, guid: 1a3b492e3c72c384b81b635dcc7076c0,
         type: 3}
@@ -22934,6 +22934,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 740df6f73173ded4689cfed208711662, type: 2}
+    - target: {fileID: 5603040898685304532, guid: 5c531ef612ed19843b02a036dbca15d6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6425362153816000848, guid: 5c531ef612ed19843b02a036dbca15d6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -23033,6 +23038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: kiosque
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577742666401333833, guid: 5c531ef612ed19843b02a036dbca15d6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c531ef612ed19843b02a036dbca15d6, type: 3}

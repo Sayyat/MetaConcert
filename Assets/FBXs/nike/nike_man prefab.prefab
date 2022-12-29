@@ -1,0 +1,407 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &879199811514798911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538280479889967493}
+  m_Layer: 0
+  m_Name: nike_man prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538280479889967493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879199811514798911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0958662, y: 0.000000059604645, z: 0.6333491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6674119256890782659}
+  - {fileID: 1701734254848021091}
+  - {fileID: 2733539633573824822}
+  - {fileID: 4906008963769738355}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1053539157782403716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4906008963769738355}
+  - component: {fileID: 1528236199141085712}
+  - component: {fileID: 6147009598949130069}
+  m_Layer: 0
+  m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com55
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4906008963769738355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053539157782403716}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -1.0316031, y: -0.027046872, z: 0.026}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 538280479889967493}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1528236199141085712
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053539157782403716}
+  m_Mesh: {fileID: 3608217606896662632, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+--- !u!23 &6147009598949130069
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053539157782403716}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -7183722423930461941, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -6188978921648053966, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -7427445920557340190, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -7707012718729584632, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -5366968345328183049, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4840529380970685676, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -3025206710552985365, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5516365753176032155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701734254848021091}
+  - component: {fileID: 1638427438445755273}
+  - component: {fileID: 4085019967637781323}
+  m_Layer: 0
+  m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com23
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701734254848021091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516365753176032155}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0.32378325, y: -0.036331296, z: 0.06840583}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 538280479889967493}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1638427438445755273
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516365753176032155}
+  m_Mesh: {fileID: 1955780968289106195, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+--- !u!23 &4085019967637781323
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516365753176032155}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -5831223429202845546, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -1622199903048426090, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 6945657702000516734, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 3943438364096583990, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -5366968345328183049, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 7996000511055262865, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4040620888477621963, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -1731409370861458098, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 1552198032841435807, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -3857429692492353975, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -5943820249510078632, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4015470423084270545, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -7183722423930461941, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4840529380970685676, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6793417464208712984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2733539633573824822}
+  - component: {fileID: 8050764443104066531}
+  - component: {fileID: 5951694796823235856}
+  m_Layer: 0
+  m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com43
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2733539633573824822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793417464208712984}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0.39806074, y: -0.041736208, z: 0.096}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 538280479889967493}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8050764443104066531
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793417464208712984}
+  m_Mesh: {fileID: 2593750429387518334, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+--- !u!23 &5951694796823235856
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793417464208712984}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -3025206710552985365, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -7784243040056910933, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -7589232140669467209, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 8879773264833545772, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -5366968345328183049, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4840529380970685676, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 3297897779548450548, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -3857429692492353975, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -5943820249510078632, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 7996000511055262865, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4040620888477621963, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -1731409370861458098, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 1552198032841435807, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4015470423084270545, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8419900970553629321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6674119256890782659}
+  - component: {fileID: 960563123949330041}
+  - component: {fileID: 6961493688248762643}
+  m_Layer: 0
+  m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com09
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6674119256890782659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419900970553629321}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 1.0403789, y: -0.027107421, z: 0.182}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 538280479889967493}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &960563123949330041
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419900970553629321}
+  m_Mesh: {fileID: -1545962677746006993, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+--- !u!23 &6961493688248762643
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419900970553629321}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -5366968345328183049, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 4467301779356200305, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4209598671248856564, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 3113909385085397476, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -4840529380970685676, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: 7440084182257425440, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  - {fileID: -3025206710552985365, guid: a6530e546a9da8b46bb0f72cfe3647b9, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
