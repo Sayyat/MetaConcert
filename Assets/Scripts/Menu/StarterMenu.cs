@@ -77,9 +77,9 @@ namespace Menu
             }
 
             _avatarRenderController =
-                new AvatarRenderController(avatarRenderView, _urls, _avatarCashes, panelController);
+                new AvatarRenderController(avatarRenderView, _urls, _avatarCashes);
             _mainLoadAvatars =
-                new MainLoadAvatars(_avatarCashes, panelController, _avatarRenderController);
+                new MainLoadAvatars(_avatarCashes, _avatarRenderController);
 
             var urlSet = new HashSet<string>(_urls);
             StartCoroutine(_mainLoadAvatars.LoadAvatars(urlSet));

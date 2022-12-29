@@ -25,21 +25,7 @@ namespace UI
 
         public void SetupButtons()
         {
-            _buttons.Video.onClick.AddListener(() =>
-            {
-                var state = _agoraView.ToggleVideo();
-                var customProperties = _photonView.Owner.CustomProperties;
-                if (customProperties.ContainsKey("IsVideoOn"))
-                {
-                    customProperties["IsVideoOn"] = state;
-                }
-                else
-                {
-                    customProperties.Add("IsVideoOn", state);
-                }
-
-                _photonView.Owner.SetCustomProperties(customProperties);
-            });
+            _buttons.Video.onClick.AddListener(EnableVideo);
             _buttons.Microphone.onClick.AddListener(_agoraView.ToggleAudio);
             _buttons.Quit.onClick.AddListener(_agoraView.Quit);
             
@@ -49,6 +35,24 @@ namespace UI
             _buttons.Dance2.onClick.AddListener(() => _animationControl.StartDance(2));
             _buttons.Dance3.onClick.AddListener(() => _animationControl.StartDance(3));
         }
+
+
+        private void EnableVideo()
+        {
+            var state = _agoraView.ToggleVideo();
+            var customProperties = _photonView.Owner.CustomProperties;
+            if (customProperties.ContainsKey("IsVideoOn"))
+            {
+                customProperties["IsVideoOn"] = state;
+            }
+            else
+            {
+                customProperties.Add("IsVideoOn", state);
+            }
+
+            _photonView.Owner.SetCustomProperties(customProperties);
+        }
+        
         public void RemoveAllListeners()
         {
             _buttons.Hello.onClick.RemoveAllListeners();
@@ -57,6 +61,7 @@ namespace UI
             _buttons.Dance2.onClick.RemoveAllListeners();
             _buttons.Dance3.onClick.RemoveAllListeners();
             _buttons.Microphone.onClick.RemoveListener(_agoraView.ToggleAudio);
+            _buttons.Video.onClick.RemoveListener(EnableVideo);
             _buttons.Quit.onClick.RemoveListener(_agoraView.Quit);
         }
     }
