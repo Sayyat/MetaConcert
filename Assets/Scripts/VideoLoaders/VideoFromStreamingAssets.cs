@@ -24,7 +24,7 @@ namespace VideoLoaders
 #endif
             for (var i = 0; i < videoPlayers.Count; i++)
             {
-                var path = Path.Combine(_prefix, Application.streamingAssetsPath, $"{urls[i]}.mp4");
+                var path = Path.Combine(_prefix, Application.streamingAssetsPath, $"{urls[i]}.webm");
                 videoPlayers[i].url = path;
             }
         }
