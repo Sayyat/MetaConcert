@@ -31,7 +31,7 @@ namespace UI
         private Vector2 _dance3InitialPosition;
 
 
-        public bool isVisible = true;
+        public bool isVisible = false;
         public bool isAnimating = false;
 
 
@@ -40,22 +40,7 @@ namespace UI
 
         private void Awake()
         {
-            Debug.Log("Awake");
-            Init();
-        }
-
-        private void Start()
-        {
-            Debug.Log("Start");
-            // hide dance panel when start
-            Debug.Log("Hiding the panel");
-            DOTween.KillAll(true);
-            HidePanel(0f);
-        }
-
-        private void Init()
-        {
-            isVisible = true;
+            isVisible = false;
             _commonInitialPosition = commonInitialPosition.anchoredPosition;
             _helloInitialPosition = hello.GetComponent<RectTransform>().anchoredPosition;
             _applauseInitialPosition = applause.GetComponent<RectTransform>().anchoredPosition;
@@ -81,6 +66,15 @@ namespace UI
                 _dance3InitialPosition
             };
         }
+
+        private void Start()
+        {
+            _myButtons.ForEach(button =>
+            {
+                button.GetComponent<RectTransform>().anchoredPosition = _commonInitialPosition;
+            });
+        }
+        
         
 
         public void Toggle()
@@ -133,7 +127,7 @@ namespace UI
                 seq.Join(loop);
             }
 
-            seq.AppendCallback(() =>
+            seq.OnComplete(() =>
             {
                 Debug.Log("<Color=Blue>OnComplete</Color>");
                 isVisible = false;

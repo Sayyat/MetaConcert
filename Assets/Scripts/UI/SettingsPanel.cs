@@ -24,7 +24,7 @@ namespace UI
 
         private void Awake()
         {
-            _audioSource = GameObject.Find("BackgroundMusic(Clone)").GetComponent<AudioSource>();
+            _audioSource = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
         }
 
         private void OnEnable()

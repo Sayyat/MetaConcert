@@ -15,6 +15,13 @@ namespace Goods
                 good.ShareMyId += ProductViewPanelController.GoodClicked;
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            foreach (var good in products)
+            {
+                good.ShareMyId -= ProductViewPanelController.GoodClicked;
+            }
+        }
     }
 }

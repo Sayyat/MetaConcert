@@ -265,6 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3849806185978015848}
+  - component: {fileID: 1226409590763175996}
   m_Layer: 0
   m_Name: elka_2023
   m_TagString: Untagged
@@ -291,6 +292,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1226409590763175996
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170227296754862247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3.4
+  m_Height: 14.77
+  m_Direction: 1
+  m_Center: {x: 0, y: 4.65, z: 0}
 --- !u!1 &6750538299330713054
 GameObject:
   m_ObjectHideFlags: 0

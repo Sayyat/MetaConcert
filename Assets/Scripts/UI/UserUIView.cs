@@ -50,7 +50,7 @@ namespace UI
                 var parent = NamePickGui.gameObject.transform.parent.gameObject;
                 parent.SetActive(!parent.activeSelf);
             });
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_WEBGL
             mobileInput.gameObject.SetActive(true);
 #else
             mobileInput.gameObject.SetActive(false);

@@ -228,7 +228,10 @@ namespace Agora
                 videoSurface.SetForUser(uid);
                 videoSurface.SetEnable(true);
                 videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
-
+                
+                // todo make smarter way to save aspect ratio
+                videoSurface.transform.localScale = new Vector3(0.3f, 0.3f, 0f);
+                
                 remoteUserDisplays.Add(videoSurface.gameObject);
                 UserVideoDict[uid] = videoSurface;
             }
