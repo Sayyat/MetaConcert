@@ -13,7 +13,6 @@ namespace UI
     public class UserUIView : MonoBehaviour
     {
         [SerializeField] private UICanvasControllerInput mobileInput;
-        [SerializeField] private MobileDisableAutoSwitchControls mobileDisableAutoSwitchControls;
         [SerializeField] private UserButtonsView userButtonsView;
         [SerializeField] private ProductViewPanel productViewPanel;
         [SerializeField] private HintPanel hintPanel;
@@ -21,12 +20,12 @@ namespace UI
         [SerializeField] private ScreenshotPanel screenshotPanel;
         [SerializeField] private NamePickGui namePickGui;
         [SerializeField] private CoinProgress coinProgress;
+        [SerializeField] private FpsPanel fpsPanel;
 
         private Image _background;
 
 
         public UICanvasControllerInput MobileInput => mobileInput;
-        public MobileDisableAutoSwitchControls MobileDisableAutoSwitchControls => mobileDisableAutoSwitchControls;
         public UserButtonsView UserButtonsView => userButtonsView;
         public ProductViewPanel ProductViewPanel => productViewPanel;
         public HintPanel HintPanel => hintPanel;
@@ -50,6 +49,9 @@ namespace UI
                 var parent = NamePickGui.gameObject.transform.parent.gameObject;
                 parent.SetActive(!parent.activeSelf);
             });
+            
+            userButtonsView.Fps.onClick.AddListener(() => fpsPanel.gameObject.SetActive(!fpsPanel.gameObject.activeSelf));
+            
 #if UNITY_ANDROID || UNITY_WEBGL
             mobileInput.gameObject.SetActive(true);
 #else

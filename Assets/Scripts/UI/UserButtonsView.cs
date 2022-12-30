@@ -14,6 +14,7 @@ namespace UI
     {
         [SerializeField] private Button quit;
         [SerializeField] private Button playerSettings;
+        [SerializeField] private Button fps;
         [SerializeField] private Button likes;
         [SerializeField] private TMP_Text likesCount;
         [SerializeField] private Button screenshot;
@@ -30,6 +31,7 @@ namespace UI
 
         public Button Quit => quit;
         public Button PlayerSettings => playerSettings;
+        public Button Fps => fps;
         public Button Likes => likes;
         public TMP_Text LikesCount => likesCount;
         public Button Screenshot => screenshot;
