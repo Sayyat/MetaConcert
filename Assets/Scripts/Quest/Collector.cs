@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Quest
 {
+    
     public class Collector : MonoBehaviour
     {
         private int _coinsSum;
