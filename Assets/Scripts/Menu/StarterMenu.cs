@@ -60,6 +60,8 @@ namespace Menu
 
         private void Start()
         {
+            
+            Application.targetFrameRate = 60; // max available fps or 60 
             Debug.Log("Try to find existing DataPlayerAvatar object");
             var avatarCashes = GameObject.Find("AvatarCashes");
 

@@ -44,9 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e797f7097eb16b14fb26b8938d1fb492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelController: {fileID: 8853504426825723443, guid: 23bbaf893de25d44fa51f2bd15796068,
-    type: 3}
+  panelController: {fileID: 0}
   maxPlayersPerRoom: 100
   desiredScene: 0
-  avatarRenderView: {fileID: 906868248096870681, guid: 7991859f019af344bb90827877e31d6c,
-    type: 3}
+  avatarRenderView: {fileID: 0}
