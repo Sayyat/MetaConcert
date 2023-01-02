@@ -1,11 +1,7 @@
 {
     "name": "Siccity.GLTFUtility.Editor",
     "references": [
-        "Siccity.GLTFUtility",
-        "UnityEditor.UI",
-        "UnityEngine.UI",
-        "UnityEditor.TestRunner",
-        "UnityEngine.TestRunner"
+        "Siccity.GLTFUtility"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

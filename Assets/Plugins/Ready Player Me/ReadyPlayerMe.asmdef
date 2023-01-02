@@ -2,9 +2,7 @@
     "name": "ReadyPlayerMe",
     "references": [
         "Siccity.GLTFUtility",
-        "WebView",
-        "UnityEditor.UI",
-        "UnityEngine.UI"
+        "WebView"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
