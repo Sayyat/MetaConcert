@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AvatarLoader;
+using Menu;
 using ReadyPlayerMe;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,15 +31,12 @@ public class AvatarRenderController : IDisposable
     };
 
     private int countLoading;
-    private PanelControl _panelControl;
 
-    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes,
-        PanelControl panelControl)
+    public AvatarRenderController(IAvatarRenderView renderView, List<string> urls, AvatarCashes avatarCashes)
     {
         _renderView = renderView;
         _urls = urls;
         _avatarCashes = avatarCashes;
-        _panelControl = panelControl;
 
         countLoading = _urls.Count;
 
@@ -107,7 +105,6 @@ public class AvatarRenderController : IDisposable
     {
         countLoading--;
 
-        _panelControl.Progress = 1f * (_urls.Count - countLoading) / _urls.Count;
         if (countLoading <= 0)
         {
             Debug.Log("SetupAllIcon");

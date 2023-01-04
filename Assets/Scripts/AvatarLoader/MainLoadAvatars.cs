@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Menu;
 using UnityEngine;
 
 namespace AvatarLoader
@@ -7,7 +8,6 @@ namespace AvatarLoader
     public class MainLoadAvatars
     {
         private readonly AvatarCashes _avatarCashes;
-        private readonly PanelControl _panelController;
         private readonly AvatarRenderController _avatarRenderController;
 
         private bool _loading;
@@ -15,11 +15,10 @@ namespace AvatarLoader
         private GameObject _avatarFromResources;
         private Texture2D _avatarRendererFromResources;
 
-        public MainLoadAvatars(AvatarCashes avatarCashes, PanelControl panelController,
+        public MainLoadAvatars(AvatarCashes avatarCashes,
             AvatarRenderController avatarRenderController)
         {
             _avatarCashes = avatarCashes;
-            _panelController = panelController;
             _avatarRenderController = avatarRenderController;
         }
 
@@ -52,8 +51,9 @@ namespace AvatarLoader
 
                     if (has2dCash) continue;
                     TryLoadAvatarRendererFromResource(shortUrl);
-                    
-                    _avatarCashes.PlayerAvatars2d.Add(url, new AvatarRenderModel(){Url = url, texture = _avatarRendererFromResources});
+
+                    _avatarCashes.PlayerAvatars2d.Add(url,
+                        new AvatarRenderModel() { Url = url, texture = _avatarRendererFromResources });
                     // _loading = true;
                     //
                     // //todo Make async Load method for changed _loading in this method
@@ -72,7 +72,6 @@ namespace AvatarLoader
             }
 
             _avatarRenderController.SetupAllIcons();
-            _panelController.StopPreloaderVideo();
             Debug.LogError("All Avatar Loaded");
         }
 
@@ -129,19 +128,19 @@ namespace AvatarLoader
             _avatarFromResources = GameObject.Instantiate(go);
             return true;
         }
-        
+
         private bool TryLoadAvatarRendererFromResource(string url)
         {
-           var line = $"{url}";
-           var texture = Resources.Load<Texture2D>(line);
-           
-           if (texture == null)
-           {
-               return false;
-           }
+            var line = $"{url}";
+            var texture = Resources.Load<Texture2D>(line);
 
-           _avatarRendererFromResources = texture;
-           return true;
+            if (texture == null)
+            {
+                return false;
+            }
+
+            _avatarRendererFromResources = texture;
+            return true;
         }
     }
 }

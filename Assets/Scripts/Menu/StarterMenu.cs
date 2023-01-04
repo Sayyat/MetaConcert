@@ -60,6 +60,8 @@ namespace Menu
 
         private void Start()
         {
+            
+            Application.targetFrameRate = 60; // max available fps or 60 
             Debug.Log("Try to find existing DataPlayerAvatar object");
             var avatarCashes = GameObject.Find("AvatarCashes");
 
@@ -77,9 +79,9 @@ namespace Menu
             }
 
             _avatarRenderController =
-                new AvatarRenderController(avatarRenderView, _urls, _avatarCashes, panelController);
+                new AvatarRenderController(avatarRenderView, _urls, _avatarCashes);
             _mainLoadAvatars =
-                new MainLoadAvatars(_avatarCashes, panelController, _avatarRenderController);
+                new MainLoadAvatars(_avatarCashes, _avatarRenderController);
 
             var urlSet = new HashSet<string>(_urls);
             StartCoroutine(_mainLoadAvatars.LoadAvatars(urlSet));
