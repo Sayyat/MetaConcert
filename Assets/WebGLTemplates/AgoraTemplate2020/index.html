@@ -41,7 +41,8 @@
 			</div>
 		</div>
 		<div id="unity-mobile-warning">
-			WebGL builds are not supported on mobile devices.
+			Первичная загрузка METALEM может потребовать от 1 до 5и минут, в зависимости от вашего интернета.
+			METALEM бастапқы ашылуы интернетке байланысты 1-5 минутқа дейін созылуы мүмкін.
 		</div>
 		<div id="unity-footer">
 			<div id="unity-webgl-logo"></div>
@@ -85,13 +86,13 @@
 		var config = {
 			dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
 			frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
-			codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
-			#if MEMORY_FILENAME
+			codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}", 
+#if MEMORY_FILENAME
         memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
-			#endif
+#endif
 #if SYMBOLS_FILENAME
         symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
-			#endif
+#endif
         streamingAssetsUrl: "StreamingAssets",
 			companyName: "{{{ COMPANY_NAME }}}",
 			productName: "{{{ PRODUCT_NAME }}}",
@@ -105,16 +106,16 @@
 		var fullscreenButton = document.querySelector("#unity-fullscreen-button");
 		var mobileWarning = document.querySelector("#unity-mobile-warning");
 
+		container.className = "unity-mobile";
+		mobileWarning.style.display = "block";
+		setTimeout(() => {
+			mobileWarning.style.display = "none";
+		}, 5000);
+		
 		if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-			container.className = "unity-mobile";
 			config.devicePixelRatio = 1;
-			mobileWarning.style.display = "block";
-			setTimeout(() => {
-				mobileWarning.style.display = "none";
-			}, 5000);
-		} else {
-			container.className = "unity-mobile";
 		}
+		
 #if BACKGROUND_FILENAME
 		canvas.style.background = "url('" + buildUrl + "/{{{ BACKGROUND_FILENAME.replace(/'/g, '%27') }}}') center / cover";
 #endif

@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dot Matrix 3
-  m_Shader: {fileID: -6465566751694194690, guid: 11f2185838d339947bd2f38955058098, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 11f2185838d339947bd2f38955058098,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,6 +21,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Base_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_0bd31c42b2f3482aa160b65ec13aa89f:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -60,6 +69,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -73,6 +86,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a76d501329574c7c96905e53f8332d1b_Texture_1:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -94,7 +111,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Normal_Blend: 0.5
     - _AlphaClip: 0
+    - _BaseGradientPower: 3
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -103,17 +122,25 @@ Material:
     - _CrackSize: 0.96
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DecalMeshBiasType: 0
+    - _DecalMeshDepthBias: 0
+    - _DecalMeshViewBias: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DotSize: 2
     - _DotSpace: 2
+    - _DrawOrder: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Float_1: 0.46
+    - _FresnelPower: 5
+    - _GlitterOffset: 0.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HeightmapStrength: 0.01
     - _Metallic: 0
+    - _NoiseRotation: 0
     - _OcclusionStrength: 1
     - _OffsetStrength: 1
     - _OutlineThickness: 0.02
@@ -121,6 +148,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 21
     - _ReceiveShadows: 1
+    - _Rim: 1
+    - _Shift: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -128,16 +157,24 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _emission: 2
     m_Colors:
     - Color_107cdec2903f4844911875d8fcfd3452: {r: 11.984314, g: 0, b: 0.1254902, a: 1}
     - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor1: {r: 0, g: 0, b: 0, a: 1}
+    - _BaseColor2: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color1: {r: 1, g: 0.5, b: 0.5, a: 1}
+    - _Color2: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlitterColor: {r: 1, g: 1, b: 1, a: 1}
     - _LavaEmission: {r: 0, g: 0, b: 0, a: 0}
     - _LavaOffset: {r: 0, g: 0, b: 0, a: 0}
     - _LavaTiling: {r: 1, g: 1, b: 0, a: 0}
     - _LavaVelocity: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseScale: {r: 1, g: 1, b: 0, a: 0}
     - _NoiseTiling: {r: 12, g: 12, b: 0, a: 0}
     - _RockOffset: {r: 0, g: 0, b: 0, a: 0}
     - _RockTiling: {r: 1, g: 1, b: 0, a: 0}

@@ -15700,7 +15700,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056784645192315}
-  m_LocalRotation: {x: -0.8638473, y: 0.1877071, z: -0.090405196, w: -0.45865119}
+  m_LocalRotation: {x: -0.8311666, y: -0.2879654, z: 0.19124797, w: -0.4355023}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2000, y: 2000, z: 2000}
   m_ConstrainProportionsScale: 0
@@ -16090,7 +16090,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501056785002237997}
-  m_LocalRotation: {x: -0.4673893, y: 0.00901888, z: -0.000049396418, w: 0.88400567}
+  m_LocalRotation: {x: -0.47410923, y: 0.038191613, z: 0.00009591691, w: 0.87963736}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23370,6 +23370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Logo_Amanat (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741820635869389273, guid: 68c3895d748702046bcbfb629cf7c14b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68c3895d748702046bcbfb629cf7c14b, type: 3}
