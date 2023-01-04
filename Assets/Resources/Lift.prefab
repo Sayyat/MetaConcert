@@ -131,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3044004440870312258}
   - component: {fileID: 5933355114548716079}
-  - component: {fileID: 8575781335041807231}
   - component: {fileID: 5346474345394537141}
   - component: {fileID: 5664370685480322590}
   m_Layer: 0
@@ -190,18 +189,6 @@ MonoBehaviour:
   floorButtons:
   - {fileID: 882586396795438576}
   - {fileID: 3793951761393547570}
---- !u!114 &8575781335041807231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3304252269821845036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877d0de6d85747e5b994dbc12c5259db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5346474345394537141
 MonoBehaviour:
   m_ObjectHideFlags: 0

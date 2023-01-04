@@ -34,6 +34,7 @@ namespace Menu
         {
             Concert,
             Control,
+            NewConcert
         }
 
         #region Private Fields
