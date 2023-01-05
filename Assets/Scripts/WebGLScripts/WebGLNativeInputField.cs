@@ -20,10 +20,20 @@ namespace WebGLScripts
 
     public override void OnSelect(BaseEventData eventData)
     {
-        if (!WebNativeDialog.IsMobileOnWebgl()) return;
+        Debug.Log("<Color=Green>Check user device</Color>");
+        if (!WebNativeDialog.IsMobileOnWebgl())
+        {
+            Debug.Log("<Color=Green>User device is Desktop</Color>");
+            return;
+        }
+
+        var device = (WebNativeDialog.IsAndroidOnWebgl()) ? "Android" : "IOS";
+        
+        Debug.Log($"<Color=Green>User device is Mobile ({device})</Color>");
+            
         
         m_DialogType = WebNativeDialog.IsAndroidOnWebgl() ? EDialogType.OverlayHtml : EDialogType.PromptPopup;
-
+        
         switch( m_DialogType ){
             case EDialogType.PromptPopup:
                 this.text = WebNativeDialog.OpenNativeStringDialog(m_DialogTitle, this.text);
