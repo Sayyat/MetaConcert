@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
+using AvatarLoader;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using StarterAssets;
-using TMPro;
 using UnityEngine;
 
 namespace Init

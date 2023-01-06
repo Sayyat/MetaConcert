@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using agora_gaming_rtc;
-using Assets.Scripts.UI;
 using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
 
 namespace Agora
 {

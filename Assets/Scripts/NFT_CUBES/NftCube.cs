@@ -1,8 +1,5 @@
-using System;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
-using Vector3 = UnityEngine.Vector3;
 
 namespace NFT_CUBES
 {

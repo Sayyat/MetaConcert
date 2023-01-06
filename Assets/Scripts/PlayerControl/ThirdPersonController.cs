@@ -1,7 +1,4 @@
-﻿using System;
-using ExitGames.Client.Photon;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using Photon.Pun;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;

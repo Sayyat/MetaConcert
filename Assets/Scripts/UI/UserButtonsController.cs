@@ -1,8 +1,5 @@
-﻿using Agora;
-using Assets.Scripts.UI;
-using Photon.Pun;
+﻿using Photon.Pun;
 using PlayerControl;
-using UnityEngine;
 
 namespace UI
 {
