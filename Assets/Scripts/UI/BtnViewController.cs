@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI
 
 {
     public class BtnViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler

@@ -1,5 +1,3 @@
-using System;
-using Assets.Scripts.UI;
 using DG.Tweening;
 using Goods;
 using Photon.Chat.Demo;

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.UI;
-using ExitGames.Client.Photon.StructWrapping;
+using UI;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
