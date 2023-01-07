@@ -7,6 +7,66 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: f0ef656752c096240a1c77774bc4a3d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: 44afa6d6ab27bf1499cc5fde468b8d73, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.008
+    second: {fileID: 2100000, guid: 0670a1fdfad85074b92848e1235f21a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.009
+    second: {fileID: 2100000, guid: 4882a296e8b0ba8448a71066c2ba128b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.011
+    second: {fileID: 2100000, guid: e422ce57a4559c140b9caa2a8ca18a53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.012
+    second: {fileID: 2100000, guid: ff1301fc2d6a6ab4b8919733052ae7ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: emis_white
+    second: {fileID: 2100000, guid: 3402939281147634eb3226b1c9f1097b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor
+    second: {fileID: 2100000, guid: 7d2a3cf3263d5124bad18d77d0c52bdd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: led2
+    second: {fileID: 2100000, guid: 65c2a8fcad1a96e4e9fb10d1af8aa7ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: led_03
+    second: {fileID: 2100000, guid: cc7f403f75eb2e94f9e2fbf0ddbfcf69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: led_1
+    second: {fileID: 2100000, guid: 554efb4a701d0474bb3bd786ce04a5db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: led_4
+    second: {fileID: 2100000, guid: 920b5824166def240aa7d0477d46d01d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: white
     second: {fileID: 2100000, guid: 038c1afa1b4c44e43b27ef7c35e953df, type: 2}
   materials:
@@ -93,7 +153,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 100
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
