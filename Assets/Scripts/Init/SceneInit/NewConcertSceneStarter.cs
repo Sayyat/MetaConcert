@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Agora;
+using NFT_CUBES;
 using Photon.Pun;
 using Photon.Realtime;
 using PlayerControl;
@@ -18,11 +19,12 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Init.SceneInit
 {
-    public class ControlSceneStarter : MonoBehaviourPunCallbacks
+    public class NewConcertSceneStarter : MonoBehaviourPunCallbacks
     {
         [SerializeField] private GameObject mainCamera;
         [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
+        [SerializeField] private NftCubesContainer nftCubesContainer;
         
         [Header("Spawn point settings")] [SerializeField]
         private Vector3 minSpawnPoint;
@@ -69,7 +71,8 @@ namespace Init.SceneInit
 
             _userUIMobile = _userUIView.MobileInput;
             _userButtonsView = _userUIView.UserButtonsView;
-
+            nftCubesContainer.SetNftButton(_userUIView.NftButton);
+            
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;

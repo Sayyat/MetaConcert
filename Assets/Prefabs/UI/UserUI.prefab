@@ -3903,6 +3903,7 @@ MonoBehaviour:
   namePickGui: {fileID: 2123024921281748347}
   coinProgress: {fileID: 760503586924712582}
   fpsPanel: {fileID: 7460719890409308414}
+  nftButton: {fileID: 6344842058220246839}
 --- !u!222 &8749710319344789721
 CanvasRenderer:
   m_ObjectHideFlags: 0

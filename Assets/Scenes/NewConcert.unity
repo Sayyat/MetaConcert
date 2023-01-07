@@ -835,6 +835,11 @@ PrefabInstance:
       propertyPath: minSpawnPoint.z
       value: -140
       objectReference: {fileID: 0}
+    - target: {fileID: 4526315502580253466, guid: 6a1cb02aef63a5744a77c422d4dc1d32,
+        type: 3}
+      propertyPath: nftCubesContainer
+      value: 
+      objectReference: {fileID: 1203928211}
     - target: {fileID: 4526315502580253467, guid: 6a1cb02aef63a5744a77c422d4dc1d32,
         type: 3}
       propertyPath: m_Name
@@ -1539,6 +1544,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3422872463921599951}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1203928211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5022542020344130571, guid: 25644262708336843bae69bda8acd755,
+    type: 3}
+  m_PrefabInstance: {fileID: 916520885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae277102a6150a4088a42a7f471af78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1207480489 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1206111038666839235, guid: 25644262708336843bae69bda8acd755,

@@ -19,6 +19,7 @@ namespace UI
         [SerializeField] private NamePickGui namePickGui;
         [SerializeField] private CoinProgress coinProgress;
         [SerializeField] private FpsPanel fpsPanel;
+        [SerializeField] private Button nftButton;
 
         private Image _background;
 
@@ -31,7 +32,7 @@ namespace UI
         public ScreenshotPanel ScreenshotPanel => screenshotPanel;
         public NamePickGui NamePickGui => namePickGui;
         public CoinProgress CoinProgress => coinProgress;
-
+        public Button NftButton => nftButton;
         private void Awake()
         {
             _background = GetComponent<Image>();
