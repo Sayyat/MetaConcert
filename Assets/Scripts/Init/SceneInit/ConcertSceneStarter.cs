@@ -24,7 +24,7 @@ namespace Init.SceneInit
         [SerializeField] private GameObject mainCamera;
         [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
-        [SerializeField] private ProductViewController productViewController;
+        [SerializeField] private ProductsView productsView;
 
         [SerializeField] private Transform liftsParent;
 
@@ -58,7 +58,7 @@ namespace Init.SceneInit
 
             // _userUIView.GoodsViewPanel.Init();
             _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
-            productViewController.ProductViewPanelController = _productViewPanelController;
+            productsView.ProductViewPanelController = _productViewPanelController;
             _userUIView.NamePickGui.autoStart = true;
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Goods
 {
-    public class ProductViewController: MonoBehaviour
+    public class ProductsView: MonoBehaviour
     {
         public List<ProductView> products;
         public ProductViewPanelController ProductViewPanelController { get; set; }

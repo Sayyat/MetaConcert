@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Agora;
+using Goods;
 using NFT_CUBES;
 using Photon.Pun;
 using Photon.Realtime;
@@ -25,6 +26,7 @@ namespace Init.SceneInit
         [SerializeField] private GameObject playerFollowCamera;
         [SerializeField] private GameObject userUI;
         [SerializeField] private NftCubesContainer nftCubesContainer;
+        [SerializeField] private FindProductsView findProductsView;
         
         [Header("Spawn point settings")] [SerializeField]
         private Vector3 minSpawnPoint;
@@ -32,6 +34,7 @@ namespace Init.SceneInit
         [SerializeField] private Vector3 maxSpawnPoint;
         
 
+        private ProductViewPanelController _productViewPanelController;
 
         private PhotonView _photonView;
         private AgoraView _agoraView;
@@ -51,7 +54,10 @@ namespace Init.SceneInit
             Instantiate(mainCamera);
             Instantiate(playerFollowCamera);
             _userUIView = Instantiate(userUI).GetComponent<UserUIView>();
-
+            
+            // _userUIView.GoodsViewPanel.Init();
+            _productViewPanelController = new ProductViewPanelController(_userUIView.ProductViewPanel);
+            findProductsView.UpdateProductsViewPanel(_productViewPanelController);
             _userUIView.NamePickGui.autoStart = true;
         }
 

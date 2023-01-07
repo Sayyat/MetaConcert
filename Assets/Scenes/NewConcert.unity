@@ -705,6 +705,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4526315502580253466, guid: 6a1cb02aef63a5744a77c422d4dc1d32,
         type: 3}
+      propertyPath: findProductsView
+      value: 
+      objectReference: {fileID: 2163422354572707794}
+    - target: {fileID: 4526315502580253466, guid: 6a1cb02aef63a5744a77c422d4dc1d32,
+        type: 3}
       propertyPath: nftCubesContainer
       value: 
       objectReference: {fileID: 1203928211}
@@ -2995,6 +3000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2163422354572707793}
+  - component: {fileID: 2163422354572707794}
   m_Layer: 0
   m_Name: Exhibition_Hall
   m_TagString: Untagged
@@ -3482,6 +3488,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &2163422354572707794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535117827386793323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b21da234bc4a1d9035bf5f0e5c6620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2176356989880869117
 GameObject:
   m_ObjectHideFlags: 0
