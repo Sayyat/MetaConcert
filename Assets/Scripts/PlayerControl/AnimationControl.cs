@@ -8,15 +8,20 @@ namespace PlayerControl
     {
         private int _animIDDance;
         private int _animIDIsDancing;
+        private int _animIDIsSitting;
+        private int _animIDCanSit;
 
         private Animator _animator;
         private bool _hasAnimator;
+        private bool _canSit = false;
 
         private void Start()
         {
             _hasAnimator = TryGetComponent(out _animator);
             _animIDDance = Animator.StringToHash("Dance");
             _animIDIsDancing = Animator.StringToHash("IsDancing");
+            _animIDIsSitting = Animator.StringToHash("IsSitting");
+            _animIDCanSit = Animator.StringToHash("CanSit");
         }
 
 
@@ -30,6 +35,13 @@ namespace PlayerControl
 
         private void HandleKeyBoard()
         {
+            
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                SitDownOrStandUp();
+                return;
+            }
+            
             if (Input.anyKeyDown)
             {
                 StartDance(0);
@@ -59,14 +71,30 @@ namespace PlayerControl
             {
                 StartDance(5);
             }
+
+        }
+
+        public void CanSit(bool can)
+        {
+            _canSit = can;
+            _animator.SetBool(_animIDCanSit, _canSit);
+        }
+
+        private void SitDownOrStandUp()
+        {
+            if(!_canSit) return;
+            
+            var isSitting = _animator.GetBool(_animIDIsSitting);
+            
+            _animator.SetBool(_animIDIsSitting, !isSitting);
+            GetComponent<ThirdPersonController>().CanMove = isSitting;
         }
 
         public void StartDance(int id)
         {
             StartCoroutine(Dance(id));
-
         }
-        
+
 
         private IEnumerator Dance(int dance)
         {

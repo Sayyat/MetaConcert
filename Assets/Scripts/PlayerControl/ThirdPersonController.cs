@@ -121,6 +121,8 @@ namespace PlayerControl
         }
 
 
+        public bool CanMove { get; set; } = true;
+
         private void Awake()
         {
             // get a reference to our main camera
@@ -155,7 +157,7 @@ namespace PlayerControl
             if (!photonView.IsMine) return;
             _hasAnimator = TryGetComponent(out _animator);
 
-
+            if (!CanMove) return;
             JumpAndGravity();
             GroundedCheck();
             Move();
