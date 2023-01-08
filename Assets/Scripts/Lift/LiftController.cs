@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,7 @@ namespace Lift
 {
     public class LiftController : MonoBehaviour
     {
-        [SerializeField] private PlatformMove platformMove;
-        [SerializeField] private PlatformTrigger platformTrigger;
+        [SerializeField] private Transform platform;
 
         [Header("Spots were lift can stop")] [SerializeField]
         private List<Transform> liftStopSpots;
@@ -21,17 +21,13 @@ namespace Lift
         private List<Button3d> floorButtons;
 
         private List<Transform> _liftStopSpotsGlobal;
-        private LiftStates _liftStates;
-
-        private List<Transform> PlayerTransforms => platformTrigger.PlayersTransform;
-
-
+        
         private PhotonView _photonView;
 
         private void Awake()
         {
             _photonView = GetComponent<PhotonView>();
-            _liftStates = new LiftStates();
+            PhotonNetwork.RegisterPhotonView(_photonView);
             _liftStopSpotsGlobal = new List<Transform>();
 
             foreach (var liftStopSpot in liftStopSpots)
@@ -60,23 +56,14 @@ namespace Lift
 
         private void OnButtonClicked(int floor)
         {
-            _photonView.RPC("MovePlatform", RpcTarget.All, floor);
+            _photonView.RPC(nameof(RPC_MovePlatform), RpcTarget.All, floor);
         }
 
         [PunRPC]
-        private void MovePlatform(int floor)
+        private void RPC_MovePlatform(int floor)
         {
-            platformMove.enabled = true;
-            platformMove.players = PlayerTransforms;
-            var initialPositions = new List<Vector3>();
-            foreach (var lp in PlayerTransforms)
-            {
-                initialPositions.Add(lp.localPosition);
-            }
-
-            platformMove.initialPositions = initialPositions;
-            platformMove.Destination = _liftStopSpotsGlobal[floor - 1].position;
-            _liftStates.IsMoving = true;
+            var destination = _liftStopSpotsGlobal[floor - 1].position;
+            platform.DOMove(destination, 2f);
         }
     }
 }

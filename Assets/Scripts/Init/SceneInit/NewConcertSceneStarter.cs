@@ -98,12 +98,6 @@ namespace Init.SceneInit
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
 
-            var count = PhotonNetwork.CurrentRoom.PlayerCount;
-            if (count == 1)
-            {
-                InstantiateLifts();
-            }
-
             _collector = _photonPlayer.GetComponent<Collector>();
             _collector.CoinGrabbed += CollectorOnCoinGrabbed;
         }
