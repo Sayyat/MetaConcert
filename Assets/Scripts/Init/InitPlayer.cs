@@ -1,11 +1,14 @@
 using Photon.Pun;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
-public class InitPlayer : MonoBehaviourPun
+namespace Init
 {
-   
-    private void Start()
+    public class InitPlayer : MonoBehaviourPun
     {
-        PhotonNetwork.Instantiate("PlayerTemplate", Vector3.up, Quaternion.identity);
+   
+        private void Start()
+        {
+            PhotonNetwork.Instantiate("PlayerTemplate", Vector3.up, Quaternion.identity);
+        }
     }
 }
