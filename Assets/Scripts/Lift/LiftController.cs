@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Lift
 {
@@ -63,7 +61,7 @@ namespace Lift
         private void RPC_MovePlatform(int floor)
         {
             var destination = _liftStopSpotsGlobal[floor - 1].position;
-            platform.DOMove(destination, 2f);
+            platform.DOMove(destination, 3.5f);
         }
     }
 }
