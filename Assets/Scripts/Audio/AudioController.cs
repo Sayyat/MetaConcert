@@ -5,18 +5,18 @@ namespace Audio
 {
     public class AudioController : MonoBehaviour
     {
-        
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private Transform backgroundConcert;
         [SerializeField] private AudioSource backgroundAudioSourceConcert;
+
         private void Awake()
         {
             DontDestroyOnLoad(this);
             SceneManager.activeSceneChanged += (arg0, scene) =>
             {
-                if (scene.name == "Concert")
+                if (scene.name == "NewConcert")
                 {
-                    transform.position =backgroundConcert.position;
+                    transform.position = backgroundConcert.position;
                     audioSource.spatialBlend = 1;
                     audioSource.maxDistance = backgroundAudioSourceConcert.maxDistance;
                 }
