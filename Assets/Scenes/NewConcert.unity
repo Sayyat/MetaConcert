@@ -4005,7 +4005,7 @@ GameObject:
   - component: {fileID: 2163422354572707793}
   - component: {fileID: 2163422354572707794}
   m_Layer: 0
-  m_Name: Exhibition_Hall
+  m_Name: Exhibition_Hall_New
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
