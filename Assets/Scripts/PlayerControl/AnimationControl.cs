@@ -74,7 +74,7 @@ namespace PlayerControl
 
         }
 
-        public void CanSit(bool can)
+        public void CanSit(bool can, Transform spot = null)
         {
             _canSit = can;
             _animator.SetBool(_animIDCanSit, _canSit);
