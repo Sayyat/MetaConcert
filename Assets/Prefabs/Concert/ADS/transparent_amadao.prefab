@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 53243590807154138}
   - component: {fileID: 426376127276355344}
   - component: {fileID: 6613596709159889677}
+  - component: {fileID: 2454761498625833278}
   m_Layer: 0
   m_Name: transparent_amadao
   m_TagString: Untagged
@@ -85,3 +86,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2454761498625833278
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2745073265312378633}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1609621161434006154, guid: 7db1c53820c469046a3e78b15e937a2f, type: 3}

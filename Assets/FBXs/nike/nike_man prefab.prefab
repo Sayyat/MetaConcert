@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4906008963769738355}
   - component: {fileID: 1528236199141085712}
   - component: {fileID: 6147009598949130069}
+  - component: {fileID: 5905620511584934763}
   m_Layer: 0
   m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com55
   m_TagString: Untagged
@@ -124,6 +125,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &5905620511584934763
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053539157782403716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.9
+  m_Height: 19.1
+  m_Direction: 2
+  m_Center: {x: -0.37818417, y: -0.039014343, z: 8.798146}
 --- !u!1 &5516365753176032155
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +150,7 @@ GameObject:
   - component: {fileID: 1701734254848021091}
   - component: {fileID: 1638427438445755273}
   - component: {fileID: 4085019967637781323}
+  - component: {fileID: 2130280014771802863}
   m_Layer: 0
   m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com23
   m_TagString: Untagged
@@ -220,6 +236,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &2130280014771802863
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516365753176032155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.9
+  m_Height: 19.1
+  m_Direction: 2
+  m_Center: {x: -0.072907224, y: 0.048879392, z: 8.865662}
 --- !u!1 &6793417464208712984
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +261,7 @@ GameObject:
   - component: {fileID: 2733539633573824822}
   - component: {fileID: 8050764443104066531}
   - component: {fileID: 5951694796823235856}
+  - component: {fileID: 7894764892023426660}
   m_Layer: 0
   m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com43
   m_TagString: Untagged
@@ -316,6 +347,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &7894764892023426660
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793417464208712984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.9
+  m_Height: 19.1
+  m_Direction: 2
+  m_Center: {x: -0.012037161, y: -0.00208056, z: 8.931573}
 --- !u!1 &8419900970553629321
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +372,7 @@ GameObject:
   - component: {fileID: 6674119256890782659}
   - component: {fileID: 960563123949330041}
   - component: {fileID: 6961493688248762643}
+  - component: {fileID: 8967265930043042099}
   m_Layer: 0
   m_Name: Sport Cloth56-NghiaHouse-Model3dpro.com09
   m_TagString: Untagged
@@ -405,3 +451,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &8967265930043042099
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419900970553629321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.9
+  m_Height: 19.1
+  m_Direction: 2
+  m_Center: {x: -0.048288118, y: 0.03033686, z: 8.806402}

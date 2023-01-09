@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8907443579855676955}
   - component: {fileID: 6981240722170517266}
   - component: {fileID: 5744408164076771928}
+  - component: {fileID: 8124681839457728128}
   m_Layer: 0
   m_Name: amanat_logo
   m_TagString: Untagged
@@ -99,3 +100,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   vectorRotate: 4
+--- !u!64 &8124681839457728128
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156186394308437026}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9111446733670104075, guid: 39518c1e01921de469fb957b44898501, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8895573261145286393}
   - component: {fileID: 8895573261145286395}
   - component: {fileID: 8895573261145286394}
+  - component: {fileID: 4427480687530240575}
   m_Layer: 0
   m_Name: hall_part_226.003 (2)
   m_TagString: Untagged
@@ -84,3 +85,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &4427480687530240575
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8895573261145286392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.48
+  m_Center: {x: -0.009077191, y: -0.000020384785, z: 0.0000028312206}
