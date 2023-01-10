@@ -1634,7 +1634,6 @@ GameObject:
   - component: {fileID: 3017183714130597918}
   - component: {fileID: 9180184373627035299}
   - component: {fileID: 368928753737267672}
-  - component: {fileID: 6145474619138194013}
   m_Layer: 0
   m_Name: border_greenfield
   m_TagString: Untagged
@@ -1707,19 +1706,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6145474619138194013
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7431988022820174881}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 307.24094, y: 876.34, z: 0.16445316}
-  m_Center: {x: 0, y: -4.3655746e-11, z: 0.000002861023}
 --- !u!1 &7825463955384314457
 GameObject:
   m_ObjectHideFlags: 0
