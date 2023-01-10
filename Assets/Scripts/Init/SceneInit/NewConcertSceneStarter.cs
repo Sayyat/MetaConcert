@@ -82,6 +82,8 @@ namespace Init.SceneInit
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
+            
+            starterAssetsInputs.TextAlt = _userUIView.TextAlt;
 
             // add my photon id to current room props
 
