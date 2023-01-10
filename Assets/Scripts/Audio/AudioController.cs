@@ -9,9 +9,8 @@ namespace Audio
         [SerializeField] private Transform backgroundConcert;
         [SerializeField] private AudioSource backgroundAudioSourceConcert;
 
-        private void Awake()
+        private void Start()
         {
-            DontDestroyOnLoad(this);
             SceneManager.activeSceneChanged += (arg0, scene) =>
             {
                 if (scene.name == "NewConcert")

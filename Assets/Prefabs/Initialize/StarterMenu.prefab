@@ -46,5 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelController: {fileID: 0}
   maxPlayersPerRoom: 100
-  desiredScene: 0
+  desiredScene: 2
   avatarRenderView: {fileID: 0}
+  backgroundMusic: {fileID: 1167989865729304734, guid: 1995d6ce9ddcff640b8a8940553b2507,
+    type: 3}

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Audio;
 using AvatarLoader;
 using Photon.Pun;
 using Photon.Realtime;
@@ -13,37 +15,27 @@ namespace Menu
     /// </summary>
     public class StarterMenu : MonoBehaviourPunCallbacks
     {
-        #region Private Serializable Fields
-
-        [Tooltip("Panel controller")] [SerializeField]
-        private PanelControl panelController;
-
-
-        [Tooltip("The maximum number of players per room")] [SerializeField]
-        private byte maxPlayersPerRoom = 20;
-
-
-        [Tooltip("The scene name we want to load")] [SerializeField]
-        private Scenes desiredScene = Scenes.Concert;
-
+        private enum Scenes { Concert, Control, NewConcert }
+        
+        private const string GameVersion = "1";
+        
+        [Tooltip("Panel controller")]
+        [SerializeField] private PanelControl panelController;
+        
+        [Tooltip("The maximum number of players per room")]
+        [SerializeField] private byte maxPlayersPerRoom = 20;
+        
+        [Tooltip("The scene name we want to load")]
+        [SerializeField] private Scenes desiredScene = Scenes.Concert;
+        
         [SerializeField] private AvatarRenderView avatarRenderView;
-
-        #endregion
-
-        private enum Scenes
-        {
-            Concert,
-            Control,
-            NewConcert
-        }
-
-        #region Private Fields
+        [SerializeField] private GameObject backgroundMusic;
 
         private bool _isConnecting;
-
-        private const string GameVersion = "1";
-
-
+        private AvatarCashes _avatarCashes;
+        private MainLoadAvatars _mainLoadAvatars;
+        private AvatarRenderController _avatarRenderController; 
+        
         private readonly List<string> _urls = new List<string>()
         {
             "https://api.readyplayer.me/v1/avatars/637770d9152ef07e24279cdf.glb",
@@ -53,11 +45,15 @@ namespace Menu
             "https://api.readyplayer.me/v1/avatars/637871d1a9869f44e5e7a2ce.glb"
         };
 
-        private AvatarCashes _avatarCashes;
-        private MainLoadAvatars _mainLoadAvatars;
-        private AvatarRenderController _avatarRenderController;
 
-        #endregion
+        private void Awake()
+        {
+            var music = GameObject.Find(backgroundMusic.name);
+            if (music != null) return;
+            music = Instantiate(backgroundMusic);
+            music.name = backgroundMusic.name;
+            DontDestroyOnLoad(music);
+        }
 
         private void Start()
         {
