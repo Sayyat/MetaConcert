@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using Agora;
 using Goods;
@@ -77,7 +76,7 @@ namespace Init.SceneInit
 
             _userUIMobile = _userUIView.MobileInput;
             _userButtonsView = _userUIView.UserButtonsView;
-            nftCubesContainer.SetNftButton(_userUIView.NftButton, photonView);
+            nftCubesContainer.SetNftButton(_userUIView.NftButton, _photonView);
             
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
