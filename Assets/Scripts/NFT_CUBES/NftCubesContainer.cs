@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,11 @@ namespace NFT_CUBES
     {
         [SerializeField]private List<NftCube> cubes;
 
-        public void SetNftButton(Button nftButton)
+        public void SetNftButton(Button nftButton, PhotonView photonView)
         {
             foreach (var cube in cubes)
             {
-                cube.Init(nftButton);
+                cube.Init(nftButton, photonView);
             }
         }
 

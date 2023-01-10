@@ -15,12 +15,8 @@ namespace Effects
         {
             _rend = GetComponent<Renderer>();
             _material = _rend.material;
-            var seq = DOTween.Sequence();
-            seq.Append(_material.DOOffset(new Vector2(1f, 0f), "_BaseMap", 2).SetEase(Ease.InCirc));
-            seq.Append(_material.DOOffset(new Vector2(0f, 1f), "_BaseMap", 3).SetEase(Ease.InSine));
-            seq.Append(_material.DOOffset(new Vector2(-1f, 0f), "_BaseMap", 2).SetEase(Ease.InBounce));
-            seq.Append(_material.DOOffset(new Vector2(0f, -1f), "_BaseMap", 3).SetEase(Ease.InElastic));
-            seq.SetLoops(-1);
+            _material.DOOffset(new Vector2(2f, 0f), "_BaseMap", 5).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+            
         }
     }
 }

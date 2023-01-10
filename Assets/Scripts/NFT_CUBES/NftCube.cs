@@ -4,27 +4,27 @@ using UnityEngine.UI;
 
 namespace NFT_CUBES
 {
-    public class NftCube : MonoBehaviourPun
+    public class NftCube : MonoBehaviour
     {
         private Button _nftButton;
-
-        public void Init(Button newNftButton)
+        private PhotonView _photonView;
+        public void Init(Button newNftButton, PhotonView photonView)
         {
-            if (!photonView.IsMine) return;
+            _photonView = photonView;
             _nftButton = newNftButton;
             _nftButton.transform.parent.gameObject.SetActive(false);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!photonView.IsMine) return;
+            if (!_photonView.IsMine) return;
             _nftButton.transform.parent.gameObject.SetActive(true);
             _nftButton.onClick.AddListener(() => Application.OpenURL("https://opensea.io/"));
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!photonView.IsMine) return;
+            if (!_photonView.IsMine) return;
             _nftButton.onClick.RemoveAllListeners();
             _nftButton.transform.parent.gameObject.SetActive(false);
         }

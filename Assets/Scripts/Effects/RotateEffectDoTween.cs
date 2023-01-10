@@ -9,7 +9,7 @@ namespace Effects
         [SerializeField] private float duration;
         private void Start()
         {
-            transform.DOLocalRotate(speed, duration, RotateMode.FastBeyond360).SetLoops(-1).SetEase(Ease.Linear);
+            transform.DOLocalRotate(speed, duration, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
         }
     }
 }

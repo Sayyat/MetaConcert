@@ -77,7 +77,7 @@ namespace Init.SceneInit
 
             _userUIMobile = _userUIView.MobileInput;
             _userButtonsView = _userUIView.UserButtonsView;
-            nftCubesContainer.SetNftButton(_userUIView.NftButton);
+            nftCubesContainer.SetNftButton(_userUIView.NftButton, photonView);
             
             //Set starter asset to mobile control 
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
