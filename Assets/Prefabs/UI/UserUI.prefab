@@ -3242,7 +3242,6 @@ GameObject:
   - component: {fileID: 3335592001863095229}
   - component: {fileID: 6961713039127621002}
   - component: {fileID: 8749710319344789721}
-  - component: {fileID: 3102409977541806714}
   m_Layer: 5
   m_Name: UserUI
   m_TagString: Untagged
@@ -3358,7 +3357,6 @@ MonoBehaviour:
   settingsPanel: {fileID: 5405075521594785615}
   screenshotPanel: {fileID: 1994482902635294146}
   namePickGui: {fileID: 2123024921281748347}
-  coinProgress: {fileID: 0}
   fpsPanel: {fileID: 7460719890409308414}
   nftButton: {fileID: 6344842058220246839}
   textAlt: {fileID: 8920273257131713498}
@@ -3370,36 +3368,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3335592001863095230}
   m_CullTransparentMesh: 1
---- !u!114 &3102409977541806714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3335592001863095230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3335592002054754660
 GameObject:
   m_ObjectHideFlags: 0

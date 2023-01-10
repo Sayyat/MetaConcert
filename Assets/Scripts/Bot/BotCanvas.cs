@@ -7,8 +7,6 @@ namespace Bot
 {
     public class BotCanvas : MonoBehaviour
     {
-        private const byte StartedDialogue = 0;
-
         [SerializeField] private GameObject cloudPanel;
         [SerializeField] private Button cloudButton;
         [SerializeField] private TextMeshProUGUI textInDialog;
@@ -33,7 +31,7 @@ namespace Bot
             Debug.Log("Awake");
         }
 
-        private void OnEnable()
+        private void Start()
         {
             _numDialog = -1;
             _sequence = DOTween.Sequence();
@@ -41,7 +39,6 @@ namespace Bot
             _sequence.Append(cloudPanel.transform.DOScale(1, 1));
             _sequence.AppendInterval(_interval);
             _sequence.SetLoops(-1, LoopType.Restart);
-
             cloudButton.onClick.AddListener(() =>
             {
                 Debug.Log("Clicked");
@@ -49,7 +46,7 @@ namespace Bot
             });
         }
 
-        private void NextPhrase()
+        public void NextPhrase()
         {
             if (_phrases == null)
             {
@@ -61,7 +58,7 @@ namespace Bot
             textInDialog.text = _phrases[_numDialog];
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             DOTween.Clear();
             cloudButton.onClick.RemoveAllListeners();
