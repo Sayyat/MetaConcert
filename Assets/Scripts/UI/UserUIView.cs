@@ -18,7 +18,6 @@ namespace UI
         [SerializeField] private SettingsPanel settingsPanel;
         [SerializeField] private ScreenshotPanel screenshotPanel;
         [SerializeField] private NamePickGui namePickGui;
-        [SerializeField] private CoinProgress coinProgress;
         [SerializeField] private FpsPanel fpsPanel;
         [SerializeField] private Button nftButton;
         [SerializeField] private TextMeshProUGUI textAlt;
@@ -33,7 +32,6 @@ namespace UI
         public SettingsPanel SettingsPanel => settingsPanel;
         public ScreenshotPanel ScreenshotPanel => screenshotPanel;
         public NamePickGui NamePickGui => namePickGui;
-        public CoinProgress CoinProgress => coinProgress;
         public Button NftButton => nftButton;
         public TextMeshProUGUI TextAlt => textAlt;
         private void Awake()

@@ -98,17 +98,6 @@ namespace Init.SceneInit
             _userButtonsController.SetupButtons();
 
             _collector = _photonPlayer.GetComponent<Collector>();
-            _collector.CoinGrabbed += CollectorOnCoinGrabbed;
-        }
-
-        private void CollectorOnCoinGrabbed(int coinSum, int valueSum)
-        {
-            _userUIView.CoinProgress.Progress = coinSum;
-            if (coinSum == 10)
-            {
-                var nick = _photonView.Owner.NickName;
-                StartCoroutine(Upload(nick));
-            }
         }
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

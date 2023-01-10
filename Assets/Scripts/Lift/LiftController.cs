@@ -61,7 +61,7 @@ namespace Lift
         private void RPC_MovePlatform(int floor)
         {
             var destination = _liftStopSpotsGlobal[floor - 1].position;
-            platform.DOMove(destination, 3.5f);
+            platform.DOMove(destination, 3.5f).SetEase(Ease.Linear);
         }
     }
 }
