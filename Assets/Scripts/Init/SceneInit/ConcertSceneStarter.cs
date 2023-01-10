@@ -26,7 +26,6 @@ namespace Init.SceneInit
         [SerializeField] private GameObject userUI;
         [SerializeField] private ProductsView productsView;
 
-        [SerializeField] private Transform liftsParent;
 
         [Header("Spawn point settings")] [SerializeField]
         private Vector3 minSpawnPoint;
@@ -98,12 +97,6 @@ namespace Init.SceneInit
                 new UserButtonsController(_userButtonsView, _agoraView, _photonView, animationControl);
             _userButtonsController.SetupButtons();
 
-            var count = PhotonNetwork.CurrentRoom.PlayerCount;
-            if (count == 1)
-            {
-                InstantiateLifts();
-            }
-
             _collector = _photonPlayer.GetComponent<Collector>();
             _collector.CoinGrabbed += CollectorOnCoinGrabbed;
         }
@@ -117,31 +110,7 @@ namespace Init.SceneInit
                 StartCoroutine(Upload(nick));
             }
         }
-
-        private void InstantiateLifts()
-        {
-            var positions = new List<Vector3>()
-            {
-                new Vector3(31f, 0f, -16.6f),
-                new Vector3(31f, 0f, -31.38f),
-                new Vector3(31f, 0f, -156.6f),
-                new Vector3(31f, 0f, -171.08f),
-                new Vector3(31f, 0f, -296.07f),
-                new Vector3(31f, 0f, -310.85f),
-                new Vector3(-25.95f, 0f, -16.6f),
-                new Vector3(-25.95f, 0f, -31.38f),
-                new Vector3(-25.95f, 0f, -156.6f),
-                new Vector3(-25.95f, 0f, -171.08f),
-                new Vector3(-25.95f, 0f, -296.07f),
-                new Vector3(-25.95f, 0f, -310.85f),
-            };
-
-            for (int i = 0; i < positions.Count; i++)
-            {
-                var yRot = i < 6 ? 0f : 180f;
-                var lift = PhotonNetwork.InstantiateRoomObject("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f));
-            }
-        }
+        
 
         private void ConstructAgora()
         {

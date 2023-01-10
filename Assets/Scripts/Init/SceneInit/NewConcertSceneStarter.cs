@@ -83,8 +83,6 @@ namespace Init.SceneInit
             var starterAssetsInputs = _photonPlayer.GetComponent<StarterAssetsInputs>();
             _userUIMobile.starterAssetsInputs = starterAssetsInputs;
 
-            ConstructAgora();
-
             // add my photon id to current room props
 
             var myId = _photonView.Owner.ActorNumber.ToString();
@@ -111,39 +109,6 @@ namespace Init.SceneInit
                 StartCoroutine(Upload(nick));
             }
         }
-
-        private void InstantiateLifts()
-        {
-            var positions = new List<Vector3>()
-            {
-                
-                new Vector3(28.47f,14.09f,147.28f),
-                new Vector3(28.47f,14.09f,132.37f),
-                new Vector3(28.47f,14.09f,7.47f),
-                new Vector3(28.47f,14.09f,-7.41f),
-                new Vector3(28.47f,14.09f,-132.37f),
-                new Vector3(28.47f,14.09f,-147.28f),
-                new Vector3(-28.5f,14.09f,147.28f),
-                new Vector3(-28.5f,14.09f,132.37f),
-                new Vector3(-28.5f,14.09f,7.47f),
-                new Vector3(-28.5f,14.09f,-7.41f),
-                new Vector3(-28.5f,14.09f,-132.37f),
-                new Vector3(-28.5f,14.09f,-147.28f),
-               
-            };
-
-            for (int i = 0; i < positions.Count; i++)
-            {
-                var yRot = i < 6 ? 0f : 180f;
-                var lift = PhotonNetwork.InstantiateRoomObject("Lift", positions[i], Quaternion.Euler(-90f, yRot, 0f));
-                Debug.Log($"Instantiated lift: {i}");
-            }
-        }
-
-        private void ConstructAgora()
-        {
-        }
-
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
