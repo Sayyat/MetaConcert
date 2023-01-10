@@ -150,11 +150,7 @@ namespace Init
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
-            // var props = photonView.Owner.CustomProperties;
-            // if (!props.ContainsKey("avatarUrl")) return;
-            //
-            // var url = Convert.ToString(props["avatarUrl"]);
-            // LoadAvatar(url);
+            
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)
