@@ -1,4 +1,5 @@
 
+using TMPro;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		public TextMeshProUGUI TextAlt {private get; set; }
 		private void Start()
 		{
 			SetCursorState(cursorLocked);
@@ -34,6 +36,7 @@ namespace StarterAssets
 				SetCursorState(cursorLocked);
 				cursorInputForLook = !cursorInputForLook;
 				LookInput(Vector2.zero);
+				TextAlt.color = cursorLocked ? Color.gray : Color.white;
 			}
 		}
 
