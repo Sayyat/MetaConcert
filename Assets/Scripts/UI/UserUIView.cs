@@ -3,6 +3,7 @@ using Goods;
 using Photon.Chat.Demo;
 using Quest;
 using StarterAssets;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ namespace UI
         [SerializeField] private CoinProgress coinProgress;
         [SerializeField] private FpsPanel fpsPanel;
         [SerializeField] private Button nftButton;
+        [SerializeField] private TextMeshProUGUI textAlt;
 
         private Image _background;
 
@@ -33,6 +35,7 @@ namespace UI
         public NamePickGui NamePickGui => namePickGui;
         public CoinProgress CoinProgress => coinProgress;
         public Button NftButton => nftButton;
+        public TextMeshProUGUI TextAlt => textAlt;
         private void Awake()
         {
             _background = GetComponent<Image>();
