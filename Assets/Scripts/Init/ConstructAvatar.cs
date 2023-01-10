@@ -73,24 +73,24 @@ namespace Init
             if (!photonView.IsMine) return;
             // do these only if it is me
 
-            // save my avatarUrl to my own CustomProperties
-            var hashTable = photonView.Owner.CustomProperties;
-            if (hashTable.ContainsKey("avatarUrl"))
-            {
-                hashTable["avatarUrl"] = _currentAvatarUrl;
-            }
-            else
-            {
-                hashTable.Add("avatarUrl", _currentAvatarUrl);
-            }
-
-            photonView.Owner.SetCustomProperties(hashTable);
-
-
+            // // save my avatarUrl to my own CustomProperties
+            // var hashTable = photonView.Owner.CustomProperties;
+            // if (hashTable.ContainsKey("avatarUrl"))
+            // {
+            //     hashTable["avatarUrl"] = _currentAvatarUrl;
+            // }
+            // else
+            // {
+            //     hashTable.Add("avatarUrl", _currentAvatarUrl);
+            // }
+            //
+            // photonView.Owner.SetCustomProperties(hashTable);
+            photonView.RPC(nameof(LoadAvatar), RpcTarget.All, _currentAvatarUrl);
             Debug.Log($"<Color=Red>{info.photonView.Owner.NickName} is instantiated</Color>");
         }
-
-
+        
+        
+        [PunRPC]
         private void LoadAvatar(string url)
         {
             Debug.Log($" Pre Instantiate avatar ");
@@ -137,6 +137,7 @@ namespace Init
 
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
+            photonView.RPC(nameof(LoadAvatar), RpcTarget.Others, _currentAvatarUrl);
         }
 
         public void OnPlayerLeftRoom(Player otherPlayer)
@@ -149,11 +150,11 @@ namespace Init
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
-            var props = photonView.Owner.CustomProperties;
-            if (!props.ContainsKey("avatarUrl")) return;
-
-            var url = Convert.ToString(props["avatarUrl"]);
-            LoadAvatar(url);
+            // var props = photonView.Owner.CustomProperties;
+            // if (!props.ContainsKey("avatarUrl")) return;
+            //
+            // var url = Convert.ToString(props["avatarUrl"]);
+            // LoadAvatar(url);
         }
 
         public void OnMasterClientSwitched(Player newMasterClient)
